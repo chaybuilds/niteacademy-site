@@ -1,0 +1,48 @@
+name: Night Academy production health
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 12 * * *'
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  academy-health:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - name: Verify website and public API
+        shell: bash
+        run: |
+          set -euo pipefail
+          SITE='https://chaybuilds.github.io/niteacademy-site/'
+          API='https://succvbtctjkzsowotcsy.supabase.co/functions/v1/academy-apply'
+          curl --fail --silent --show-error --location --retry 2 --max-time 25 "$SITE" -o /tmp/academy-page.html
+          grep -q 'id="academy-form"' /tmp/academy-page.html
+          grep -q 'https://discord.gg/Dm6Hbq68Wt' /tmp/academy-page.html
+          curl --fail --silent --show-error --retry 2 --max-time 25 "$API" -o /tmp/academy-health.json
+          grep -q '"state":"ready"' /tmp/academy-health.json
+          code=$(curl --silent --show-error --output /tmp/academy-invalid.json --write-out '%{http_code}' --max-time 25 \
+            -X POST -H 'Origin: https://chaybuilds.github.io' -H 'Content-Type: application/json' \
+            --data '{"full_name":"x","consent":false}' "$API")
+          test "$code" = '422'
+          echo 'Academy public page, Discord link, API health and validation passed.'
+      - name: Open deduplicated incident if health fails
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          title='Night Academy production health check failure'
+          existing=$(gh issue list -R "$GH_REPO" --state open --limit 100 --json title \
+            --jq '[.[] | select(.title == "Night Academy production health check failure")] | length')
+          if [ "$existing" = "0" ]; then
+            gh issue create -R "$GH_REPO" --title "$title" \
+              --body "The scheduled Night Academy website/API health check failed. Inspect: https://github.com/$GH_REPO/actions/workflows/academy-health.yml. This is a technical incident, not revenue evidence."
+          else
+            echo 'An open incident already exists; not making a duplicate.'
+          fi
