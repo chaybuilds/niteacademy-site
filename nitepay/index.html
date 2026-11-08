@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b1713">
+<meta name="description" content="NitePay interactive sandbox: understand the payment-to-fulfillment journey. No real charges, orders, or emails.">
+<title>NitePay — Interactive Sandbox | NITERUN</title>
+<style>
+:root{color-scheme:dark;--bg:#091510;--deep:#101f18;--panel:#14271d;--panel2:#1b3024;--border:#2b4a37;--mint:#c5f8cb;--cream:#f6f5e9;--soft:#afc2b5;--amber:#ffdc96;--rose:#ffb5ac}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(ellipse 80% 55% at 86% 6%,#274c32 0%,transparent 57%),var(--bg);font:15px/1.55 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--cream);min-height:100vh}
+a{color:inherit}a:focus-visible,button:focus-visible,select:focus-visible{outline:3px solid var(--mint);outline-offset:4px}
+.wrap{width:min(1160px,calc(100% - 34px));margin:0 auto}
+header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:25px 0;border-bottom:1px solid var(--border)}
+.brand{text-decoration:none;display:flex;align-items:center;gap:11px;font-size:13px;font-weight:800;letter-spacing:.17em}
+.brand-mark{width:38px;height:38px;border-radius:13px;background:var(--mint);color:#0b2514;display:grid;place-items:center;font-weight:950;font-size:22px;transform:rotate(-9deg)}
+.tag{border:1px solid #bba065;background:#473b1d50;color:var(--amber);padding:8px 12px;border-radius:99px;font-size:11px;letter-spacing:.1em;font-weight:760}
+.hero{padding:58px 0 32px;display:grid;grid-template-columns:1fr .85fr;align-items:center;gap:45px}
+.kicker{font-size:11px;font-weight:830;letter-spacing:.22em;color:var(--mint)}
+h1{font-size:clamp(50px,7vw,93px);line-height:.95;letter-spacing:-.071em;margin:20px 0}
+h1 em{font-style:normal;color:var(--mint)}
+h2{font-size:27px;margin:0;letter-spacing:-.04em;line-height:1.18}
+.hero p{max-width:600px;color:#c9d7cb;font-size:17px;line-height:1.66}
+.diagram{border:1px solid #4b7256;border-radius:25px;background:linear-gradient(147deg,#24422d,#10291f 75%);padding:26px;box-shadow:0 36px 70px #0107035e;transform:rotate(1deg)}
+.smalltop{display:flex;justify-content:space-between;font-size:12px;letter-spacing:.09em;color:#d7eddb}
+.bar{height:8px;border-radius:99px;background:#49614d;overflow:hidden;margin:19px 0 26px}
+.bar b{display:block;width:55%;height:100%;background:var(--mint);border-radius:99px}
+.path{display:grid;grid-template-columns:1fr;gap:10px}
+.path div{display:flex;gap:14px;align-items:center;padding:11px 13px;border:1px solid #56745c55;background:#0e211976;border-radius:12px;font-weight:650;font-size:13px}
+.path span{background:#d2f9d1;color:#17301e;border-radius:9px;font-size:12px;padding:5px 9px;font-weight:900}
+.explain{display:flex;align-items:center;gap:10px;margin:7px 0 26px;color:var(--soft);font-size:12px}
+.dot{height:7px;width:7px;border-radius:50%;background:#a4e5aa}
+.shell{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(290px,.9fr);gap:20px;align-items:start}
+.panel{background:linear-gradient(155deg,var(--panel),#0e2218);border:1px solid var(--border);border-radius:22px;padding:25px;box-shadow:0 15px 36px #020c0840}
+.sectiontop{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin:0 0 24px}
+.mini{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--mint);font-weight:770;margin:0 0 7px}
+.muted{color:var(--soft)}
+.field{display:block;margin-bottom:16px}
+.field span{display:block;color:#b5c7b8;margin:0 0 9px;font-size:13px}
+select{background:#0c1c15;color:var(--cream);border:1px solid #46664d;border-radius:11px;padding:16px;min-height:50px;width:100%;font-size:15px}
+.flex{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.price{font-size:34px;font-weight:780;letter-spacing:-.06em;line-height:1.15}
+.footnote{font-size:12px;color:#aebfae;line-height:1.5}
+.btn{border:0;cursor:pointer;border-radius:12px;padding:13px 20px;font-size:14px;font-weight:770;transition:transform .12s ease,background .12s ease}
+.btn:hover:not(:disabled){transform:translateY(-1px)}
+.btn:disabled{opacity:.38;cursor:not-allowed}
+.btn-main{background:var(--mint);color:#13271b}
+.btn-outline{border:1px solid #547660;background:#1c3627;color:var(--cream)}
+.btn-ghost{border:1px solid #445c49;background:transparent;color:var(--soft)}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:17px}
+.actions button{width:100%;min-height:52px}
+.actions button:last-child:nth-child(odd){grid-column:span 2}
+.timeline{display:grid;gap:9px;list-style:none;margin:0;padding:0}
+.timeline li{display:grid;grid-template-columns:25px 1fr;gap:13px;color:#8eac97;position:relative;font-size:13px}
+.timeline li .node{display:grid;place-items:center;width:22px;height:22px;border:1px solid #4b6750;border-radius:50%;background:#15251c;color:#9bb6a0;font-size:12px}
+.timeline li.ready{color:var(--cream)}.timeline li.ready .node{background:var(--mint);color:#122617;border-color:var(--mint)}
+.timeline li>div:last-child{padding:0 0 18px}
+.timeline li strong{display:block;color:inherit;margin-bottom:2px}
+.timeline li small{display:block;opacity:.82;line-height:1.5}
+.stat{border-top:1px solid var(--border);padding-top:16px;margin-top:16px}
+.stat b{font-size:25px;letter-spacing:-.03em}
+.widgets{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:20px 0 0}
+.list{display:grid;gap:10px;list-style:none;margin:0;padding:0}
+.list li{padding:13px 14px;border:1px solid #34503c;border-radius:11px;background:#0b1b14;display:flex;gap:10px;font-size:13px;align-items:flex-start}
+.list li .ico{font-size:13px;color:var(--mint);font-weight:800;flex-shrink:0}
+.list li strong{display:block;font-size:12px;color:#e8f6e9}
+.list li small{display:block;color:#9bb5a1;font-size:11px}
+.list .empty{color:var(--soft)}
+.status{display:inline-block;background:#1c3b25;border:1px solid #54725a;border-radius:999px;color:#d6f4d7;font-size:11px;padding:5px 9px;font-weight:770;white-space:nowrap}
+.status.warn{background:#5139214d;color:#ffe1ad;border-color:#8c7251}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;color:#def8e1;font-size:12px;line-height:1.75;margin:0}
+.primer{margin:25px 0 70px;background:#1d2c21;border:1px solid #47634c;border-left:3px solid var(--mint);border-radius:13px;padding:19px 21px;color:#cfe1d0}
+.primer b{color:#f4faf2}
+.footer{padding:18px 0 40px;color:#94a994;border-top:1px solid var(--border);font-size:12px}
+@media(max-width:880px){.hero{grid-template-columns:1fr;gap:12px;padding-top:34px}.diagram{transform:none}.shell{grid-template-columns:1fr}.widgets{grid-template-columns:1fr}}
+@media(max-width:540px){header{padding:19px 0}.tag{font-size:9px;text-align:center}.hero p{font-size:15px}.panel{padding:19px}.actions{grid-template-columns:1fr}.actions button:last-child:nth-child(odd){grid-column:auto}.price{font-size:28px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<a class="brand" href="../" aria-label="Night Academy home"><span class="brand-mark">N</span><span>NITERUN<br><span style="color:#a9c7af;font-size:10px;letter-spacing:.23em">NITEPAY LABS</span></span></a>
+<span class="tag">SANDBOX · NO REAL MONEY</span>
+</header>
+<section class="hero">
+<div>
+<div class="kicker">PAYMENTS. DELIVERY. INTELLIGENCE.</div>
+<h1>Money moves.<br><em>Work follows.</em></h1>
+<p>Explore how a NITERUN purchase becomes a verified payment, a fulfillment task, a customer notification, and a measurable outcome. This is an <strong>interactive simulation</strong>—not a checkout or banking service.</p>
+<div class="explain"><span class="dot"></span> No bank information • No personal data stored • No emails sent</div>
+</div>
+<div class="diagram" aria-hidden="true">
+<div class="smalltop"><strong>NITEPAY / OPERATOR INTELLIGENCE</strong><span>LAB 01</span></div>
+<div class="bar"><b></b></div>
+<div class="path">
+<div><span>01</span> Customer creates order</div>
+<div><span>02</span> Payment provider confirms settlement</div>
+<div><span>03</span> NITERUN routes the right service</div>
+<div><span>04</span> Receipt and instructions are queued</div>
+<div><span>05</span> Fulfillment verified and measured</div>
+</div>
+</div>
+</section>
+<div class="shell">
+<section class="panel">
+<div class="sectiontop">
+<div><p class="mini">Interactive operator simulator</p><h2>Run a complete order</h2></div>
+<span class="status warn" id="stateBadge" role="status">Not started</span>
+</div>
+<label class="field"><span>Choose a NITERUN business line</span>
+<select id="product">
+<option value="cleaning">NightClean · Residential cleaning request</option>
+<option value="academy">Night Academy · AI launch course</option>
+<option value="nightingale">Nightingale · AI operator subscription</option>
+<option value="creator">Night Creator · Production project</option>
+<option value="venture">Venture teams · Approved project request</option>
+<option value="detailing">NightDetail · Mobile detailing request</option>
+</select></label>
+<div class="flex"><div><p class="mini">Simulated amount</p><div class="price" id="price">$180.00</div></div><button id="new" class="btn btn-main">Create test order</button></div>
+<p class="footnote">All sample prices and orders are fictional. This simulator does not collect an actual payment, accept a contract, schedule a contractor, or activate paid access.</p>
+<div class="actions">
+<button id="process" class="btn btn-outline" disabled>1. Simulate processing</button>
+<button id="settle" class="btn btn-outline" disabled>2. Simulate paid</button>
+<button id="fulfill" class="btn btn-outline" disabled>3. Simulate fulfillment</button>
+<button id="reset" class="btn btn-ghost">Reset demo</button>
+</div>
+<div class="stat"><p class="mini">Demo order reference</p><div id="orderRef" style="font-weight:700;color:#d8eed9;overflow-wrap:anywhere">Not created</div></div>
+</section>
+<aside class="panel">
+<div class="sectiontop"><div><p class="mini">Event-driven order lifecycle</p><h2>Status and checkpoints</h2></div></div>
+<ol class="timeline" id="steps" aria-live="polite"></ol>
+<div class="stat"><p class="mini">Observed test outcomes</p>
+<div class="flex"><div><b id="totalEvents">0</b><p class="footnote">Synthetic events</p></div><div><b id="totalNotices">0</b><p class="footnote">Message previews queued</p></div></div>
+</div>
+</aside>
+</div>
+<div class="widgets">
+<section class="panel">
+<div class="sectiontop"><div><p class="mini">Notifications</p><h2>Customer and team messages</h2></div><span class="status">Preview only</span></div>
+<ul class="list" id="notices" aria-live="polite"><li class="empty">Create a test order to see the first message.</li></ul>
+</section>
+<section class="panel">
+<div class="sectiontop"><div><p class="mini">Evidence ledger</p><h2>What the system knows</h2></div><span class="status">Session only</span></div>
+<ul class="list" id="events" aria-live="polite"><li class="empty">No synthetic events yet.</li></ul>
+</section>
+</div>
+<div class="primer"><b>What is real?</b> The NITERUN sandbox backend has deployed order-registration, signed-webhook, notification-worker, and delivery-event endpoints. This page is a client-only teaching simulation; it does not call those endpoints. Real merchant approval, signed provider callbacks, and automated email delivery are <strong>not yet connected</strong>. No earnings, jobs, paid memberships, or booked appointments are implied by this demonstration.</div>
+<footer class="footer"><span>NITERUN • Night Academy • NitePay — educational prototype</span> · <a href="../">Back to Academy</a></footer>
+</div>
+<script>
+"use strict";
+const $=id=>document.getElementById(id);
+const products={
+cleaning:{price:18000,label:"NightClean",task:"Qualified cleaner assignment",finish:"Cleaning completed; delivery evidence reviewed"},
+academy:{price:35000,label:"Night Academy",task:"Learning entitlement prepared; account identity review required",finish:"Learning access verified for test account"},
+nightingale:{price:2900,label:"Nightingale AI",task:"Subscription entitlement prepared; renewal terms still required",finish:"Simulated subscription enabled with explicit plan terms"},
+creator:{price:60000,label:"Night Creator",task:"Creator and project milestones require approval",finish:"Creator project milestone accepted"},
+venture:{price:120000,label:"Venture team",task:"Written scope, approvals and qualified team required",finish:"Venture delivery accepted; no automatic payout"},
+detailing:{price:12000,label:"NightDetail",task:"Qualified mobile technician assignment",finish:"Detailing completed; delivery evidence reviewed"}};
+let current=null;
+let events=[],notices=[];
+const now=()=>new Date().toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"});
+function event(label,details){events.unshift({label,details,time:now()});}
+function notice(title,body){notices.unshift({title,body,time:now()});}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function drawItems(id,items,empty){$(id).innerHTML=items.length?items.map(x=>'<li><span class="ico">●</span><span><strong>'+esc(x.label||x.title)+'</strong><small>'+esc(x.details||x.body)+' · '+esc(x.time)+'</small></span></li>').join(""):'<li class="empty">'+esc(empty)+'</li>';}
+function draw(){
+const product=products[$("product").value];
+$("price").textContent=new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"}).format(product.price/100);
+const phase=current?current.phase:0;
+const labels=[
+["Test order created","Request acknowledged, payment unverified"],
+["Provider processing","Bank transfer processing; no access or booking"],
+["Verified provider event","Sandbox only: order moves to paid state"],
+["Fulfillment reviewed","Provider assignment, access, or milestone review"]];
+$("steps").innerHTML=labels.map((x,i)=>'<li class="'+(phase>i?'ready':'')+'"><span class="node">'+(phase>i?"✓":i+1)+'</span><div><strong>'+esc(x[0])+'</strong><small>'+esc(x[1])+'</small></div></li>').join("");
+$("orderRef").textContent=current?current.id:"Not created";
+$("stateBadge").textContent=current?["","Awaiting payment","Processing","Simulated paid","Simulated delivered"][phase]:"Not started";
+$("stateBadge").className="status"+(phase<3?" warn":"");
+$("new").disabled=Boolean(current);
+$("product").disabled=Boolean(current);
+$("process").disabled=phase!==1;
+$("settle").disabled=phase!==2;
+$("fulfill").disabled=phase!==3;
+$("totalEvents").textContent=events.length;
+$("totalNotices").textContent=notices.length;
+drawItems("events",events,"No synthetic events yet.");
+drawItems("notices",notices,"Create a test order to see the first message.");
+}
+$("product").addEventListener("change",draw);
+$("new").addEventListener("click",()=>{
+if(current)return;
+const kind=$("product").value,p=products[kind];
+current={id:"DEMO-"+Math.floor(Math.random()*1e8).toString().padStart(8,"0"),kind,phase:1};
+event("Order request received","Unpaid order; "+p.label+"; no funds collected");
+notice("Request received","A test customer would receive an acknowledgement. Payment is NOT verified.");
+draw();
+});
+$("process").addEventListener("click",()=>{
+if(!current||current.phase!==1)return;
+current.phase=2;event("Provider payment processing","Synthetic processing signal; no customer access granted.");
+notice("Payment pending","Customer would be told the bank payment is processing; no booking is confirmed.");
+draw();
+});
+$("settle").addEventListener("click",()=>{
+if(!current||current.phase!==2)return;
+current.phase=3;
+const p=products[current.kind];
+event("Simulated provider paid_out event","Locally simulated only; not a signed bank callback or real settlement.");
+event("Fulfillment task created",p.task);
+notice("Simulated payment receipt","Preview only: show order reference and next steps; not a real receipt.");
+notice("Operations task",p.task+" — authorized internal queue, not a worker payout.");
+draw();
+});
+$("fulfill").addEventListener("click",()=>{
+if(!current||current.phase!==3)return;
+current.phase=4;const p=products[current.kind];
+event("Delivery review completed",p.finish);
+notice("Customer completion update","Would send only after independent proof of delivery and appropriate review.");
+draw();
+});
+$("reset").addEventListener("click",()=>{current=null;events=[];notices=[];$("product").disabled=false;draw();});
+draw();
+</script>
+</body>
+</html>
