@@ -4,8 +4,8 @@ on:
     - cron: "17 * * * *"
   workflow_dispatch:
 permissions:
-  contents: read
-  pages: write
+  contents: write
+  issues: write
 jobs:
   activate-only-when-dns-matches:
     runs-on: ubuntu-latest
@@ -21,3 +21,20 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: node scripts/domain-readiness.mjs --activate
+      - name: Open one incident when a verified domain cutover fails
+        if: failure()
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          title='NiteAcademy verified DNS cutover failure'
+          existing=$(gh issue list -R "$GH_REPO" --state open --limit 100 --json title \
+            --jq '[.[] | select(.title == "NiteAcademy verified DNS cutover failure")] | length')
+          if [ "$existing" = "0" ]; then
+            gh issue create -R "$GH_REPO" --title "$title" \
+              --body "A scheduled Academy domain-cutover check failed. Review https://github.com/$GH_REPO/actions/workflows/domain-safe-cutover.yml. Domain was not intentionally changed if DNS was not ready. Check GitHub Actions logs and DNS before retrying."
+          else
+            echo 'Open domain cutover incident exists; not duplicating.'
+          fi
