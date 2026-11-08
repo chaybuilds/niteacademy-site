@@ -1,29 +1,42 @@
-# Night Academy — public acquisition
+# NiteAcademy — learn the system, build your own
 
-**Live:** https://chaybuilds.github.io/niteacademy-site/  
-**Discord:** https://discord.gg/Dm6Hbq68Wt  
-**Official Discord Academy area:** https://discord.com/channels/1568427976687878275/1569004814556332087
+**Public website:** https://chaybuilds.github.io/niteacademy-site/
+**Interactive Academy Studio:** https://chaybuilds.github.io/niteacademy-site/studio/
+**NitePay sandbox demonstration:** https://chaybuilds.github.io/niteacademy-site/nitepay/
+**Free NITERUN Discord:** https://discord.gg/Dm6Hbq68Wt
 
-Night Academy is a proposed free-education and fixed-scope business-infrastructure implementation division of NITE Run Delivery LLC. Education is free; implementation is optional. No guaranteed customers, revenue, or paid work.
+NiteAcademy is the free practical-education experience of NITE Run Delivery LLC, with a separately scoped, optional business implementation proposal. Joining free courses and the community never requires buying an implementation service or mastermind subscription.
 
-## Deployed integration
-- Fast static landing page on GitHub Pages. Application POST goes to the existing NITERUN Supabase Edge Function named academy-apply.
-- Applicant records are private. Row-level security is enabled; no public table select/insert grants.
-- Requests are not sales, contracts, or cash receipts. No checkout is enabled.
-- Source attribution uses the URL utm_source parameter.
-- Simple anti-spam honeypot, validation and per-email 24-hour deduplication are present, but managed bot protection is still required before heavy promotion.
+## November 8, 2026 — Studio release
 
-## Verified QA on November 8, 2026
-- Site HTTP 200; API GET 200, invalid POST 422, synthetic test POST 201.
-- Duplicate test submission suppressed; synthetic row then deleted.
-- Six official Discord channels, four intro guides, three original lessons, one technical QA receipt and linking messages published.
-- Mac-hosted bot and local AI are not guaranteed to operate 24/7.
+This repository now includes a genuinely interactive learning workspace:
 
-## Persistent checks
-GitHub Actions workflow academy-health.yml checks website, Discord invite, endpoint status and validation daily, opening a deduplicated incident on failure. This is monitoring, not self-modifying AGI. Improvements require verified evidence and human review.
+- Six original learning tracks and 18 exercises
+- Personalized goal- and time-based learning routes
+- A practice workbench with explicit rubrics and honest test feedback
+- On-device progress tracking, XP and portable portfolio export
+- Free rule-based structured coach
+- An optional open-source browser-local AI model runtime (WebLLM) gated by device WebGPU capability and explicit model download consent
+- An external multi-model comparison Arena with human-controlled copy/open/paste flow for ChatGPT, Claude, Gemini, Mistral and Qwen
 
-## Remaining release gates
-- Independently review client scope, terms, privacy and FTC business-opportunity applicability before selling.
-- Add stronger bot protection, authenticated staff lead-review UI and verified founder/AJ access.
-- Verify native Discord onboarding with a non-admin test member.
-- A paying customer, client profits, workforce payouts and guaranteed buyer leads are **not** yet verified.
+The Studio does not claim external paid model APIs are connected. It does not generate income, charge members, confirm clients, publish fake reviews, issue accredited certifications or verify paid work. See studio/README.md for implementation, privacy, QA and release gates.
+
+## Existing application workflow — preserved
+
+The implementation inquiry form on the homepage still POSTs to the existing private NITERUN Supabase Edge Function academy-apply. Original anti-spam honeypot, field validation and consent requirements were retained. This is an application for review, not a contract, checkout, booking or verified sale.
+
+Original site QA on November 8, 2026 included HTTP 200 and API status tests with a synthetic inquiry subsequently deleted. No verified Academy purchase or client profit has been established.
+
+## Automation and testing
+
+- The GitHub Actions academy-health.yml workflow continues to check the public landing site and operational endpoints.
+- New studio-quality.yml workflow checks curriculum, application preservation and JavaScript syntax on changes.
+- Local Puppeteer browser QA tests planning, rubric completion, persistence, model comparisons and desktop/mobile responsiveness. The Studio adds no runtime framework or mandatory paid inference dependency.
+
+## Domain cutover
+
+The owner purchased **niteacademy.com** from Namecheap; the domain is registered but **not yet pointed to GitHub Pages**. Namecheap's parking records remain. See DOMAIN_ACTIVATION.md for the exact DNS changes. Do not add a GitHub Pages CNAME again until Namecheap authoritative DNS has been changed and verified. The existing GitHub Pages URL must remain reachable during cutover.
+
+## Operating principles
+
+Learn → Practice → Evaluate → Document → Improve. Identify observed evidence, distinguish uncertain predictions and verified actions, and don't present simulated results as revenue. Respect user privacy, content rights, platform terms, customer consent and sound unit economics.

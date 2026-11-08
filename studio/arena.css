@@ -1,0 +1,25 @@
+/* NiteAcademy AI model comparison arena: external tools, no embedded provider keys. */
+.arena-section{margin-top:19px;background:linear-gradient(129deg,#203b2e,#0e221a 72%);border-color:#a0d9ad45}
+.arena-intro{display:flex;gap:20px;justify-content:space-between;align-items:center;padding:0 0 19px;border-bottom:1px solid var(--stroke)}
+.arena-intro h3{font-size:27px;letter-spacing:-.04em;margin:0 0 7px}
+.arena-intro p{max-width:760px;color:#b9cabb;font-size:13px;line-height:1.7;margin:0}
+.arena-stamp{border:1px solid #8fca9a51;background:#1b3922;padding:12px 17px;border-radius:10px;color:#c2ecb9;font-size:10px;line-height:1.6;letter-spacing:.16em;font-weight:730;text-align:center;flex:0 0 auto;transform:rotate(5deg)}
+.arena-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:25px;margin:22px 0 0}
+.arena-controls,.arena-eval{min-width:0}
+.arena-controls label,.arena-eval label{margin-top:13px}
+.arena-controls label:first-child,.arena-eval label:first-child{margin-top:0}
+.arena-controls select,.arena-controls textarea,.arena-eval textarea{color:#f2f7e9;width:100%;display:block;border:1px solid #658a6b8a;border-radius:11px;background:#091f15;padding:12px 13px;min-height:45px;font-size:13px}
+.arena-controls textarea,.arena-eval textarea{font:12px/1.6 ui-monospace,SFMono-Regular,Consolas,monospace;resize:vertical;min-height:174px}
+.arena-controls textarea:focus,.arena-eval textarea:focus,.arena-controls select:focus{outline:2px solid #bdedad;outline-offset:2px}
+.arena-action-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:14px}
+.arena-action-row .button{font-size:12px;padding:12px 16px}
+.arena-controls .fine{font-size:11px;line-height:1.7;color:#aec0ac;margin:12px 0 0}
+.arena-feedback{font-size:12px;line-height:1.75;color:#d3e8c9;border:1px solid #a2c29e42;border-radius:12px;background:#0b1d13;padding:16px;margin-top:16px;min-height:95px}
+.arena-history{padding-top:24px;margin-top:24px;border-top:1px solid var(--stroke)}
+.arena-history .panel-heading{margin-bottom:11px}
+.arena-entry{border-top:1px solid var(--stroke);padding:13px 0;display:flex;align-items:center;justify-content:space-between;gap:15px}
+.arena-entry>div{min-width:0}.arena-entry strong{font-size:12px;display:block}.arena-entry small{display:block;font-size:11px;color:#a7bcaa;margin-top:3px}.arena-entry b{color:var(--mint);white-space:nowrap;font-size:12px}
+#arena-export{margin-left:auto;background:transparent;border:1px solid #b9d2ac5b;border-radius:99px;color:#d3e9d0;font-size:11px;padding:8px 12px}
+#arena-export:hover{border-color:var(--mint)}
+@media(max-width:780px){.arena-grid{grid-template-columns:1fr;gap:18px}.arena-intro h3{font-size:23px}}
+@media(max-width:540px){.arena-section{padding:20px}.arena-intro{align-items:flex-start}.arena-stamp{font-size:8px;padding:8px 9px}.arena-action-row .button{flex:1}#arena-export{font-size:10px;white-space:normal}.arena-history .panel-heading{flex-wrap:wrap}}

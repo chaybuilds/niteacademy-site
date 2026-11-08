@@ -1,0 +1,43 @@
+name: NiteAcademy Studio — curriculum and release quality
+on:
+  push:
+    branches: [main]
+    paths:
+      - "index.html"
+      - "studio/**"
+      - "tests/studio.test.mjs"
+      - ".github/workflows/studio-quality.yml"
+  pull_request:
+    paths:
+      - "index.html"
+      - "studio/**"
+      - "tests/studio.test.mjs"
+      - ".github/workflows/studio-quality.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Get current repository
+        uses: actions/checkout@v4
+      - name: Prepare Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Check browser module syntax
+        run: |
+          node --check studio/content.mjs
+          node --check studio/app.mjs
+          node --check studio/arena.mjs
+      - name: Validate all learning tracks and practice scoring
+        run: node --test tests/studio.test.mjs
+      - name: Preserve lead intake and key Studio routes
+        run: |
+          grep -q 'id="academy-form"' index.html
+          grep -q 'academy-apply' index.html
+          grep -q 'href="studio/"' index.html
+          grep -q 'id="arena-provider"' studio/index.html
+          grep -q 'id="portfolio"' studio/index.html
