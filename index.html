@@ -58,16 +58,47 @@ section{padding:98px 0}.section-grid{display:grid;grid-template-columns:.8fr 1.2
 .studio-board-foot{border-top:1px solid var(--line);padding-top:17px;color:#9dbaa4}
 @media(max-width:760px){.studio-feature-board{transform:none;padding:23px}.studio-board-title{font-size:23px}}
 @media(max-width:420px){.studio-preview-grid>div{padding:12px 8px}.studio-preview-grid span{font-size:26px}.studio-preview-grid small{font-size:9px}}
+/* Accessible mobile entry points: keep free learning visible without JavaScript. */
+.skip-link{position:fixed;top:10px;left:10px;z-index:300;transform:translateY(-200%);background:var(--mint);color:var(--deep);padding:12px 17px;border-radius:10px;font-weight:800}
+.skip-link:focus{transform:none}
+.mobile-studio-link,.mobile-nav{display:none}
+.cards-intro{grid-column:1/-1;margin:0 0 5px;color:var(--muted);font-size:13px;line-height:1.65}
+.cards-intro a{color:var(--mint);text-underline-offset:3px;font-weight:740}
+@media(max-width:760px){
+.nav{gap:9px}
+.nav-links{display:none}
+.mobile-studio-link{display:inline-flex;margin-left:auto;align-items:center;justify-content:center;min-height:44px;padding:8px 10px;border:1px solid rgba(225,242,223,.35);border-radius:13px;text-decoration:none;color:var(--cream);font-size:11px;font-weight:740}
+.mobile-nav{display:block;position:relative;z-index:50}
+.mobile-nav summary{display:flex;align-items:center;justify-content:center;list-style:none;cursor:pointer;min-height:44px;padding:8px 12px;border:1px solid var(--mint);color:var(--mint);border-radius:13px;font-size:12px;font-weight:760}
+.mobile-nav summary::-webkit-details-marker{display:none}
+.mobile-nav[open] nav{position:absolute;right:0;top:calc(100% + 8px);display:flex;flex-direction:column;width:min(82vw,270px);padding:10px;background:#10271f;border:1px solid rgba(187,241,189,.48);border-radius:15px;box-shadow:0 20px 50px rgba(0,0,0,.48)}
+.mobile-nav nav a{display:flex;align-items:center;min-height:44px;padding:8px 12px;color:var(--cream);font-size:13px;font-weight:690;text-decoration:none;border-radius:9px}
+.mobile-nav nav a:hover,.mobile-nav nav a:focus-visible{background:#1e4533;color:var(--mint)}
+}
+@media(max-width:390px){.nav{gap:5px}.mobile-studio-link{font-size:10px;padding-inline:7px}.mobile-nav summary{padding-inline:9px}}
+@media(max-width:345px){.mobile-studio-link{display:none}.mobile-nav{margin-left:auto}}
 </style>
 </head>
 <body>
+<a class="skip-link" href="#top">Skip to main content</a>
 <header class="wrap nav">
 <a class="brand" href="#top" aria-label="NiteAcademy home"><span class="mark" aria-hidden="true">N</span><span class="brand-copy">NITE ACADEMY<small>BY NITERUN</small></span></a>
 <nav class="nav-links" aria-label="Main navigation">
 <a href="studio/">Free Studio</a><a href="#learn">Curriculum</a><a href="#build">For businesses</a><a href="#apply" class="nav-cta">Request a build</a>
 </nav>
+<a class="mobile-studio-link" href="studio/">Free Studio</a>
+<details class="mobile-nav">
+<summary>Menu</summary>
+<nav aria-label="Mobile navigation">
+<a href="studio/">Free Studio</a>
+<a href="#learn">Curriculum</a>
+<a href="#build">For businesses</a>
+<a href="https://discord.gg/Dm6Hbq68Wt" target="_blank" rel="noopener noreferrer">Join free Discord</a>
+<a href="#apply">Request a build</a>
+</nav>
+</details>
 </header>
-<main id="top">
+<main id="top" tabindex="-1">
 <div class="wrap hero">
 <div>
 <div class="eyebrow">An education and implementation lab</div>
@@ -118,6 +149,7 @@ section{padding:98px 0}.section-grid{display:grid;grid-template-columns:.8fr 1.2
 <div class="wrap">
 <div class="section-grid"><div><span class="eyebrow">01 / Learn</span><h2>Education that ends in action.</h2><p>Join the free NITERUN Discord to choose a learning plan, test practical AI and business workflows, study original exercises and learn alongside other builders.</p></div>
 <div class="cards">
+<p class="cards-intro">New to NITERUN? <a href="https://discord.gg/Dm6Hbq68Wt" target="_blank" rel="noopener noreferrer">Join the free Discord first</a>, then use these direct channel links.</p>
 <div class="card"><span class="n">01 / PERSONALIZE</span><h3><a class="card-link" href="https://discord.com/channels/1568427976687878275/1569004814556332087" target="_blank" rel="noopener noreferrer">Choose your path ↗</a></h3><p>Set your goal, experience, weekly pace, and learning style with /learning-plan setup. Track real lesson progress privately.</p></div>
 <div class="card"><span class="n">02 / DEMONSTRATE</span><h3><a class="card-link" href="https://discord.com/channels/1568427976687878275/1569027266325782638" target="_blank" rel="noopener noreferrer">Try AI demonstrations ↗</a></h3><p>Run real business math, synthetic intake-routing demos, private progress checks and local AI advice with visible fallback. Try /ai-showcase gallery.</p></div>
 <div class="card"><span class="n">03 / COLLABORATE</span><h3><a class="card-link" href="https://discord.com/channels/1568427976687878275/1569027276622794872" target="_blank" rel="noopener noreferrer">Join skill challenges ↗</a></h3><p>Complete original lessons and fictional exercises to earn non-monetary practice XP. Community rankings are opt-in. Start /learn-league missions.</p></div>
@@ -215,7 +247,11 @@ form.addEventListener('submit',async function(e){
   status.textContent='Application received. Your inquiry is recorded for review; this is not a booking or earnings promise.';
   status.className='form-status status-ok';form.reset();
  }catch(error){
-  status.textContent='We could not save your request. Please try again or email chayson@niterun.com. '+String(error.message||'');
+  status.textContent='We could not save your request. Please try again or email ';
+  var contact=document.createElement('a');
+  contact.href='mailto:chayson@niterun.com?subject=Night%20Academy%20implementation%20inquiry';
+  contact.textContent='chayson@niterun.com';
+  status.append(contact,'.');
   status.className='form-status status-error';
  }finally {submit.disabled=false;submit.textContent='Submit application ↗';}
 });

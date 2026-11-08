@@ -6,6 +6,7 @@ on:
       - "index.html"
       - "studio/**"
       - "tests/studio.test.mjs"
+      - "tests/homepage-ux.test.mjs"
       - "tests/domain-readiness.test.mjs"
       - "scripts/domain-readiness.mjs"
       - "scripts/academy-gateway-smoke.mjs"
@@ -16,6 +17,7 @@ on:
       - "index.html"
       - "studio/**"
       - "tests/studio.test.mjs"
+      - "tests/homepage-ux.test.mjs"
       - "tests/domain-readiness.test.mjs"
       - "scripts/domain-readiness.mjs"
       - "scripts/academy-gateway-smoke.mjs"
@@ -43,7 +45,7 @@ jobs:
           node --check scripts/domain-readiness.mjs
           node --check scripts/academy-gateway-smoke.mjs
       - name: Validate all learning tracks and practice scoring
-        run: node --test tests/studio.test.mjs tests/domain-readiness.test.mjs
+        run: node --test tests/studio.test.mjs tests/domain-readiness.test.mjs tests/homepage-ux.test.mjs
       - name: Preserve lead intake and key Studio routes
         run: |
           grep -q 'id="academy-form"' index.html

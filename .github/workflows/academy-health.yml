@@ -22,6 +22,9 @@ jobs:
           curl --fail --silent --show-error --location --retry 2 --max-time 25 "$SITE" -o /tmp/academy-page.html
           grep -q 'id="academy-form"' /tmp/academy-page.html
           grep -q 'https://discord.gg/Dm6Hbq68Wt' /tmp/academy-page.html
+          # Follow the actual Discord API, not merely a literal link in HTML.
+          curl --fail --silent --show-error --retry 2 --max-time 20 'https://discord.com/api/v10/invites/Dm6Hbq68Wt?with_counts=true' -o /tmp/academy-invite.json
+          node -e 'const i=JSON.parse(require("node:fs").readFileSync("/tmp/academy-invite.json","utf8")); if(i.code!=="Dm6Hbq68Wt"||i.guild?.id!=="1568427976687878275"){console.error("Verified official NITERUN invite invalid or wrong server");process.exit(1)}'
           curl --fail --silent --show-error --retry 2 --max-time 25 "$API" -o /tmp/academy-health.json
           grep -q '"state":"ready"' /tmp/academy-health.json
           code=$(curl --silent --show-error --output /tmp/academy-invalid.json --write-out '%{http_code}' --max-time 25 \
