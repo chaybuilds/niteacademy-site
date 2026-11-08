@@ -22,7 +22,7 @@ This is an original interactive learning app, not a replacement for the existing
 Structured rule-based coach: tested, always available without an API key.
 Browser-local WebLLM: optional, on-demand, subject to compatible WebGPU hardware, model download, and runtime success.
 External model Arena: copy/open/paste/evaluate workflow tested; third-party logins and model outputs are never linked to Academy.
-Paid OpenAI, Anthropic, Google, Mistral and hosted open-model API endpoints: NOT CONNECTED. A secure server gateway, provider-issued secrets, real student authentication, abuse protections, rate limits, hard spending limits and human-reviewed policies are required before activation.
+A secure server-side provider gateway has now been deployed on Supabase with dormant adapters for OpenAI, Anthropic and Gemini. It is zero-spend locked, and no paid model call has occurred. No provider API keys or authorized cloud AI learner UI exist yet; backend request quotas are not the same as a provider billing hard cap. See supabase/ACADEMY_AI_GATEWAY.md. Mistral and hosted open-model APIs remain unconnected.
 
 Do not put provider keys in GitHub Pages, browser JavaScript, URL parameters or localStorage. ChatGPT subscriptions are not public website API credentials.
 
@@ -82,3 +82,12 @@ Once both are correct, it attempts the GitHub Pages API custom-domain
 cutover. GitHub token permission errors may require manual intervention.
 The workflow does NOT edit Namecheap's zone, and DNS must still be changed
 in the domain owner's registrar account.
+
+
+## Secure hosted-model router — verification status
+
+Supabase academy-model-gateway is deployed and is disabled by default.
+A voluntary live-status button queries only its GET health endpoint.
+Unauthenticated or unconfigured generation attempts return HTTP 503.
+See supabase/ACADEMY_AI_GATEWAY.md for configuration and strict limits.
+No premium cloud model response has been generated or billed by this site.

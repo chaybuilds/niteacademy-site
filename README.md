@@ -40,3 +40,14 @@ The owner purchased **niteacademy.com** from Namecheap; the domain is registered
 ## Operating principles
 
 Learn → Practice → Evaluate → Document → Improve. Identify observed evidence, distinguish uncertain predictions and verified actions, and don't present simulated results as revenue. Respect user privacy, content rights, platform terms, customer consent and sound unit economics.
+
+
+## Secure model gateway foundation (locked, no paid inference)
+
+A dedicated NiteAcademy hosted-model gateway is now deployed on the
+existing NITERUN Supabase project, with OpenAI, Anthropic, and Gemini
+adapters. It is disabled by default and will not silently use existing
+business-wide provider keys. Student authentication, dedicated provider
+secrets, explicit approval and hard cost controls are required before
+paid generation can be enabled. The live Studio has a free status check.
+See supabase/ACADEMY_AI_GATEWAY.md.

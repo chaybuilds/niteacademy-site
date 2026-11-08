@@ -68,6 +68,11 @@ async function run(){
   assert.equal(await page.$eval("#load-model",x=>x.hidden),false);
   assert.equal(await page.$eval("#coach-respond",x=>x.disabled),true);
   console.log("PASS clearly labeled free coach and opt-in model download without accidental cloud calls");
+  await page.click("#hosted-gateway-check");
+  await page.waitForFunction(()=>document.getElementById("hosted-gateway-status").textContent.includes("Verified:"),{timeout:20000});
+  assert.match(await page.$eval("#hosted-gateway-status",x=>x.textContent),/LOCKED/);
+  console.log("PASS secured remote AI status check is live and safely locked");
+
   assert.equal(await page.$$eval("#arena-lesson option",x=>x.length),18);
   await page.select("#arena-provider","claude");
   assert.match(await page.$eval("#arena-open",x=>x.href),/claude\.ai/);

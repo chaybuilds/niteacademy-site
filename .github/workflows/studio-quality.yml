@@ -8,6 +8,8 @@ on:
       - "tests/studio.test.mjs"
       - "tests/domain-readiness.test.mjs"
       - "scripts/domain-readiness.mjs"
+      - "scripts/academy-gateway-smoke.mjs"
+      - "supabase/**"
       - ".github/workflows/studio-quality.yml"
   pull_request:
     paths:
@@ -16,6 +18,8 @@ on:
       - "tests/studio.test.mjs"
       - "tests/domain-readiness.test.mjs"
       - "scripts/domain-readiness.mjs"
+      - "scripts/academy-gateway-smoke.mjs"
+      - "supabase/**"
       - ".github/workflows/studio-quality.yml"
   workflow_dispatch:
 permissions:
@@ -36,6 +40,8 @@ jobs:
           node --check studio/content.mjs
           node --check studio/app.mjs
           node --check studio/arena.mjs
+          node --check scripts/domain-readiness.mjs
+          node --check scripts/academy-gateway-smoke.mjs
       - name: Validate all learning tracks and practice scoring
         run: node --test tests/studio.test.mjs tests/domain-readiness.test.mjs
       - name: Preserve lead intake and key Studio routes

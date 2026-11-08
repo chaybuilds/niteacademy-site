@@ -367,8 +367,28 @@ function setupCoach(){
  });
  sync();
 }
+function setupHostedGateway(){
+ const button=$("hosted-gateway-check"),status=$("hosted-gateway-status");
+ if(!button||!status)return;
+ button.addEventListener("click",async()=>{
+  button.disabled=true;
+  status.textContent="Checking the secured Academy AI gateway...";
+  try{
+   const resp=await fetch("https://succvbtctjkzsowotcsy.supabase.co/functions/v1/academy-model-gateway",{
+    method:"GET",headers:{"accept":"application/json"},cache:"no-store"
+   });
+   if(!resp.ok)throw Error("Gateway check returned HTTP "+resp.status);
+   const data=await resp.json();
+   status.textContent=data?.enabled===false?
+    "Verified: secure gateway deployed; paid model generation LOCKED. Zero provider API requests are activated.":
+    "Gateway reports a changed activation state. An authenticated, approved account and documented spending limit are still required.";
+  }catch{
+   status.textContent="Live gateway status is temporarily unavailable. The free practice coach and external model comparison still work.";
+  }finally{button.disabled=false;}
+ });
+}
 function init(){
- load();setupPlan();setupLessons();setupExports();setupCoach();updateStats();renderTracks();
+ load();setupPlan();setupLessons();setupExports();setupCoach();setupHostedGateway();updateStats();renderTracks();
  window.addEventListener("error",event=>{
   if(event.message?.includes("ResizeObserver loop"))event.preventDefault();
  });
