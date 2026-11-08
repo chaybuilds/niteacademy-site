@@ -27,7 +27,7 @@ export async function readiness(lookup){
  const results=await Promise.all(["1.1.1.1","8.8.8.8"].map(ip=>inspect(ip,lookup)));
  return {ready:results.every(x=>x.ready),results};
 }
-async function api(method,path,data){
+async function api(method,path,data,options={}){
  const token=process.env.GITHUB_TOKEN;
  if(!token)throw Error("No GitHub Actions token");
  const r=await fetch("https://api.github.com"+path,{method,headers:{
@@ -38,19 +38,34 @@ async function api(method,path,data){
   "user-agent":"NiteAcademy-DnsSafetyGate"
  },body:data?JSON.stringify(data):undefined,signal:AbortSignal.timeout(18000)});
  const txt=await r.text();
- if(!r.ok)throw Error("GitHub Pages API HTTP "+r.status+" "+txt.slice(0,200));
+ if(r.status===404&&options.optional404===true)return null;
+ if(!r.ok)throw Error("GitHub API HTTP "+r.status+" "+txt.slice(0,200));
  return txt?JSON.parse(txt):null;
 }
-export async function activate(state){
- if(!state.ready)return {changed:false,reason:"dns_not_ready"};
- const url="/repos/chaybuilds/niteacademy-site/pages";
- const page=await api("GET",url);
+export async function activate(state,request=api){
+ if(state?.ready!==true)return {changed:false,reason:"dns_not_ready"};
+ const root="/repos/chaybuilds/niteacademy-site";
+ const page=await request("GET",root+"/pages");
  if(page?.cname===DOMAIN)return {changed:false,reason:"already_configured"};
  if(page?.cname)throw Error("Another custom domain is configured. Refusing overwrite");
  if(page?.source?.branch!=="main"||page?.source?.path!=="/")
   throw Error("Source branch/path changed. Refusing domain cutover");
- await api("PUT",url,{cname:DOMAIN,source:{branch:"main",path:"/"}});
- return {changed:true,reason:"two_dns_resolvers_verified"};
+ // A GitHub Actions token can create a CNAME file using Contents write permission.
+ // Avoid the Pages settings API, which may require additional Administration permission.
+ const cnamePath=root+"/contents/CNAME";
+ const existing=await request("GET",cnamePath+"?ref=main",undefined,{optional404:true});
+ if(existing){
+  if(existing.type!=="file"||existing.encoding!=="base64"||typeof existing.content!=="string")
+   throw Error("Existing CNAME could not be safely inspected; refusing overwrite");
+  const configured=Buffer.from(existing.content.replace(/[^A-Za-z0-9+/=]/g,""),"base64").toString("utf8").trim();
+  if(configured!==DOMAIN)throw Error("Existing CNAME belongs to another domain; refusing overwrite");
+  return {changed:false,reason:"correct_cname_already_present"};
+ }
+ await request("PUT",cnamePath,{
+  message:"chore(pages): activate niteacademy.com after two independent DNS checks",
+  content:Buffer.from(DOMAIN,"utf8").toString("base64"),branch:"main"
+ });
+ return {changed:true,reason:"dns_ready_cname_committed"};
 }
 if(import.meta.url.endsWith("/domain-readiness.mjs")&&process.argv[1]?.replace(/\\/g,"/").endsWith("domain-readiness.mjs")){
  const state=await readiness();
