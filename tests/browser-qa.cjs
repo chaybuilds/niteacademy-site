@@ -1,6 +1,7 @@
 const assert=require("node:assert/strict");
 const puppeteer=require(process.env.NITEACADEMY_PUPPETEER_PATH || "puppeteer");
 const fs=require("node:fs");
+const os=require("node:os");
 const path=require("node:path");
 const root=path.resolve(__dirname,"..");
 const base="http://127.0.0.1:8767";
@@ -44,6 +45,22 @@ async function run(){
   assert.equal(await page.$eval("#goal",x=>x.value),"ai");
   assert.equal(await page.$$eval(".completed-list>div",x=>x.length),1);
   console.log("PASS reload retains learning plan and progress on local device");
+  const backup=path.join(os.tmpdir(),"niteacademy-qa-import-"+process.pid+".json");
+  fs.writeFileSync(backup,JSON.stringify({
+    exported_at:new Date().toISOString(),
+    progress:{"venture:validate":{score:100,date:new Date().toISOString()}},
+    drafts:{"venture:validate":"Fictional practice result only; no private buyer data."},
+    plan:{goal:"business",level:"some",minutes:180}
+  }));
+  try{
+   const picker=await page.$("#import-json-file");
+   await picker.uploadFile(backup);
+   await page.waitForFunction(()=>document.getElementById("metric-done").textContent.includes("2/18"));
+   assert.equal(await page.$eval("#goal",e=>e.value),"business");
+   assert.equal(await page.$$eval(".completed-list>div",e=>e.length),2);
+  }finally{fs.unlinkSync(backup);}
+  console.log("PASS progress JSON import merges valid lesson records and preserves earlier work");
+
   await page.type("#coach-question","How do I verify a paying buyer before offering a remote task?");
   await page.click("#coach-respond");
   assert.match(await page.$eval("#coach-response",x=>x.textContent),/STRUCTURED PRACTICE COACH/);

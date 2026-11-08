@@ -58,3 +58,27 @@ The existing working public address is https://chaybuilds.github.io/niteacademy-
 3. Add a bounded, authenticated multi-provider AI gateway only when keys, permissions and monthly budget caps are ready.
 4. Connect only genuinely verified, written buyer-funded opportunities to any earnings network.
 5. Do not issue accredited certifications or advertise success stories without evidence.
+
+
+## Cross-device progress transfer and privacy controls
+
+Academy Studio exports personal practice progress in JSON. The learner may
+import a JSON export on another device using **Import progress** in Portfolio.
+The importer validates a 1 MB maximum, known lesson IDs, score range and
+timestamps, merges the higher score without dropping earlier progress,
+limits imported drafts, and never silently runs imported JavaScript.
+The **Erase my local data** control removes learner progress and model
+comparison history after confirmation. No server account is created by
+either action.
+
+## Safe automated domain activation
+
+The repo now has scripts/domain-readiness.mjs and a GitHub Actions schedule
+(17 minutes past every hour) plus manual trigger. Both Cloudflare 1.1.1.1
+and Google 8.8.8.8 must return all four GitHub Pages A addresses with no
+extra parking addresses, and the exact chaybuilds.github.io www CNAME.
+When either check fails, the workflow makes no change.
+Once both are correct, it attempts the GitHub Pages API custom-domain
+cutover. GitHub token permission errors may require manual intervention.
+The workflow does NOT edit Namecheap's zone, and DNS must still be changed
+in the domain owner's registrar account.

@@ -250,6 +250,51 @@ function setupExports(){
   const data={exported_at:new Date().toISOString(),notice:"Practice-only record, not evidence of verified earnings.",progress:state.completed,drafts:state.drafts,plan:{goal:state.goal,level:state.level,minutes:state.minutes}};
   download("niteacademy-practice-progress.json",JSON.stringify(data,null,2),"application/json;charset=utf-8");
  });
+ $("import-json").addEventListener("click",()=> $("import-json-file").click());
+ $("import-json-file").addEventListener("change",async e=>{
+  const file=e.target.files?.[0];if(!file)return;
+  e.target.value="";
+  if(file.size>1024*1024){setElementText("import-status","File exceeds the 1 MB import limit.");return;}
+  try{
+   const raw=await file.text();
+   const doc=JSON.parse(raw);
+   if(!doc||typeof doc!=="object"||Array.isArray(doc)||!doc.progress||typeof doc.progress!=="object"||Array.isArray(doc.progress))
+    throw Error("This is not a NiteAcademy practice-progress export.");
+   let added=0,updated=0;
+   for(const {key} of allLessons()){
+    const rec=doc.progress[key];
+    if(!rec||typeof rec!=="object"||Number(rec.score)<75||Number(rec.score)>100||!Number.isInteger(Number(rec.score)))continue;
+    const time=Date.parse(rec.date);
+    if(!Number.isFinite(time)||time>Date.now()+86400000||time<946684800000)continue;
+    const existing=state.completed[key];
+    if(!existing||Number(rec.score)>Number(existing.score)){
+     state.completed[key]={score:Number(rec.score),date:new Date(time).toISOString()};
+     existing?updated++:added++;
+    }
+    const draft=doc.drafts?.[key];
+    if(typeof draft==="string"&&draft.length<=8000&&!state.drafts[key])state.drafts[key]=draft;
+   }
+   if(doc.plan&&GOALS.some(g=>g.id===doc.plan.goal)){
+    state.goal=doc.plan.goal;
+    state.level=["new","some","advanced"].includes(doc.plan.level)?doc.plan.level:"new";
+    state.minutes=[45,90,180,360].includes(Number(doc.plan.minutes))?Number(doc.plan.minutes):90;
+    state.planSet=true;
+    $("goal").value=state.goal;$("experience").value=state.level;$("minutes").value=String(state.minutes);
+    renderPlan();
+   }
+   if(!save())throw Error("Browser storage is unavailable or full. Try exporting your existing progress before leaving.");
+   updateStats();renderTracks();
+   setElementText("import-status","Imported "+added+" new completed lesson(s), updated "+updated+" higher practice score(s). Existing progress was preserved.");
+  }catch(error){
+   setElementText("import-status","Import rejected: "+String(error.message||error).slice(0,220));
+  }
+ });
+ $("reset-progress").addEventListener("click",()=>{
+  if(!window.confirm("Erase all progress, practice drafts, learning preferences and model comparisons stored by NiteAcademy in this browser? Export first if you want a backup."))return;
+  try{localStorage.removeItem(STORAGE_KEY);localStorage.removeItem("niteacademy_model_arena_v1");}
+  catch{}
+  location.reload();
+ });
 }
 function offlineCoach(question){
  const q=question.toLowerCase(),focus=activeLesson?.lesson;
