@@ -141,6 +141,7 @@ function renderDashboard(){
  $("welcome-title").textContent="Let's get you started, "+name+".";
  $("dash-subtitle").textContent="You own your seller account. NITE Academy helps you get ready for approved consignment opportunities.";
  $("account-email").textContent=currentUser.email||"";
+ $("member-internal-code").textContent=profile.seller_code||"SLR-PENDING";
  $("dash-display-name").value=profile.display_name||"";
  $("dash-experience").value=profile.experience||"new";
  $("dash-plan").value=profile.amazon_plan||"none";
