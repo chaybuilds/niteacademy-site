@@ -4,6 +4,7 @@ on:
     branches: [main]
     paths:
       - "index.html"
+      - "assets/**"
       - "studio/**"
       - "tests/studio.test.mjs"
       - "tests/homepage-ux.test.mjs"
@@ -15,6 +16,7 @@ on:
   pull_request:
     paths:
       - "index.html"
+      - "assets/**"
       - "studio/**"
       - "tests/studio.test.mjs"
       - "tests/homepage-ux.test.mjs"
@@ -39,6 +41,7 @@ jobs:
           node-version: "22"
       - name: Check browser module syntax
         run: |
+          node --check assets/academy.mjs
           node --check studio/content.mjs
           node --check studio/app.mjs
           node --check studio/arena.mjs
@@ -46,10 +49,10 @@ jobs:
           node --check scripts/academy-gateway-smoke.mjs
       - name: Validate all learning tracks and practice scoring
         run: node --test tests/studio.test.mjs tests/domain-readiness.test.mjs tests/homepage-ux.test.mjs
-      - name: Preserve lead intake and key Studio routes
+      - name: Verify Academy signup and retained Studio routes
         run: |
-          grep -q 'id="academy-form"' index.html
-          grep -q 'academy-apply' index.html
+          grep -q 'id="auth-form"' index.html
+          grep -q 'id="dashboard-view" hidden' index.html
           grep -q 'href="studio/"' index.html
           grep -q 'id="arena-provider"' studio/index.html
           grep -q 'id="portfolio"' studio/index.html
