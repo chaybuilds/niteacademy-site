@@ -11,6 +11,8 @@ on:
       - "tests/domain-readiness.test.mjs"
       - "scripts/domain-readiness.mjs"
       - "scripts/academy-gateway-smoke.mjs"
+      - "scripts/consignment-ledger.mjs"
+      - "tests/consignment-ledger.test.mjs"
       - "supabase/**"
       - ".github/workflows/studio-quality.yml"
   pull_request:
@@ -42,13 +44,14 @@ jobs:
       - name: Check browser module syntax
         run: |
           node --check assets/academy.mjs
+          node --check scripts/consignment-ledger.mjs
           node --check studio/content.mjs
           node --check studio/app.mjs
           node --check studio/arena.mjs
           node --check scripts/domain-readiness.mjs
           node --check scripts/academy-gateway-smoke.mjs
       - name: Validate all learning tracks and practice scoring
-        run: node --test tests/studio.test.mjs tests/domain-readiness.test.mjs tests/homepage-ux.test.mjs
+        run: node --test tests/studio.test.mjs tests/domain-readiness.test.mjs tests/homepage-ux.test.mjs tests/consignment-ledger.test.mjs
       - name: Verify Academy signup and retained Studio routes
         run: |
           grep -q 'id="auth-form"' index.html
