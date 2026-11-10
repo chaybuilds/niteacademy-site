@@ -81,6 +81,32 @@ function renderReports(){
   const state=document.createElement("span");state.textContent=r.review_status.replaceAll("_"," ");row.append(label,state);target.append(row);
  }
 }
+function downloadConsignmentStatement(st){
+ const cell=value=>'"'+String(value??"").replaceAll('"','""')+'"';
+ const rows=[
+  ["NITERUN CONSIGNMENT SETTLEMENT STATEMENT","Not a receipt or confirmation of payment"],
+  ["Statement",st.statement_code],["Seller",currentUser?.email||""],
+  ["Period start",st.period_start],["Period end",st.period_end],
+  ["State",st.status],["Issued",st.issued_at||""],["Due",st.due_at||""],
+  ["Amazon consigned-product gross",money(Number(st.gross_sales_cents)/100)],
+  ["Amazon fees",money(Number(st.amazon_fees_cents)/100)],
+  ["Refunds",money(Number(st.refunds_cents)/100)],
+  ["Other approved costs",money(Number(st.other_costs_cents)/100)],
+  ["Net distributable",money(Number(st.net_distributable_cents)/100)],
+  ["Seller retains",money(Number(st.seller_share_cents)/100)],
+  ["Supplier share",money(Number(st.supplier_share_cents)/100)],
+  ["NITERUN fee",money(Number(st.niterun_fee_cents)/100)],
+  ["Total owed to NITERUN",money(Number(st.owed_to_niterun_cents)/100)],
+  ["Collection recorded",money(Number(st.collected_cents)/100)],
+  ["Outstanding",money(Number(st.outstanding_cents)/100)],
+  ["Information","Amazon deposits to the seller. Payment to NITERUN is separate and requires an authorized invoice/transfer."]
+ ];
+ const csv="\uFEFF"+rows.map(row=>row.map(cell).join(",")).join("\r\n")+"\r\n";
+ const blob=new Blob([csv],{type:"text/csv;charset=utf-8"});
+ const url=URL.createObjectURL(blob);const link=document.createElement("a");
+ link.href=url;link.download=st.statement_code+"-niteacademy.csv";document.body.appendChild(link);
+ link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);
+}
 function renderStatements(){
  const target=$("statement-list");
  target.replaceChildren();
@@ -106,6 +132,7 @@ function renderStatements(){
   } else if(Number(st.outstanding_cents)>0){
    const note=document.createElement("p");note.textContent="Payment instructions appear only after NITERUN issues a reviewed invoice.";card.append(note);
   }
+  const download=document.createElement("button");download.type="button";download.className="ghost";download.style.marginTop="12px";download.textContent="Download statement (.csv)";download.addEventListener("click",()=>downloadConsignmentStatement(st));card.append(download);
   target.append(card);
  }
 }
