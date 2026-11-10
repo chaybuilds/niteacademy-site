@@ -1,4 +1,50 @@
-# NiteAcademy — learn the system, build your own
+# NITE Academy — Consignment Seller Network (November 10, 2026)
+
+**Available preview:** https://chaybuilds.github.io/niteacademy-site/  
+**Domain being connected:** https://niteacademy.com/ — registered at Namecheap, but DNS still points to its parking page.  
+**Learning studio retained:** https://chaybuilds.github.io/niteacademy-site/studio/
+
+The new homepage is intentionally minimal: **Make money. → free account → private seller dashboard.**
+
+## Implemented
+
+- Free registration and sign-in using the existing NITERUN Supabase project.
+- Member-owned onboarding profile, self-reported Amazon plan and Seller ID, product interests.
+- Private seller dashboard with NIKO guided onboarding and truthful eligibility states.
+- Consignment application write path, stored for review, without inventing inventory.
+- Read-only member-specific allocation and ledger records; company-only verification, allocation, and settlement writes.
+- Row-level security and least-privilege grants for all new Academy tables.
+- Responsive dark UI, program information, preserved learning Studio and archived original homepage.
+- GitHub Actions release quality checks.
+
+## Not yet active or verified
+
+- Signed manufacturer consignment contracts and approved product inventory.
+- Amazon SP-API OAuth, automatic browser control, and live Amazon order synchronization.
+- Automatic deductions from seller payouts or ACH payment mandates.
+- Actual member earnings, paid supplier settlements, or income claims.
+- Full production email confirmation and sign-in test on a real mailbox.
+- Custom niteacademy.com routing and HTTPS.
+
+**Amazon plans:** Individual is $0/month with a $0.99/item fee plus applicable Amazon and FBA fees, but does not offer SP-API access. Professional is $39.99/month plus applicable fees and supports SP-API. Full automated seller connections require a reviewed public SP-API app and seller-specific OAuth authorization. Do not ask members for Seller Central passwords.
+
+**Payment model:** Amazon sends proceeds to the seller's verified bank account. NITERUN must calculate and collect its contractual supplier/distribution share through separately authorized payments. The website does not take bank debit authorizations now.
+
+## Remaining release gates
+
+1. **Namecheap DNS:** Replace parking records with the GitHub Pages A and CNAME records in [DOMAIN_ACTIVATION.md](DOMAIN_ACTIVATION.md). The safe-cutover workflow will only commit the GitHub CNAME after DNS is independently verified.
+2. **Supabase Auth redirect URLs:** In Supabase Dashboard → Authentication → URL Configuration, allow the active preview callback https://chaybuilds.github.io/niteacademy-site/ and later https://niteacademy.com/ after activation. Confirm real signup → email confirmation → sign-in on iPhone.
+3. **Commercial compliance:** Legal review of consignment rights, seller agreements, payment mandates, privacy notice, and accurate marketing before real inventory allocations.
+4. **Amazon integration:** Developer/app registration and seller OAuth approvals; no SP-API bypass for Individual plans.
+5. **Commercial verification:** Demonstrate one signed, funded, legally eligible consignment, fulfilled order, actual Amazon settlement, and authorized NITERUN collection.
+
+The former homepage is preserved at [archive/academy-original-20261110.html](archive/academy-original-20261110.html).
+
+---
+
+## Earlier November 8 Learning Studio release notes
+
+
 
 **Public website:** https://chaybuilds.github.io/niteacademy-site/
 **Interactive Academy Studio:** https://chaybuilds.github.io/niteacademy-site/studio/
