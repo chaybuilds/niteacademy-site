@@ -3,259 +3,124 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#0b1b17">
-<title>NiteAcademy — Learn the system. Build your own.</title>
-<meta name="description" content="Free business systems education, AI workshops and optional done-for-you implementation. NiteAcademy by NITERUN. You own your business.">
-<meta property="og:title" content="NiteAcademy | Built with you. Owned by you.">
-<meta property="og:description" content="Learn business systems for free, or apply for a fixed-scope done-for-you infrastructure build. No income guarantees.">
-<style>
-:root{color-scheme:dark;--deep:#091a17;--ink:#112621;--card:#17332c;--cream:#f3f4e8;--muted:#bacabf;--mint:#bbf1bd;--olive:#adc790;--line:rgba(225,242,223,.17)}
-*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:92px}body{margin:0;background:var(--deep);color:var(--cream);font-family:Inter,"Avenir Next",Avenir,"Segoe UI",sans-serif;line-height:1.56}
-body:before{content:"";position:absolute;pointer-events:none;z-index:-1;inset:0 0 auto;height:900px;background:radial-gradient(ellipse at 82% 17%,rgba(103,174,132,.19),transparent 39%),radial-gradient(ellipse at 12% 15%,rgba(190,226,157,.08),transparent 45%)}
-a{color:inherit}button,input,textarea,select{font:inherit}button{cursor:pointer}a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid var(--mint);outline-offset:3px}
-.wrap{width:min(1140px,calc(100% - 44px));margin-inline:auto}.nav{height:88px;display:flex;align-items:center;justify-content:space-between;gap:22px;border-bottom:1px solid var(--line)}
-.brand{text-decoration:none;display:inline-flex;align-items:center;gap:13px;flex-shrink:0}.mark{width:36px;height:36px;border-radius:12px;background:var(--mint);color:var(--deep);display:grid;place-items:center;font-weight:900;font-size:22px;transform:rotate(-10deg)}
-.brand-copy{display:flex;flex-direction:column;line-height:1.08;letter-spacing:.15em;font-weight:830;font-size:14px}.brand-copy small{letter-spacing:.18em;color:var(--muted);font-size:9px;margin-top:5px}
-.nav-links{display:flex;align-items:center;gap:26px;font-size:13px}.nav-links a{text-decoration:none;color:#d5e1d5}.nav-links a:hover{color:var(--mint)}.nav-cta{border:1px solid var(--mint);padding:10px 16px;border-radius:100px!important;color:var(--mint)!important}
-.btn{display:inline-flex;justify-content:center;align-items:center;gap:10px;padding:15px 24px;border-radius:99px;border:1px solid transparent;text-decoration:none;font-weight:760;font-size:14px;transition:transform .15s ease,background .15s ease}.btn:hover{transform:translateY(-2px)}.btn-primary{background:var(--mint);color:#0c231d}.btn-primary:hover{background:#d2ffd3}.btn-outline{border-color:rgba(225,242,223,.34);color:var(--cream);background:transparent}.btn-outline:hover{border-color:var(--mint)}.btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
-.eyebrow{letter-spacing:.19em;text-transform:uppercase;font-size:11px;font-weight:780;color:var(--mint)}.muted{color:var(--muted)}h1,h2,h3,p{margin-top:0}h1,h2,h3{letter-spacing:-.045em;line-height:1.08}h1{font-size:clamp(52px,7.6vw,105px);font-weight:740;margin:23px 0}h2{font-size:clamp(39px,5.2vw,65px);font-weight:720;margin:15px 0 20px}h3{font-size:23px;font-weight:720;margin:0 0 12px}p{max-width:62ch}.lead{font-size:18px;color:#d5ded5;line-height:1.7}.hero{min-height:730px;padding:84px 0 72px;display:grid;grid-template-columns:1.07fr .93fr;align-items:center;gap:54px}
-.hero strong.highlight{font-weight:740;color:var(--mint)}.hero-actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:30px}.hero-proof{display:flex;flex-wrap:wrap;gap:11px;margin-top:34px;color:#b9cbbc;font-size:12px}.hero-proof span:before{content:"●";color:var(--mint);font-size:9px;margin-right:10px}
-.diagram{position:relative;min-height:510px;perspective:800px;display:grid;place-items:center;overflow:hidden}.halo{position:absolute;width:380px;height:380px;border:1px solid rgba(187,241,189,.15);border-radius:50%;box-shadow:0 0 100px rgba(166,235,176,.08);transform:rotateX(62deg) rotateZ(-22deg)}.halo.two{width:480px;height:480px;transform:rotateX(63deg) rotateZ(27deg);border-style:dashed}
-.platform{position:relative;width:min(100%,430px);background:linear-gradient(146deg,#1e4438,#102720 55%,#0f211d);border:1px solid rgba(190,240,194,.3);border-radius:25px;box-shadow:0 38px 85px #03120ea6, inset 0 1px rgba(255,255,255,.06);padding:25px;transform:rotateY(-9deg) rotateX(4deg);animation:float 7s ease-in-out infinite}
-.platform-top{display:flex;align-items:center;justify-content:space-between;padding-bottom:20px;border-bottom:1px solid var(--line);font-size:12px;letter-spacing:.09em}.dots{display:flex;gap:5px}.dots b{display:block;width:6px;height:6px;border-radius:50%;background:var(--mint)}.dots b:nth-child(2){opacity:.6}.dots b:nth-child(3){opacity:.3}
-.flow-line{display:flex;align-items:center;gap:14px;padding:15px 0;border-bottom:1px solid rgba(225,242,223,.09)}.flow-num{background:#2f6b51;color:#d6ffdb;width:32px;height:32px;display:grid;place-items:center;border-radius:10px;font-size:11px;font-weight:750}.flow-line strong{font-size:13px}.flow-line small{display:block;color:#9eb6a8;margin-top:2px}.state{margin-left:auto;border-radius:50px;background:rgba(184,245,191,.13);padding:5px 9px;font-size:10px;color:var(--mint)}
-.platform-bottom{padding-top:18px;display:flex;justify-content:space-between;font-size:11px;color:#bed3bf}.signal{width:9px;height:9px;border-radius:50%;background:var(--mint);display:inline-block;box-shadow:0 0 16px var(--mint);margin-right:5px}
-section{padding:98px 0}.section-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:75px;align-items:start}.section-grid>div:first-child p{font-size:17px;color:var(--muted)}.border-top{border-top:1px solid var(--line)}
-.pill{border:1px solid var(--line);padding:7px 13px;border-radius:40px;font-size:12px;color:#b8d1bd;display:inline-block}.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.card{border:1px solid var(--line);border-radius:22px;padding:29px;background:linear-gradient(145deg,rgba(35,70,54,.43),rgba(20,42,34,.25));min-height:235px}.card .n{font-size:12px;color:var(--mint);letter-spacing:.14em;font-weight:760;display:block;margin-bottom:30px}.card p{color:var(--muted);font-size:14px;margin:0}.card-link{color:var(--cream);text-decoration:none}.card-link:hover,.card-link:focus-visible{text-decoration:underline;text-decoration-color:var(--mint)}
-.banner{border:1px solid rgba(190,240,194,.26);border-radius:27px;padding:36px;background:linear-gradient(110deg,#214c38,#17372d);display:flex;align-items:center;justify-content:space-between;gap:25px}.banner p{color:#d2dfd1;margin:0}.banner h3{margin-bottom:8px}
-.split{display:grid;grid-template-columns:1fr 1fr;gap:36px}.plan{border-radius:26px;padding:37px;border:1px solid rgba(187,241,189,.45);background:linear-gradient(155deg,#234a37,#122820);box-shadow:0 10px 60px rgba(0,0,0,.16)}.price{font-size:68px;font-weight:760;letter-spacing:-.07em;line-height:1}.plan ul{padding:0;margin:26px 0 30px;list-style:none}.plan li{padding:10px 0;border-bottom:1px solid rgba(225,242,223,.13);font-size:14px}.plan li:before{content:"✓";color:var(--mint);margin-right:12px}.plain-panel{border:1px solid var(--line);border-radius:26px;padding:38px}.plain-panel p{color:var(--muted)}
-.steps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:13px}.step{padding:20px;border-left:1px solid rgba(187,241,189,.4)}.step span{color:var(--mint);font-weight:780;font-size:12px}.step strong{display:block;margin:17px 0 9px;font-size:17px}.step p{font-size:13px;color:var(--muted)}
-.form-wrap{display:grid;grid-template-columns:.85fr 1.15fr;gap:65px}.form-card{background:#e9eddf;border-radius:27px;color:#13251d;padding:36px;box-shadow:0 22px 70px #03120e55}.form-card h3{color:#152a20}.form-card p{font-size:13px;color:#385144}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}label{font-size:12px;font-weight:730;display:block;margin-bottom:7px}input:not([type=checkbox]),textarea,select{width:100%;color:#182f25;padding:13px 12px;border:1px solid #b5c5b6;border-radius:10px;background:#fff;font-size:14px;min-height:47px}textarea{min-height:105px;resize:vertical}.field-wide{grid-column:span 2}.check-line{display:flex;gap:10px;align-items:flex-start;font-size:12px;color:#30483b;font-weight:450}.check-line input{width:18px;height:18px;margin-top:2px;accent-color:#1d5b3f}.form-card .btn{width:100%;margin-top:15px;border:0}.form-status{font-size:13px;font-weight:600;min-height:24px;margin:12px 0 0}.status-ok{color:#135b36}.status-error{color:#a12c23}.hp{position:absolute!important;left:-9999px!important;opacity:0!important}
-.faq{display:grid;grid-template-columns:1fr 1fr;gap:16px}details{border:1px solid var(--line);border-radius:14px;padding:18px 21px}summary{cursor:pointer;font-weight:740}details p{font-size:14px;color:var(--muted);margin:15px 0 0}
-.footer{border-top:1px solid var(--line);padding:45px 0 58px;font-size:12px;color:var(--muted)}.footer-grid{display:flex;justify-content:space-between;align-items:flex-start;gap:30px}.footer-links{display:flex;gap:17px;flex-wrap:wrap}.footer-links a:hover{color:var(--mint)}.legal{border-top:1px solid var(--line);padding-top:22px;margin-top:28px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px}.legal details{border:0;padding:0;max-width:640px}.legal summary{color:#dce6da}
-@keyframes float{50%{transform:rotateY(-6deg) rotateX(2deg) translateY(-9px)}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important;transition:none!important}}
-@media(max-width:1000px){.hero{gap:30px}.nav-links{gap:16px}.section-grid{gap:32px}.steps{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:760px){.wrap{width:min(100% - 30px,1140px)}.nav{height:75px}.nav-links a:not(.nav-cta){display:none}.nav-cta{padding:8px 13px!important;font-size:12px}.hero{grid-template-columns:1fr;min-height:auto;padding:56px 0 35px;gap:14px}.hero h1{font-size:clamp(51px,11vw,75px)}.diagram{min-height:370px}.halo{width:290px;height:290px}.halo.two{width:350px;height:350px}.platform{transform:none;animation:none;max-width:390px}.section-grid,.split,.form-wrap{grid-template-columns:1fr;gap:30px}.cards{grid-template-columns:1fr}.card{min-height:190px}.banner{flex-direction:column;align-items:flex-start;padding:26px}.steps{grid-template-columns:repeat(2,1fr)}section{padding:68px 0}.form-card{padding:25px}.footer-grid{flex-direction:column}.price{font-size:56px}}
-@media(max-width:460px){.form-grid{grid-template-columns:1fr}.field-wide{grid-column:span 1}.steps{grid-template-columns:1fr}.faq{grid-template-columns:1fr}.hero-actions .btn{width:100%}.brand-copy{font-size:12px}.platform{padding:19px}}
-
-/* Accessible free Academy Studio preview. Existing application forms preserved. */
-.studio-feature{align-items:center}
-.studio-feature-copy>p{color:#c5d8c8;font-size:16px;line-height:1.7}
-.studio-feature-copy>.btn{margin-top:14px}
-.studio-feature-copy .studio-micro{font-size:11px;letter-spacing:.06em;color:#acc6ae;margin-top:18px}
-.studio-feature-board{border:1px solid rgba(193,241,184,.34);border-radius:23px;background:linear-gradient(140deg,#214e36,#102c21);padding:30px;box-shadow:0 32px 65px #06150d69;transform:rotateY(-3deg)}
-.studio-board-head,.studio-board-foot{display:flex;gap:10px;align-items:center;justify-content:space-between;font-size:10px;letter-spacing:.12em;color:#c8e5c6}
-.studio-board-head{border-bottom:1px solid var(--line);padding-bottom:18px}
-.studio-board-head span{color:var(--mint)}
-.studio-board-title{font-size:28px;font-weight:760;letter-spacing:-.045em;line-height:1.2;margin:26px 0}
-.studio-preview-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
-.studio-preview-grid>div{padding:16px 14px;background:#10281cb8;border:1px solid rgba(180,230,182,.18);border-radius:12px}
-.studio-preview-grid span{font-size:33px;font-weight:780;letter-spacing:-.06em;color:var(--mint);display:block;line-height:1.1}
-.studio-preview-grid small{font-size:10px;color:#b6d0b5}
-.studio-board-steps{display:grid;gap:9px;margin:24px 0;font-size:13px;color:#dcebdd}
-.studio-board-steps div{padding:9px 0;border-bottom:1px solid rgba(225,242,223,.09)}
-.studio-board-steps span{color:var(--mint);font-weight:780;font-size:11px;margin-right:13px}
-.studio-board-foot{border-top:1px solid var(--line);padding-top:17px;color:#9dbaa4}
-@media(max-width:760px){.studio-feature-board{transform:none;padding:23px}.studio-board-title{font-size:23px}}
-@media(max-width:420px){.studio-preview-grid>div{padding:12px 8px}.studio-preview-grid span{font-size:26px}.studio-preview-grid small{font-size:9px}}
-/* Accessible mobile entry points: keep free learning visible without JavaScript. */
-.skip-link{position:fixed;top:10px;left:10px;z-index:300;transform:translateY(-200%);background:var(--mint);color:var(--deep);padding:12px 17px;border-radius:10px;font-weight:800}
-.skip-link:focus{transform:none}
-.mobile-studio-link,.mobile-nav{display:none}
-.cards-intro{grid-column:1/-1;margin:0 0 5px;color:var(--muted);font-size:13px;line-height:1.65}
-.cards-intro a{color:var(--mint);text-underline-offset:3px;font-weight:740}
-@media(max-width:760px){
-.nav{gap:9px}
-.nav-links{display:none}
-.mobile-studio-link{display:inline-flex;margin-left:auto;align-items:center;justify-content:center;min-height:44px;padding:8px 10px;border:1px solid rgba(225,242,223,.35);border-radius:13px;text-decoration:none;color:var(--cream);font-size:11px;font-weight:740}
-.mobile-nav{display:block;position:relative;z-index:50}
-.mobile-nav summary{display:flex;align-items:center;justify-content:center;list-style:none;cursor:pointer;min-height:44px;padding:8px 12px;border:1px solid var(--mint);color:var(--mint);border-radius:13px;font-size:12px;font-weight:760}
-.mobile-nav summary::-webkit-details-marker{display:none}
-.mobile-nav[open] nav{position:absolute;right:0;top:calc(100% + 8px);display:flex;flex-direction:column;width:min(82vw,270px);padding:10px;background:#10271f;border:1px solid rgba(187,241,189,.48);border-radius:15px;box-shadow:0 20px 50px rgba(0,0,0,.48)}
-.mobile-nav nav a{display:flex;align-items:center;min-height:44px;padding:8px 12px;color:var(--cream);font-size:13px;font-weight:690;text-decoration:none;border-radius:9px}
-.mobile-nav nav a:hover,.mobile-nav nav a:focus-visible{background:#1e4533;color:var(--mint)}
-}
-@media(max-width:390px){.nav{gap:5px}.mobile-studio-link{font-size:10px;padding-inline:7px}.mobile-nav summary{padding-inline:9px}}
-@media(max-width:345px){.mobile-studio-link{display:none}.mobile-nav{margin-left:auto}}
-</style>
+<meta name="theme-color" content="#090a0d">
+<meta name="description" content="NITE Academy by NITERUN. Free seller onboarding and access to review for consignment opportunities. No inventory purchase required for approved consignments.">
+<meta property="og:title" content="NITE Academy — Make money.">
+<meta property="og:description" content="Your business. Our supply network. Start free.">
+<title>NITE Academy — Make money.</title>
+<link rel="stylesheet" href="assets/academy.css">
 </head>
 <body>
-<a class="skip-link" href="#top">Skip to main content</a>
-<header class="wrap nav">
-<a class="brand" href="#top" aria-label="NiteAcademy home"><span class="mark" aria-hidden="true">N</span><span class="brand-copy">NITE ACADEMY<small>BY NITERUN</small></span></a>
-<nav class="nav-links" aria-label="Main navigation">
-<a href="studio/">Free Studio</a><a href="#learn">Curriculum</a><a href="#build">For businesses</a><a href="#apply" class="nav-cta">Request a build</a>
-</nav>
-<a class="mobile-studio-link" href="studio/">Free Studio</a>
-<details class="mobile-nav">
-<summary>Menu</summary>
-<nav aria-label="Mobile navigation">
-<a href="studio/">Free Studio</a>
-<a href="#learn">Curriculum</a>
-<a href="#build">For businesses</a>
-<a href="https://discord.gg/Dm6Hbq68Wt" target="_blank" rel="noopener noreferrer">Join free Discord</a>
-<a href="#apply">Request a build</a>
-</nav>
-</details>
+<header class="wrap topbar" id="top">
+<a class="wordmark" href="./" aria-label="NITE Academy home"><span class="mark" aria-hidden="true">N</span><span>NITE ACADEMY<span class="overline">BY NITERUN</span></span></a>
+<button id="signin-button" class="ghost" type="button">Sign in</button>
+<div id="topbar-seller" hidden style="display:flex;gap:14px;align-items:center"><span class="overline" id="account-email" style="word-break:break-word"></span><button class="ghost" id="signout" type="button">Sign out</button></div>
+<span id="topbar-guest" hidden></span>
 </header>
-<main id="top" tabindex="-1">
+<main>
+<section id="landing-view" class="landing">
 <div class="wrap hero">
-<div>
-<div class="eyebrow">An education and implementation lab</div>
-<h1>Learn the system.<br><strong class="highlight">Build your own.</strong></h1>
-<p class="lead">Real business infrastructure shouldn't be a mystery. Learn how the systems work for free—or have NiteAcademy configure an agreed setup with you. You own the business, accounts and revenue.</p>
-<div class="hero-actions"><a class="btn btn-primary" href="studio/">Start free Academy Studio <span aria-hidden="true">↗</span></a><a class="btn btn-outline" href="https://discord.gg/Dm6Hbq68Wt" target="_blank" rel="noopener noreferrer">Join free Discord <span aria-hidden="true">↗</span></a></div>
-<div class="hero-proof"><span>18 original exercises</span><span>Progress saved on-device</span><span>Optional local AI</span><span>No income guarantees</span></div>
-</div>
-<div class="diagram" aria-label="Illustration of a business workflow with a website, lead intake, CRM, payment configuration and dashboard">
-<div class="halo" aria-hidden="true"></div><div class="halo two" aria-hidden="true"></div>
-<div class="platform">
-<div class="platform-top"><strong>BUILD BLUEPRINT / DEMO</strong><span class="dots" aria-hidden="true"><b></b><b></b><b></b></span></div>
-<div class="flow-line"><span class="flow-num">01</span><div><strong>Business website</strong><small>Your own domain and offer</small></div><span class="state">SETUP</span></div>
-<div class="flow-line"><span class="flow-num">02</span><div><strong>Customer intake</strong><small>Verified form → organized CRM</small></div><span class="state">SETUP</span></div>
-<div class="flow-line"><span class="flow-num">03</span><div><strong>Payments and operations</strong><small>Client-owned accounts</small></div><span class="state">SETUP</span></div>
-<div class="flow-line"><span class="flow-num">04</span><div><strong>Revenue dashboard</strong><small>See actual transactions and costs</small></div><span class="state">SETUP</span></div>
-<div class="platform-bottom"><span><i class="signal" aria-hidden="true"></i>Example deployment blueprint</span><span>Not an earnings report</span></div>
+<div class="hero-inner">
+<div class="overline">START FOR FREE · YOUR BUSINESS, OUR SUPPLY</div>
+<h1>Make money.</h1>
+<p class="subtitle">We help supply the products. You run your store.</p>
+<p class="explainer">NITE Academy helps you set up an online selling business and apply to receive authorized products on consignment—without purchasing that inventory upfront.</p>
+<div class="buttons"><button id="start-button" type="button" class="primary">Create your free account&nbsp; →</button><a class="minimal-link" href="https://sell.amazon.com/sell/registration-guide" target="_blank" rel="noopener noreferrer">How Amazon signup works</a></div>
+<p class="disclaimer" style="margin-top:22px">Free Academy membership. No guaranteed products, earnings, or seller approval. Amazon selling fees and FBA costs still apply; allocations depend on product eligibility, signed agreements, and funded fulfillment.</p>
 </div>
 </div>
-</div>
-<section class="border-top" id="studio">
-<div class="wrap section-grid studio-feature">
-<div class="studio-feature-copy">
-<span class="eyebrow">Now open / Your personal Academy Studio</span>
-<h2>Knowledge is good.<br><span style="color:var(--mint)">Proof is better.</span></h2>
-<p>Don't just watch another tutorial. Build a learning plan based on your goal, work through 18 original AI and business exercises, evaluate your reasoning, and export a personal practice portfolio. The core experience is free.</p>
-<a class="btn btn-primary" href="studio/">Enter Academy Studio <span aria-hidden="true">↗</span></a>
-<p class="studio-micro">No signup · No credit card · No income claims</p>
-</div>
-<div class="studio-feature-board" aria-label="Academy Studio preview with tracks and practice status">
-<div class="studio-board-head"><strong>ACADEMY / LEARNING OS</strong><span>AVAILABLE NOW</span></div>
-<div class="studio-board-title">A practical learning engine.</div>
-<div class="studio-preview-grid">
-<div><span>06</span><small>learning tracks</small></div>
-<div><span>18</span><small>practice exercises</small></div>
-<div><span>01</span><small>open-source AI path</small></div>
-</div>
-<div class="studio-board-steps">
-<div><span>01</span> Choose the skill your goal actually needs</div>
-<div><span>02</span> Work through a fictional real-world problem</div>
-<div><span>03</span> Test against clear, transparent criteria</div>
-<div><span>04</span> Export your work and repeat with new evidence</div>
-</div>
-<div class="studio-board-foot"><span>WORKFLOW / TEST / MEASURE</span><span>PRACTICE NOT PAYOUT</span></div>
-</div>
-</div></section>
-<section class="border-top" id="learn">
-<div class="wrap">
-<div class="section-grid"><div><span class="eyebrow">01 / Learn</span><h2>Education that ends in action.</h2><p>Join the free NITERUN Discord to choose a learning plan, test practical AI and business workflows, study original exercises and learn alongside other builders.</p></div>
-<div class="cards">
-<p class="cards-intro">New to NITERUN? <a href="https://discord.gg/Dm6Hbq68Wt" target="_blank" rel="noopener noreferrer">Join the free Discord first</a>, then use these direct channel links.</p>
-<div class="card"><span class="n">01 / PERSONALIZE</span><h3><a class="card-link" href="https://discord.com/channels/1568427976687878275/1569004814556332087" target="_blank" rel="noopener noreferrer">Choose your path ↗</a></h3><p>Set your goal, experience, weekly pace, and learning style with /learning-plan setup. Track real lesson progress privately.</p></div>
-<div class="card"><span class="n">02 / DEMONSTRATE</span><h3><a class="card-link" href="https://discord.com/channels/1568427976687878275/1569027266325782638" target="_blank" rel="noopener noreferrer">Try AI demonstrations ↗</a></h3><p>Run real business math, synthetic intake-routing demos, private progress checks and local AI advice with visible fallback. Try /ai-showcase gallery.</p></div>
-<div class="card"><span class="n">03 / COLLABORATE</span><h3><a class="card-link" href="https://discord.com/channels/1568427976687878275/1569027276622794872" target="_blank" rel="noopener noreferrer">Join skill challenges ↗</a></h3><p>Complete original lessons and fictional exercises to earn non-monetary practice XP. Community rankings are opt-in. Start /learn-league missions.</p></div>
+<div class="landing-bottom"><div class="wrap">
+<div class="steps"><div class="step"><b>01</b> Create an account</div><div class="step"><b>02</b> Set up Amazon</div><div class="step"><b>03</b> Apply for consignment</div><div class="step"><b>04</b> Sell & settle</div></div>
+<div class="footer"><span>© 2026 NITE Run Delivery LLC · NITE Academy</span><span><a href="studio/">Free learning studio</a> &nbsp; · &nbsp; <a href="mailto:chayson@niterun.com">Contact</a></span></div>
 </div></div>
-<div class="banner" style="margin-top:32px"><div><h3>Study real educators, practice your own skills.</h3><p>Use original NITERUN exercises alongside official publisher-hosted resources from HubSpot Academy, Salesforce, Gong Labs, Black Swan Group and Acquisition.com. No copied videos, endorsements or accredited credential claims. Try /expert-lab library.</p></div><a class="btn btn-outline" href="https://discord.com/channels/1568427976687878275/1569027272877547530" target="_blank" rel="noopener noreferrer">Explore expert study ↗</a></div>
-<div class="banner" style="margin-top:16px"><div><h3>Already in NITERUN Discord?</h3><p>Open the live NiteAcademy category and try /academy home or /academy tracks.</p></div><a class="btn btn-primary" href="https://discord.com/channels/1568427976687878275/1569004814556332087" target="_blank" rel="noopener noreferrer">Open Academy channels ↗</a></div>
+</section>
+<section id="auth-view" hidden class="auth-outer wrap" aria-labelledby="auth-title">
+<div class="auth-card">
+<div class="overline">NITE ACADEMY · FREE MEMBERSHIP</div>
+<h2 id="auth-title">Create your free account.</h2>
+<p class="muted" style="font-size:13px;margin:0">Your personal business dashboard starts here. No payment to NITERUN is required to apply.</p>
+<form id="auth-form" class="form-stack">
+<div id="signup-fields">
+<label class="field" for="full-name">Your name <input id="full-name" type="text" autocomplete="name" maxlength="120" placeholder="Name"></label>
+<label class="field" for="experience" style="margin-top:14px">Selling experience <select id="experience"><option value="new">I'm brand new</option><option value="existing">I already sell online</option></select></label>
+</div>
+<label class="field" for="auth-email">Email address <input id="auth-email" name="email" type="email" required autocomplete="email" placeholder="you@example.com"></label>
+<label class="field" for="auth-password">Password <input id="auth-password" name="password" type="password" minlength="6" required autocomplete="current-password" placeholder="At least 6 characters"></label>
+<div id="signup-consent"><label class="choice"><input id="contact-consent" type="checkbox"><span>I agree to be contacted about my application and understand that NITE Academy does not guarantee inventory, sales or income.</span></label></div>
+<button id="auth-button" class="primary" type="submit">Create account</button>
+<p id="auth-feedback" class="feedback" role="status" aria-live="polite"></p>
+</form>
+<div class="auth-links"><button class="linkbutton" id="auth-switch" type="button">I already have an account</button><button class="linkbutton" id="auth-back" type="button">← Back</button></div>
+<p class="disclaimer" style="margin-top:20px">We never ask for your Amazon password, Social Security number, bank login, or identity documents on this page.</p>
 </div>
 </section>
-<section class="border-top" id="build">
-<div class="wrap split">
-<div><span class="eyebrow">02 / Optional implementation</span><h2>You bring the idea. We wire up the tools.</h2><p class="lead">Not another course you have to finish before getting started. We can configure the agreed business technology for you: clear scope, tested workflows, documented handoff.</p><div class="pill">Client-owned accounts</div> <div class="pill">Defined deliverables</div> <div class="pill">No hidden revenue share</div></div>
-<div class="plan">
-<span class="eyebrow">Founding implementation proposal</span>
-<div style="margin:19px 0 12px"><span class="price">$1,000</span> <span class="muted">one-time</span></div>
-<p>One fixed-scope business infrastructure setup, after qualification and an agreed statement of work.</p>
-<ul>
-<li>Branded website and service information</li>
-<li>Business domain and email setup assistance</li>
-<li>Inquiry form, CRM, notification workflow</li>
-<li>Client-owned payment setup assistance</li>
-<li>Basic revenue, expense and cash-flow dashboard</li>
-<li>End-to-end test and owner handoff</li>
+<section id="dashboard-view" hidden class="dashboard wrap" aria-labelledby="welcome-title">
+<div class="dash-header">
+<div><div class="label-soft">YOUR BUSINESS · NITE ACADEMY</div><h1 id="welcome-title">Let's get you started.</h1><p id="dash-subtitle">Your seller workspace</p></div>
+<span id="account-flag" class="pill"><span class="tiny-dot"></span> Seller setup needed</span>
+</div>
+<div class="metrics">
+<div class="metric"><span class="metric-label">Consignment requests</span><div class="num" id="application-state">Not requested</div></div>
+<div class="metric"><span class="metric-label">Assigned products</span><div class="num" id="assignment-count">0</div></div>
+<div class="metric"><span class="metric-label">Assigned units</span><div class="num" id="inventory-count">0</div></div>
+<div class="metric"><span class="metric-label">Seller payouts recorded</span><div class="num" id="seller-income">$0.00</div></div>
+</div>
+<div class="grid">
+<div class="column">
+<div class="panel">
+<div class="panel-head"><div class="niko-header"><span class="niko-icon" aria-hidden="true">N</span><div><h2>NIKO</h2><span class="label-soft">YOUR NEXT STEP</span></div></div><span class="pill">Guided onboarding</span></div>
+<div class="niko-body" id="niko-instruction">We can guide setup while access to approved consignment inventory is being established.</div>
+<div class="notice" id="research-status">No consignment request submitted</div>
+<div class="warning">NIKO currently provides guided onboarding. Live Amazon API access, autonomous supplier outreach, and automatic payment collection have not been activated.</div>
+</div>
+<div class="panel">
+<div class="panel-head"><h2>Get set up</h2><span class="label-soft">ONE STEP AT A TIME</span></div>
+<ul class="checklist">
+<li><span class="bubble" id="setup-bubble">1</span><span><strong>Choose your Amazon selling plan</strong><small id="plan-message">Start with the Individual plan if appropriate. $0 monthly plan fee, plus fees when selling.</small></span></li>
+<li><span class="bubble" id="plan-bubble">2</span><span><strong>Add your Seller ID</strong><small id="seller-message">Create your own verified account, then enter your ID below.</small></span></li>
+<li><span class="bubble" id="review-bubble">3</span><span><strong>Seller and consignment approval</strong><small id="review-message">We verify eligibility and contractual supply rights before allocation.</small></span></li>
+<li><span class="bubble" id="allocation-bubble">4</span><span><strong>Receive approved product allocations</strong><small id="allocation-message">No consignment inventory is currently assigned.</small></span></li>
 </ul>
-<a class="btn btn-primary" href="#apply">Request an implementation ↗</a>
-<p style="font-size:12px;color:#c1d7c4;margin:21px 0 0">Client separately pays hosting, domain, email and payment-provider fees. We do not promise leads, customers, profits or specific earnings. Formal business registration, legal/tax advice and regulated professional services are excluded.</p>
+<div class="small-links"><a href="https://sell.amazon.com/sell/registration-guide" target="_blank" rel="noopener noreferrer">Create Amazon seller account ↗</a><a href="https://sell.amazon.com/pricing" target="_blank" rel="noopener noreferrer">Amazon fees ↗</a></div>
+</div>
+<div class="panel">
+<div class="panel-head"><h2>My consignment inventory</h2><span class="label-soft">VERIFIED ALLOCATIONS ONLY</span></div>
+<div id="allocated-list" class="item-list"><div class="empty">No inventory assigned.</div></div>
 </div>
 </div>
+<div class="column">
+<div class="panel">
+<div class="panel-head"><h2>Seller setup</h2><span class="label-soft">YOUR DETAILS</span></div>
+<p>Tell us where you are in the process. Saving an Amazon Seller ID does not connect or verify your account.</p>
+<form id="seller-details-form" class="form-stack">
+<label class="field" for="dash-display-name">Your name <input id="dash-display-name" autocomplete="name" maxlength="120" required></label>
+<label class="field" for="dash-experience">Experience <select id="dash-experience"><option value="new">New seller</option><option value="existing">Already selling</option></select></label>
+<label class="field" for="dash-plan">Amazon seller plan <select id="dash-plan"><option value="none">I haven't opened an account</option><option value="individual">Individual · $0 per month</option><option value="professional">Professional · $39.99 per month</option></select></label>
+<label class="field" for="dash-merchant-id">Amazon Seller ID (optional until ready) <input id="dash-merchant-id" maxlength="100" autocomplete="off" placeholder="Your Seller ID — not your password"></label>
+<label class="field" for="dash-interests">Product categories <input id="dash-interests" maxlength="400" placeholder="Home, kitchen, collectibles…"></label>
+<button id="save-details" class="primary" type="submit">Save seller setup</button>
+<p id="details-feedback" role="status" aria-live="polite" class="feedback"></p>
+</form>
+</div>
+<div class="panel">
+<div class="panel-head"><h2>Consignment application</h2><span class="label-soft">NO JOINING FEE</span></div>
+<p>Your application is reviewed against real supply contracts, selling permissions, and funded fulfillment arrangements.</p>
+<button id="match-request" class="primary" type="button">Request a consignment match</button>
+<div id="match-received" hidden class="empty"><span id="match-received-text">Your request has been received.</span></div>
+<p id="match-feedback" role="status" aria-live="polite" class="feedback"></p>
+</div>
+<div class="panel">
+<div class="panel-head"><h2>Earnings & ledger</h2><span class="label-soft">ACTUAL SETTLEMENTS</span></div>
+<div style="display:flex;justify-content:space-between;gap:12px;align-items:center"><span class="muted" style="font-size:13px">NITERUN share on recorded verified sales</span><strong id="niterun-income">$0.00</strong></div>
+<p id="ledger-note">No verified settlements yet.</p>
+<p class="notice">Amazon pays your own registered bank account. A separately authorized payment process and written consignment agreement are required for NITERUN's share. We do not hold your Amazon login or banking credentials.</p>
+</div>
+</div>
+</div>
+<footer class="dash-footer footer"><span>NITE Academy · NITE Run Delivery LLC · No guaranteed inventory or earnings</span><span><a href="studio/">Free learning studio</a> &nbsp; · &nbsp; <a href="mailto:chayson@niterun.com">Support</a></span></footer>
 </section>
-<section class="border-top" id="how"><div class="wrap">
-<span class="eyebrow">03 / Our process</span><h2>Configured. Tested. Handed over.</h2>
-<div class="steps">
-<div class="step"><span>01 / APPLY</span><strong>Tell us the idea</strong><p>What do you want to own, who would buy and what's your starting point?</p></div>
-<div class="step"><span>02 / SCOPE</span><strong>Agree on the build</strong><p>We review fit, responsibilities, required accounts and any outside costs.</p></div>
-<div class="step"><span>03 / CONFIGURE</span><strong>Install the systems</strong><p>Site, intake, workflows, reporting and integrations for the approved scope.</p></div>
-<div class="step"><span>04 / VERIFY</span><strong>Test real flows</strong><p>Test an inquiry, CRM record, notification and payment sandbox.</p></div>
-<div class="step"><span>05 / OWN</span><strong>Control your business</strong><p>Get admin access, documentation and an optional management proposal.</p></div>
-</div></div></section>
-<section class="border-top" id="apply"><div class="wrap form-wrap">
-<div><span class="eyebrow">04 / First step</span><h2>Apply for your business build.</h2><p class="lead">Tell us what you want to create. This is an inquiry, not a payment or a booking. We review each request for a realistic scope before offering an implementation agreement.</p>
-<p class="muted">If you're here to learn, you don't have to apply. <a href="https://discord.gg/Dm6Hbq68Wt" target="_blank" rel="noopener noreferrer">Join the free Discord ↗</a></p>
-<div class="plain-panel" style="margin-top:28px"><h3>Want ongoing support?</h3><p>After handoff, eligible owners can request separately scoped system monitoring and operations assistance. The client keeps their business revenue and pays only agreed service fees.</p></div></div>
-<div class="form-card">
-<h3>Tell us about your idea</h3><p>We only collect the information needed to review your request. No banking, password, identity document or payment details here.</p>
-<form id="academy-form" novalidate>
-<div class="form-grid">
-<div><label for="full_name">Your name</label><input id="full_name" name="full_name" autocomplete="name" minlength="2" maxlength="100" required placeholder="First and last name"></div>
-<div><label for="email">Email address</label><input id="email" name="email" type="email" autocomplete="email" maxlength="254" required placeholder="you@example.com"></div>
-<div class="field-wide"><label for="business_model">What type of business?</label><input id="business_model" name="business_model" minlength="2" maxlength="160" required placeholder="e.g. creative agency, AI automation, local services"></div>
-<div><label for="current_stage">Current stage</label><select id="current_stage" name="current_stage" required><option value="">Select one</option><option value="idea">Just an idea</option><option value="existing">Already operating</option><option value="exploring">Exploring options</option></select></div>
-<div><label for="budget_range">Available setup budget</label><select id="budget_range" name="budget_range" required><option value="">Select one</option><option value="under500">Under $500</option><option value="500to999">$500–$999</option><option value="1000to1999">$1,000–$1,999</option><option value="2000plus">$2,000+</option><option value="undecided">Not sure yet</option></select></div>
-<div class="field-wide"><label for="primary_goal">What do you want us to help configure?</label><textarea id="primary_goal" name="primary_goal" minlength="10" maxlength="1000" required placeholder="Describe your business idea, tools you have, and the systems you need..."></textarea></div>
-<div class="hp" aria-hidden="true"><label for="company_website">Website (leave blank)</label><input id="company_website" name="company_website" tabindex="-1" autocomplete="off"></div>
-<div class="field-wide"><label class="check-line"><input id="consent" name="consent" type="checkbox" required><span>I agree that NITE Run Delivery LLC may use my submitted information to review and reply to this inquiry. I understand no customers, income, or paid opportunity is guaranteed. <a href="#privacy">Privacy details</a>.</span></label></div>
-</div>
-<button id="submit" class="btn btn-primary" type="submit">Submit application ↗</button><p id="form-status" class="form-status" role="status" aria-live="polite"></p>
-</form></div></div></section>
-<section class="border-top" id="questions"><div class="wrap"><span class="eyebrow">05 / Clear expectations</span><h2>Questions worth asking.</h2>
-<div class="faq">
-<details><summary>Do I need an LLC to apply?</summary><p>No. Registration and licensing requirements depend on your activity and jurisdiction. We can explain general setup steps, but legal and tax advice must come from qualified professionals.</p></details>
-<details><summary>Will you find my customers?</summary><p>Customer acquisition is not included or guaranteed. We can configure intake and CRM systems; you still need legitimate demand, marketing and delivery capability.</p></details>
-<details><summary>Do you own any part of my business?</summary><p>Not under the standard implementation proposal. The buyer owns their accounts, data and client relationships; any different arrangement requires an explicit separate agreement.</p></details>
-<details><summary>Do I have to pay to join Discord?</summary><p>No. Free lessons and community participation are separate from implementation services. Purchasing a service is not a requirement for paid-work opportunities.</p></details>
-<details><summary>What are the recurring costs?</summary><p>Hosting, email, domains, payment processing, backups and other optional software depend on your setup and are disclosed before activation. Optional NITERUN operational support is separately agreed.</p></details>
-<details><summary>Can your AI run everything for me?</summary><p>AI can assist with repetitive drafting, routing, forms and reporting. Real businesses still need owner decisions, human oversight, customers, quality delivery, security, and applicable professional licensing.</p></details>
-</div></div></section>
 </main>
-<footer class="footer"><div class="wrap">
-<div class="footer-grid"><div><a class="brand" href="#top"><span class="mark">N</span><span class="brand-copy">NITE ACADEMY<small>BY NITERUN</small></span></a><p style="margin:16px 0 0">Free learning. Optional implementation. Independent ownership.</p></div>
-<div class="footer-links"><a href="studio/">Academy Studio</a><a href="nitepay/">NitePay demo</a><a href="https://discord.gg/Dm6Hbq68Wt" target="_blank" rel="noopener noreferrer">Discord</a><a href="#apply">Apply</a><a href="#privacy">Privacy</a><a href="#terms">Terms</a><a href="https://github.com/chaybuilds/niteacademy-site/blob/main/EXTERNAL_SALES_REVIEW_PACK.md" target="_blank" rel="noopener noreferrer">Training review standards</a><a href="mailto:chayson@niterun.com">Contact</a></div></div>
-<div class="legal"><span>© 2026 NITE Run Delivery LLC. NiteAcademy is a proposed service division.</span><span>We do not offer guaranteed income or business success.</span></div>
-<details id="privacy" style="margin-top:22px"><summary>Privacy notice</summary><p>When you submit an application, NITE Run Delivery LLC receives your name, email, business interest, stage, budget range, goal and referral source. We use these details to evaluate and respond to your request and operate our business inquiry process. Data is processed in our service infrastructure. Do not submit sensitive financial information, government IDs, credentials or client records. Email <a href="mailto:chayson@niterun.com">chayson@niterun.com</a> to request access, correction or deletion as applicable. This is a preliminary notice; a complete reviewed privacy policy will be published before paid checkout.</p></details>
-<details id="terms" style="margin-top:17px"><summary>Service information and limitations</summary><p>Submitting an application does not establish a client relationship, create a contract, reserve an implementation slot, or authorize any charge. The advertised $1,000 founding price is a proposed fixed-scope starting offer, subject to qualification, written scope, legal review and an approved agreement. We configure software and infrastructure; we do not guarantee customers, leads, revenue, financial results, regulatory permissions or employment. Third-party costs are separate. We do not provide individualized legal, tax, insurance, investment or regulated brokerage advice.</p></details>
-</div></footer>
-<script>
-(function(){
-var form=document.getElementById('academy-form');
-var submit=document.getElementById('submit');
-var status=document.getElementById('form-status');
-var api='https://succvbtctjkzsowotcsy.supabase.co/functions/v1/academy-apply';
-var params=new URLSearchParams(location.search);
-var source=(params.get('utm_source')||params.get('source')||'academy_site').replace(/[^a-zA-Z0-9_ .-]/g,'').slice(0,80);
-form.addEventListener('submit',async function(e){
- e.preventDefault();status.textContent='';status.className='form-status';
- if(!form.reportValidity())return;
- submit.disabled=true;submit.textContent='Submitting…';
- var values={full_name:form.full_name.value.trim(),email:form.email.value.trim(),
-  business_model:form.business_model.value.trim(),current_stage:form.current_stage.value,
-  budget_range:form.budget_range.value,primary_goal:form.primary_goal.value.trim(),
-  consent:form.consent.checked,company_website:form.company_website.value,
-  source_channel:source,requested_service:'academy_implementation'};
- try {
-  var response=await fetch(api,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(values)});
-  var result=await response.json();
-  if(!response.ok||!result.ok)throw new Error(result.error||'Submission unavailable');
-  status.textContent='Application received. Your inquiry is recorded for review; this is not a booking or earnings promise.';
-  status.className='form-status status-ok';form.reset();
- }catch(error){
-  status.textContent='We could not save your request. Please try again or email ';
-  var contact=document.createElement('a');
-  contact.href='mailto:chayson@niterun.com?subject=Night%20Academy%20implementation%20inquiry';
-  contact.textContent='chayson@niterun.com';
-  status.append(contact,'.');
-  status.className='form-status status-error';
- }finally {submit.disabled=false;submit.textContent='Submit application ↗';}
-});
-})();
-</script>
+<noscript><p style="padding:20px">Please enable JavaScript to create your account and access your personal dashboard.</p></noscript>
+<script type="module" src="assets/academy.mjs"></script>
 </body>
 </html>
