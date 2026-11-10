@@ -3,7 +3,7 @@ import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js
 const client = createClient("https://succvbtctjkzsowotcsy.supabase.co", "sb_publishable_0TNBWdAUGNot0IxoyFDpEw_9bRDTOVu", {auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
 const $ = id=>document.getElementById(id);
 const panels=["landing-view","auth-view","dashboard-view"];
-let authMode="signup", currentUser=null, profile=null, review=null, request=null, allocations=[], ledger=[];
+let authMode="signup", currentUser=null, profile=null, review=null, request=null, allocations=[], ledger=[], statements=[];
 let loading=false;
 const money = v=>new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"}).format(Number(v)||0);
 function view(id){panels.forEach(x=>$(x).hidden=x!==id);$("signin-button").hidden=id==="dashboard-view";$("topbar-guest").hidden=id==="dashboard-view";$("topbar-seller").hidden=id!=="dashboard-view";window.scrollTo(0,0);}
@@ -57,17 +57,46 @@ async function loadMember(user){
  try{
   currentUser=user;
   profile=await ensureProfile(user);
-  const [r,m,a,l]=await Promise.all([
+  const [r,m,a,l,s]=await Promise.all([
    client.from("nite_academy_reviews").select("*").eq("user_id",user.id).maybeSingle(),
    client.from("nite_academy_match_requests").select("*").eq("user_id",user.id).maybeSingle(),
    client.from("nite_academy_allocations").select("product_title,product_sku,quantity,state,created_at").eq("user_id",user.id).order("created_at",{ascending:false}).limit(30),
-   client.from("nite_academy_ledger").select("external_reference,seller_share,niterun_share,settlement_status").eq("user_id",user.id).limit(100)
+   client.from("nite_academy_ledger").select("external_reference,seller_share,niterun_share,settlement_status").eq("user_id",user.id).limit(100),
+   client.from("nite_consignment_member_balances").select("statement_code,period_start,period_end,status,gross_sales_cents,amazon_fees_cents,refunds_cents,other_costs_cents,net_distributable_cents,seller_share_cents,supplier_share_cents,niterun_fee_cents,owed_to_niterun_cents,collected_cents,outstanding_cents,issued_at,due_at,stripe_hosted_invoice_url").eq("user_id",user.id).order("issued_at",{ascending:false,nullsFirst:false}).limit(30)
   ]);
-  for(const result of [r,m,a,l])if(result.error)throw result.error;
-  review=r.data;request=m.data;allocations=a.data||[];ledger=l.data||[];
+  for(const result of [r,m,a,l,s])if(result.error)throw result.error;
+  review=r.data;request=m.data;allocations=a.data||[];ledger=l.data||[];statements=s.data||[];
   renderDashboard();view("dashboard-view");
  }catch(err){view("auth-view");showFeedback("Your account exists, but we couldn't load the member workspace. Please retry or contact support.","error","auth-feedback");}
  finally{loading=false;}
+}
+function renderStatements(){
+ const target=$("statement-list");
+ target.replaceChildren();
+ if(!statements.length){
+  const empty=document.createElement("div");empty.className="empty";empty.textContent="No statements issued. NITERUN will only show real, reviewed consignment settlements.";target.append(empty);return;
+ }
+ for(const st of statements){
+  const card=document.createElement("div");card.className="statement-row";
+  const head=document.createElement("div");head.className="statement-head";
+  const name=document.createElement("strong");name.textContent=st.statement_code;
+  const status=document.createElement("span");status.className="label-soft";status.textContent=st.status.replaceAll("_"," ");
+  head.append(name,status);card.append(head);
+  const period=document.createElement("p");period.textContent=st.period_start+" to "+st.period_end+" · Seller retains "+money(Number(st.seller_share_cents)/100);card.append(period);
+  for(const [label,value] of [["Original manufacturer",Number(st.supplier_share_cents)],["NITERUN fee",Number(st.niterun_fee_cents)],["Amount owed",Number(st.owed_to_niterun_cents)],["Collected by NITERUN",Number(st.collected_cents)],["Still outstanding",Number(st.outstanding_cents)]]){
+   const row=document.createElement("div");row.className="statement-line";
+   const left=document.createElement("span");left.textContent=label;
+   const right=document.createElement("strong");right.textContent=money(value/100);
+   row.append(left,right);card.append(row);
+  }
+  if(st.due_at){const due=document.createElement("p");due.textContent="Payment due: "+new Date(st.due_at).toLocaleDateString();card.append(due);}
+  if(st.status==="invoiced" && st.stripe_hosted_invoice_url && /^https:\/\/invoice\.stripe\.com\//.test(st.stripe_hosted_invoice_url)){
+   const pay=document.createElement("a");pay.className="ghost";pay.style.cssText="display:inline-block;text-decoration:none;margin-top:12px";pay.href=st.stripe_hosted_invoice_url;pay.rel="noopener noreferrer";pay.target="_blank";pay.textContent="Open secure payment invoice ↗";card.append(pay);
+  } else if(Number(st.outstanding_cents)>0){
+   const note=document.createElement("p");note.textContent="Payment instructions appear only after NITERUN issues a reviewed invoice.";card.append(note);
+  }
+  target.append(card);
+ }
 }
 function renderDashboard(){
  const name=profile.display_name.trim().split(/\s+/)[0]||"there";
@@ -85,7 +114,7 @@ function renderDashboard(){
  $("inventory-count").textContent=String(allocations.reduce((s,x)=>s+Number(x.quantity||0),0));
  $("assignment-count").textContent=String(allocations.length);
  $("seller-income").textContent=money(ledger.filter(x=>x.settlement_status==="paid").reduce((s,x)=>s+Number(x.seller_share||0),0));
- $("niterun-income").textContent=money(ledger.filter(x=>x.settlement_status==="verified"||x.settlement_status==="paid").reduce((s,x)=>s+Number(x.niterun_share||0),0));
+ $("niterun-income").textContent=money(statements.reduce((total,st)=>total+Math.max(0,Number(st.collected_cents||0)),0)/100);
  $("setup-bubble").className="bubble "+(profile.amazon_plan!=="none"?"done":"");
  $("setup-bubble").textContent=profile.amazon_plan!=="none"?"✓":"1";
  $("plan-bubble").className="bubble "+(profile.amazon_merchant_id?"done":"");
@@ -108,7 +137,8 @@ function renderDashboard(){
  list.replaceChildren();
  if(!allocations.length){const box=document.createElement("div");box.className="empty";box.textContent="No consignment inventory has been assigned. NITE Academy will not show fictional products or sales.";list.append(box);}
  else for(const item of allocations){const row=document.createElement("div");row.className="item";const a=document.createElement("span");a.textContent=item.product_title+" · "+item.product_sku;const b=document.createElement("span");b.textContent=String(item.quantity)+" units · "+item.state;row.append(a,b);list.append(row);}
- $("ledger-note").textContent=ledger.length?"Only company-recorded settlement entries are shown. Amazon deposits go to the account owner; contracted payments to NITERUN occur separately.":"No verified settlements yet. Amazon pays your registered seller bank account; consignment shares are reconciled under a separate agreement.";
+ renderStatements();
+ $("ledger-note").textContent=statements.length?"Amounts are based on verified NITERUN settlement records, with processor-reconciled collections recorded separately. Amazon deposits go to the account owner.":"No verified settlements yet. Amazon pays your registered seller bank account; consignment shares are reconciled under a separate agreement.";
  $("application-state").textContent=request?"Requested":"Not requested";
 }
 $("seller-details-form").addEventListener("submit",async e=>{
