@@ -24,7 +24,10 @@ test("real Supabase authenticated private dashboard",()=>{
  assert.match(client,/client\.auth\.getSession/);
  assert.match(client,/\.eq\("user_id",user\.id\)/);
  assert.match(client,/from\("nite_academy_ledger"\)/);
- assert.match(client,/settlement_status==="paid"/);
+ assert.match(client,/from\("nite_consignment_member_balances"\)/);
+ assert.match(client,/outstanding_cents/);
+ assert.match(client,/function downloadConsignmentStatement/);
+ assert.match(client,/from\("nite_consignment_reports"\)/);
  assert.match(home,/Seller ID \(optional until ready\)/);
 });
 test("account owner retains Amazon control and integrations are not falsely advertised",()=>{
