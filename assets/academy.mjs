@@ -6,9 +6,9 @@ const panels=["landing-view","auth-view","dashboard-view"];
 let authMode="signup", currentUser=null, profile=null, review=null, request=null, allocations=[], ledger=[];
 let loading=false;
 const money = v=>new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"}).format(Number(v)||0);
-function view(id){panels.forEach(x=>$(x).hidden=x!==id);$("topbar-guest").hidden=id==="dashboard-view";$("topbar-seller").hidden=id!=="dashboard-view";window.scrollTo(0,0);}
+function view(id){panels.forEach(x=>$(x).hidden=x!==id);$("signin-button").hidden=id==="dashboard-view";$("topbar-guest").hidden=id==="dashboard-view";$("topbar-seller").hidden=id!=="dashboard-view";window.scrollTo(0,0);}
 function showFeedback(text,type,id){const node=$(id);node.textContent=text;node.className="feedback "+(type||"");}
-function switchAuth(mode){authMode=mode;$("auth-form").reset();$("signup-fields").hidden=mode!=="signup";$("auth-title").textContent=mode==="signup"?"Create your free account.":"Welcome back.";$("auth-button").textContent=mode==="signup"?"Create account":"Sign in";$("auth-switch").textContent=mode==="signup"?"I already have an account":"Create a free account";showFeedback("","","auth-feedback");view("auth-view");}
+function switchAuth(mode){authMode=mode;$("auth-form").reset();$("signup-fields").hidden=mode!=="signup";$("signup-consent").hidden=mode!=="signup";$("auth-title").textContent=mode==="signup"?"Create your free account.":"Welcome back.";$("auth-button").textContent=mode==="signup"?"Create account":"Sign in";$("auth-switch").textContent=mode==="signup"?"I already have an account":"Create a free account";showFeedback("","","auth-feedback");view("auth-view");}
 $("start-button").addEventListener("click",()=>switchAuth("signup"));
 $("start-footer").addEventListener("click",()=>switchAuth("signup"));
 $("signin-button").addEventListener("click",()=>switchAuth("login"));
