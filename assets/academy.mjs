@@ -3,7 +3,7 @@ import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js
 const client = createClient("https://succvbtctjkzsowotcsy.supabase.co", "sb_publishable_0TNBWdAUGNot0IxoyFDpEw_9bRDTOVu", {auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
 const $ = id=>document.getElementById(id);
 const panels=["landing-view","auth-view","dashboard-view"];
-let authMode="signup", currentUser=null, profile=null, review=null, request=null, allocations=[], ledger=[], statements=[];
+let authMode="signup", currentUser=null, profile=null, review=null, request=null, allocations=[], ledger=[], statements=[], reports=[];
 let loading=false;
 const money = v=>new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"}).format(Number(v)||0);
 function view(id){panels.forEach(x=>$(x).hidden=x!==id);$("signin-button").hidden=id==="dashboard-view";$("topbar-guest").hidden=id==="dashboard-view";$("topbar-seller").hidden=id!=="dashboard-view";window.scrollTo(0,0);}
@@ -57,18 +57,29 @@ async function loadMember(user){
  try{
   currentUser=user;
   profile=await ensureProfile(user);
-  const [r,m,a,l,s]=await Promise.all([
+  const [r,m,a,l,s,rs]=await Promise.all([
    client.from("nite_academy_reviews").select("*").eq("user_id",user.id).maybeSingle(),
    client.from("nite_academy_match_requests").select("*").eq("user_id",user.id).maybeSingle(),
    client.from("nite_academy_allocations").select("product_title,product_sku,quantity,state,created_at").eq("user_id",user.id).order("created_at",{ascending:false}).limit(30),
    client.from("nite_academy_ledger").select("external_reference,seller_share,niterun_share,settlement_status").eq("user_id",user.id).limit(100),
-   client.from("nite_consignment_member_balances").select("statement_code,period_start,period_end,status,gross_sales_cents,amazon_fees_cents,refunds_cents,other_costs_cents,net_distributable_cents,seller_share_cents,supplier_share_cents,niterun_fee_cents,owed_to_niterun_cents,collected_cents,outstanding_cents,issued_at,due_at,stripe_hosted_invoice_url").eq("user_id",user.id).order("issued_at",{ascending:false,nullsFirst:false}).limit(30)
+   client.from("nite_consignment_member_balances").select("statement_code,period_start,period_end,status,gross_sales_cents,amazon_fees_cents,refunds_cents,other_costs_cents,net_distributable_cents,seller_share_cents,supplier_share_cents,niterun_fee_cents,owed_to_niterun_cents,collected_cents,outstanding_cents,issued_at,due_at,stripe_hosted_invoice_url").eq("user_id",user.id).order("issued_at",{ascending:false,nullsFirst:false}).limit(30),
+   client.from("nite_consignment_reports").select("report_code,amazon_settlement_id,period_start,period_end,review_status,created_at").eq("user_id",user.id).order("created_at",{ascending:false}).limit(20)
   ]);
-  for(const result of [r,m,a,l,s])if(result.error)throw result.error;
-  review=r.data;request=m.data;allocations=a.data||[];ledger=l.data||[];statements=s.data||[];
+  for(const result of [r,m,a,l,s,rs])if(result.error)throw result.error;
+  review=r.data;request=m.data;allocations=a.data||[];ledger=l.data||[];statements=s.data||[];reports=rs.data||[];
   renderDashboard();view("dashboard-view");
  }catch(err){view("auth-view");showFeedback("Your account exists, but we couldn't load the member workspace. Please retry or contact support.","error","auth-feedback");}
  finally{loading=false;}
+}
+function renderReports(){
+ $("report-panel").hidden=!allocations.some(a=>["shipped","live","settled"].includes(a.state));
+ const target=$("report-list");target.replaceChildren();
+ if(!reports.length){const e=document.createElement("div");e.className="empty";e.textContent="No Amazon payout files submitted yet.";target.append(e);return;}
+ for(const r of reports){
+  const row=document.createElement("div");row.className="item";
+  const label=document.createElement("span");label.textContent=r.report_code+" · "+r.amazon_settlement_id;
+  const state=document.createElement("span");state.textContent=r.review_status.replaceAll("_"," ");row.append(label,state);target.append(row);
+ }
 }
 function renderStatements(){
  const target=$("statement-list");
@@ -138,6 +149,7 @@ function renderDashboard(){
  if(!allocations.length){const box=document.createElement("div");box.className="empty";box.textContent="No consignment inventory has been assigned. NITE Academy will not show fictional products or sales.";list.append(box);}
  else for(const item of allocations){const row=document.createElement("div");row.className="item";const a=document.createElement("span");a.textContent=item.product_title+" · "+item.product_sku;const b=document.createElement("span");b.textContent=String(item.quantity)+" units · "+item.state;row.append(a,b);list.append(row);}
  renderStatements();
+ renderReports();
  $("ledger-note").textContent=statements.length?"Amounts are based on verified NITERUN settlement records, with processor-reconciled collections recorded separately. Amazon deposits go to the account owner.":"No verified settlements yet. Amazon pays your registered seller bank account; consignment shares are reconciled under a separate agreement.";
  $("application-state").textContent=request?"Requested":"Not requested";
 }
@@ -166,6 +178,41 @@ $("match-request").addEventListener("click",async()=>{
   if(error)throw error;
   request=data;renderDashboard();showFeedback("Your application is recorded for review. No inventory or earnings are promised.","ok","match-feedback");
  }catch(err){showFeedback("Could not submit your request. Refresh the page and check whether it was already received.","error","match-feedback");}
+ finally{btn.disabled=false;}
+});
+
+$("report-form").addEventListener("submit",async e=>{
+ e.preventDefault();
+ const btn=$("submit-report");btn.disabled=true;showFeedback("Uploading securely…","","report-feedback");
+ try{
+  if(!currentUser || !allocations.some(a=>["shipped","live","settled"].includes(a.state)))throw Error("Your account has no active consigned inventory to report.");
+  const id=$("report-settlement-id").value.trim();
+  const start=$("report-period-start").value,end=$("report-period-end").value;
+  const amount=Number($("report-amount").value);
+  const file=$("report-file").files?.[0];
+  if(!/^[A-Za-z0-9 _./-]{2,120}$/.test(id))throw Error("Enter the Amazon settlement reference shown in Seller Central.");
+  if(!start||!end||start>end||end>new Date().toISOString().slice(0,10))throw Error("Enter a valid completed settlement period.");
+  if(!Number.isFinite(amount)||amount<0||amount>100000000)throw Error("Enter the actual Amazon account deposit amount in dollars.");
+  const cents=Math.round(amount*100);
+  if(!file||file.size<1||file.size>5*1024*1024)throw Error("Choose an Amazon report smaller than 5 MB.");
+  const ext=file.name.split(".").pop().toLowerCase();
+  const mime={csv:"text/csv",tsv:"text/plain",txt:"text/plain",xml:"application/xml"}[ext];
+  if(!mime)throw Error("Upload an Amazon CSV, TSV, TXT, or XML settlement report.");
+  const bytes=await file.arrayBuffer();
+  const hash=Array.from(new Uint8Array(await crypto.subtle.digest("SHA-256",bytes))).map(b=>b.toString(16).padStart(2,"0")).join("");
+  const storageKey=currentUser.id+"/"+crypto.randomUUID()+"."+ext;
+  const uploaded=await client.storage.from("nite-academy-settlements").upload(storageKey,file,{contentType:mime,upsert:false});
+  if(uploaded.error)throw new Error("Private report upload failed. No settlement was recorded.");
+  const {data,error}=await client.from("nite_consignment_reports").insert({
+   user_id:currentUser.id,amazon_settlement_id:id,
+   period_start:start,period_end:end,account_disbursement_cents:cents,
+   evidence_storage_key:storageKey,evidence_sha256:hash,source_type:"seller_report"
+  }).select("report_code,amazon_settlement_id,period_start,period_end,review_status,created_at").single();
+  if(error)throw new Error("The file was received, but the submission could not be recorded. Contact support with the settlement ID; do not upload it again.");
+  reports=[data,...reports];
+  renderReports();$("report-form").reset();
+  showFeedback("Report received as "+data.report_code+". Awaiting NITERUN review; no payment is due until an approved settlement statement is issued.","ok","report-feedback");
+ }catch(err){showFeedback(err.message||"Could not submit the report.","error","report-feedback");}
  finally{btn.disabled=false;}
 });
 client.auth.onAuthStateChange((event,session)=>{
