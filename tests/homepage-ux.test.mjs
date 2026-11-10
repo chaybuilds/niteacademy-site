@@ -1,37 +1,40 @@
-import test from 'node:test';
-import assert from 'node:assert/strict';
-import {readFileSync} from 'node:fs';
-const home=readFileSync(new URL('../index.html',import.meta.url),'utf8');
-const server='1568427976687878275';
-const invite='Dm6Hbq68Wt';
-
-test('free mobile learning remains accessible by native disclosure menu and direct Studio action',()=>{
- assert.match(home,/<details class="mobile-nav">/);
- assert.match(home,/<summary>Menu<\/summary>/);
- assert.match(home,/<nav aria-label="Mobile navigation">/);
- assert.match(home,/<a class="mobile-studio-link" href="studio\/">Free Studio<\/a>/);
- assert.match(home,/@media\(max-width:345px\)/);
- assert.match(home,/<a href="studio\/">Free Studio<\/a>/);
+import test from "node:test";
+import assert from "node:assert/strict";
+import {readFileSync} from "node:fs";
+const home=readFileSync(new URL("../index.html",import.meta.url),"utf8");
+const client=readFileSync(new URL("../assets/academy.mjs",import.meta.url),"utf8");
+const css=readFileSync(new URL("../assets/academy.css",import.meta.url),"utf8");
+test("minimal mobile-first homepage and direct account onboarding",()=>{
+ assert.match(home,/<h1>Make money\.<\/h1>/);
+ assert.match(home,/id="start-button"/);
+ assert.match(home,/id="auth-form"/);
+ assert.match(home,/id="dashboard-view" hidden/);
+ assert.match(home,/type="module" src="assets\/academy.mjs"/);
+ assert.match(css,/@media\(max-width:510px\)/);
 });
-test('keyboard users can skip to focusable main content',()=>{
- assert.match(home,/<a class="skip-link" href="#top">Skip to main content<\/a>/);
- assert.match(home,/<main id="top" tabindex="-1">/);
- assert.match(home,/\.skip-link:focus/);
+test("clear no-inventory-purchase distinction and no earnings guarantee",()=>{
+ assert.match(home,/without purchasing that inventory upfront/);
+ assert.match(home,/No guaranteed products, earnings, or seller approval/);
+ assert.match(home,/Amazon selling fees and FBA costs still apply/);
+ assert.match(home,/no.*guarantee/i);
 });
-test('newcomers receive a valid Discord join link before direct private channel links',()=>{
- assert.match(home,/Join the free Discord first/);
- assert.match(home,new RegExp('discord\\.gg/'+invite));
- assert.match(home,new RegExp('discord\\.com/channels/'+server));
- assert.ok(!home.includes('Dm6Hbq68Vq'),'stale invalid invite must not return');
+test("real Supabase authenticated private dashboard",()=>{
+ assert.match(client,/client\.auth\.signUp/);
+ assert.match(client,/client\.auth\.signInWithPassword/);
+ assert.match(client,/client\.auth\.getSession/);
+ assert.match(client,/\.eq\("user_id",user\.id\)/);
+ assert.match(client,/from\("nite_academy_ledger"\)/);
+ assert.match(client,/settlement_status==="paid"/);
+ assert.match(home,/Seller ID \(optional until ready\)/);
 });
-test('consent and no-guarantee language remain mandatory at application intake',()=>{
- assert.match(home,/id="consent" name="consent" type="checkbox" required/);
- assert.match(home,/I understand no customers, income, or paid opportunity is guaranteed/);
- assert.match(home,/This is an inquiry, not a payment/i);
+test("account owner retains Amazon control and integrations are not falsely advertised",()=>{
+ assert.match(home,/Amazon pays your own registered bank account/);
+ assert.match(home,/Live Amazon API access.*not been activated/);
+ assert.match(home,/We never ask for your Amazon password/);
+ assert.match(home,/No consignment inventory/);
+ assert.doesNotMatch(client,/https:\/\/sellercentral\.amazon\.com\/.*password/);
 });
-test('application failure offers safe clickable email without leaking server diagnostic details',()=>{
- assert.match(home,/document\.createElement\('a'\)/);
- assert.match(home,/contact\.href='mailto:chayson@niterun.com/);
- assert.match(home,/status\.append\(contact/);
- assert.ok(!home.includes("String(error.message||'')"));
+test("existing Studio learning experience remains reachable",()=>{
+ assert.match(home,/href="studio\/"/);
+ assert.match(home,/NITE Run Delivery LLC/);
 });
