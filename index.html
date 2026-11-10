@@ -87,6 +87,23 @@
 <div class="panel-head"><h2>My consignment inventory</h2><span class="label-soft">VERIFIED ALLOCATIONS ONLY</span></div>
 <div id="allocated-list" class="item-list"><div class="empty">No inventory assigned.</div></div>
 </div>
+<div class="panel" id="report-panel" hidden>
+<div class="panel-head"><h2>Report an Amazon settlement</h2><span class="label-soft">PRIVATE · REVIEW REQUIRED</span></div>
+<p>After Amazon pays you, download the settlement flat file from Seller Central and upload it here. NITERUN matches your consigned SKUs and verifies the proceeds before issuing a statement.</p>
+<form id="report-form" class="form-stack">
+<label class="field" for="report-settlement-id">Amazon settlement reference<input id="report-settlement-id" name="report-settlement-id" maxlength="120" placeholder="As shown in Seller Central" required autocomplete="off"></label>
+<div class="report-dates">
+<label class="field" for="report-period-start">Period start<input id="report-period-start" type="date" required></label>
+<label class="field" for="report-period-end">Period end<input id="report-period-end" type="date" required></label>
+</div>
+<label class="field" for="report-amount">Total Amazon account deposit (USD)<input id="report-amount" type="number" min="0" max="100000000" step="0.01" required placeholder="0.00"></label>
+<label class="field" for="report-file">Amazon settlement report (CSV, TSV, TXT, XML — max 5 MB)<input id="report-file" type="file" accept=".csv,.tsv,.txt,.xml" required></label>
+<p class="notice">Files are stored privately. Do not upload identity documents, passwords, bank statements, or unrelated customer data. Your report is unverified until reconciled.</p>
+<button class="primary" id="submit-report" type="submit">Submit for review</button>
+<p id="report-feedback" class="feedback" role="status" aria-live="polite"></p>
+</form>
+<div id="report-list" class="item-list" style="margin-top:16px"></div>
+</div>
 </div>
 <div class="column">
 <div class="panel">
