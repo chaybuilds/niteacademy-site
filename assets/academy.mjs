@@ -151,7 +151,7 @@ function renderDashboard(){
  $("account-flag").setAttribute("title","NITERUN verification is separate from your self-reported account information");
  $("inventory-count").textContent=String(allocations.reduce((s,x)=>s+Number(x.quantity||0),0));
  $("assignment-count").textContent=String(allocations.length);
- $("seller-income").textContent=money(ledger.filter(x=>x.settlement_status==="paid").reduce((s,x)=>s+Number(x.seller_share||0),0));
+ $("seller-income").textContent=money(statements.filter(st=>["verified","invoiced","disputed"].includes(st.status)).reduce((total,st)=>total+Number(st.seller_share_cents||0),0)/100);
  $("niterun-income").textContent=money(statements.reduce((total,st)=>total+Math.max(0,Number(st.collected_cents||0)),0)/100);
  $("setup-bubble").className="bubble "+(profile.amazon_plan!=="none"?"done":"");
  $("setup-bubble").textContent=profile.amazon_plan!=="none"?"✓":"1";
