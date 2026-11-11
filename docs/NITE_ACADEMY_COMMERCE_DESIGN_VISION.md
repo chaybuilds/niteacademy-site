@@ -54,6 +54,6 @@ Use the layout selector `https://niteacademy.com/layouts/` after deployment and 
 - `?theme=merchant`
 - `?theme=studio`
 
-Each includes storefront, seller dashboard and Academy views, mobile switch and working filters or details. Selecting a direction saves only local browser preference; it **does not publish** the selected design as the homepage. Open-source foundation attribution is recorded in [`layouts/OPEN_SOURCE_SOURCES.md`](../layouts/OPEN_SOURCE_SOURCES.md).
+Each includes storefront, seller dashboard and Academy views, mobile switch, an immersive full-page preview and working filters or details. Selecting a direction saves only local browser preference; it **does not publish** the selected design as the homepage. Open-source foundation attribution is recorded in [`layouts/OPEN_SOURCE_SOURCES.md`](../layouts/OPEN_SOURCE_SOURCES.md).
 
 One styling decision should be made after reviewing the options. Then replace the existing static homepage and authenticated dashboard incrementally, with versioned backups and end-to-end tests for every live business interaction.

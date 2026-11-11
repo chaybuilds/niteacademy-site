@@ -60,3 +60,11 @@ test("existing main website and its manual launch gate remain intact",()=>{
  assert.ok(existsSync(new URL("../fba/index.html",import.meta.url)));
  assert.ok(existsSync(new URL("../studio/index.html",import.meta.url)));
 });
+
+test("immersive full page preview keeps layout selection independent of production",()=>{
+ assert.match(html,/id="fullscreen-link"/);
+ assert.match(html,/id="full-exit"/);
+ assert.match(js,/const fullPreviewMode=query\.get\("full"\)==="1"/);
+ assert.match(css,/body\.full-preview/);
+ assert.match(css,/body\.full-preview \.browser-chrome\{display:none\}/);
+});

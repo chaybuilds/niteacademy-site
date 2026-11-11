@@ -393,3 +393,19 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #7c90
  .preview-footer-actions{flex-direction:column}.preview-footer-actions button{width:100%}.lab-footer div{flex-wrap:wrap;gap:12px}
 }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+
+/* Full-page immersive mode: evaluate a direction as if it occupied the whole Academy website. */
+.fullscreen-link{border:1px solid #cdd0d5;background:#fff;color:#272a2e;text-decoration:none;padding:12px 14px;border-radius:10px;font-size:11px;font-weight:690;white-space:nowrap}
+.fullscreen-link:hover{background:#f4f5f6}
+.full-exit{display:none}
+body.full-preview{background:#fff}
+body.full-preview>.lab-topbar,body.full-preview>.intro,body.full-preview>.picker,body.full-preview>.reference-section,body.full-preview>.lab-footer,body.full-preview>.skip-link{display:none}
+body.full-preview .workspace{width:100%;margin:0;max-width:none}
+body.full-preview .workspace-top,body.full-preview .preview-footer,body.full-preview .selection-feedback,body.full-preview .browser-chrome{display:none}
+body.full-preview .browser-window{border:0;border-radius:0;box-shadow:none;max-width:none}
+body.full-preview .preview-scroller{height:auto;min-height:100vh;overflow:visible}
+body.full-preview .layout-mount{min-height:100vh}
+body.full-preview .full-exit{display:flex}
+body.full-preview a.full-exit{position:fixed;bottom:17px;left:17px;z-index:50;align-items:center;gap:14px;background:#111319;color:white;border:1px solid #62646a;border-radius:8px;box-shadow:0 6px 28px #0004;text-decoration:none;padding:12px 14px;font-size:11px;font-weight:740}
+body.full-preview .full-exit span{font-size:9px;letter-spacing:.1em;color:#a2a9b2;border-left:1px solid #565960;padding-left:12px}
+@media(max-width:720px){.fullscreen-link{text-align:center;width:100%}body.full-preview a.full-exit{bottom:10px;left:10px;padding:10px 11px;font-size:10px}body.full-preview .full-exit span{display:none}}

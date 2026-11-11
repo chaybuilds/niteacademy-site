@@ -1,6 +1,6 @@
 # NITE Academy — open-source layout foundations
 
-This layout studio exposes three working, responsive prototype views at `/layouts/?theme=commerce`, `/layouts/?theme=merchant` and `/layouts/?theme=studio`. Each includes a storefront / category exploration screen, seller dashboard, and Academy learning screen. The implementation uses original, self-contained semantic HTML/CSS/JavaScript adapted to the interaction and composition patterns of the following permissively licensed open-source projects.
+This layout studio exposes three working, responsive prototype views at `/layouts/?theme=commerce`, `/layouts/?theme=merchant` and `/layouts/?theme=studio`. Each includes a storefront / category exploration screen, seller dashboard, and Academy learning screen. Choose **Open full-page preview** to inspect the exact direction without the chooser or browser chrome. Click the fixed **Back to layout choices** control to exit immersive mode. The implementation uses original, self-contained semantic HTML/CSS/JavaScript adapted to the interaction and composition patterns of the following permissively licensed open-source projects.
 
 ## Sources and rights
 
