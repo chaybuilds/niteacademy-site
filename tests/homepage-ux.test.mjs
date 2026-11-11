@@ -41,3 +41,25 @@ test("existing Studio learning experience remains reachable",()=>{
  assert.match(home,/href="studio\/"/);
  assert.match(home,/NITE Run Delivery LLC/);
 });
+
+test("Starter and Professional routes are free Academy membership with honest external Amazon prices",()=>{
+ assert.match(home,/id="choose-starter"/);
+ assert.match(home,/id="choose-elite"/);
+ assert.match(home,/Amazon Individual/);
+ assert.match(home,/Amazon Professional/);
+ assert.match(home,/\$0\.99 per sale/);
+ assert.match(home,/\$39\.99/);
+ assert.match(home,/Academy membership fee/);
+ assert.match(home,/NITERUN's API integration is authorized/);
+ assert.match(client,/\.update\(\{academy_path:academyPath/);
+ assert.match(client,/classList\.toggle\("active"/);
+ assert.match(css,/\.route-options/);
+ assert.match(css,/@media\(max-width:670px\)/);
+});
+test("path selection is not treated as Amazon OAuth authorization or seller verification",()=>{
+ assert.match(client,/profile\.academy_path/);
+ assert.match(client,/No Amazon account is connected/);
+ assert.match(client,/secure Amazon OAuth is not yet available/);
+ assert.match(home,/Saving an Amazon Seller ID does not connect or verify your account/);
+ assert.doesNotMatch(client,/client\.auth\.signInWithPassword\(\{email.*amazon/i);
+});
