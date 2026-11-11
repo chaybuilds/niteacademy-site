@@ -1,0 +1,11 @@
+# Repository agent operating rules — NITE Academy
+- Canonical live domain: https://niteacademy.com/; source of truth: chaybuilds/niteacademy-site main via GitHub Pages. Never replace existing main with a stale local November 8 homepage.
+- FBA/consignment integration: see docs/FBA_CONSIGNMENT_NETWORK_INTEGRATION_2026-11-10.md, fba/engine.mjs, fba/client.mjs.
+- Truth hierarchy: real paid/signed contracts and seller-authorized Amazon account evidence > manually sourced public product leads > hypothetical research > AI guesses. No published earnings without bank-level reconciliation.
+- NEVER invent supplier authority, brand rights, stock, Amazon permission, Keepa entitlement, actual earnings, member numbers, signed legal agreements or reviews.
+- Amazon account signup and Professional plan costs are external merchant choices. No passwords on this website. Actual SP-API access is not present; no generic write-capable MCP hooks, API purchases, advertising, orders, automated payout debits or outbound campaigns.
+- Keep original signup pause (ACADEMY_SIGNUP_READY=false) until SMTP/reliable signup flow independently verified. Do not silently lift hold.
+- `nite_academy_fba_research`: authenticated user-owned private scenario drafts, never approved. `nite_academy_supplier_research`: staff-only private research. NO service_role keys client-side.
+- Strong RLS, authenticated user_id ownership, no public prospects and no exposing seller settlement reports.
+- Always run `node --test tests/*.test.mjs` and `node --check fba/client.mjs` before deployment. Recheck the live domain and preserve /studio/, /privacy/ and existing seller dashboard.
+- For Chasen's separate ChatGPT, shared files are a manually readable context bridge, not a direct account Memory setting or a promise of continuous background syncing.

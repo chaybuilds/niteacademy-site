@@ -113,3 +113,15 @@ business-wide provider keys. Student authentication, dedicated provider
 secrets, explicit approval and hard cost controls are required before
 paid generation can be enabled. The live Studio has a free status check.
 See supabase/ACADEMY_AI_GATEWAY.md.
+
+## November 10, 2026 — Amazon FBA + supplier consignment research desk
+
+The Academy now contains a standalone **research-only** [FBA intelligence workbench](https://niteacademy.com/fba/), linked from the homepage and seller dashboard.
+
+- Three distinct models: evidence-gated wholesale FBA unit economics; illustrative supplier-funded consignment splits based on the existing Academy ledger; and independently negotiated first-order supplier introduction fees.
+- A zero-call, zero-token planner for up to 25 US ASINs to investigate using future authorized Keepa and Amazon SP-API read-only connections.
+- Member-owned private draft storage in `public.nite_academy_fba_research` with verified RLS; only signed-in account owners can save, load and delete their own inputs. The original signup pause remains in place.
+- A separate staff-only archive `public.nite_academy_supplier_research`, seeded with **43 public research prospects** from CapCore/NOVA (34 unsent drafts, 4 further research, 5 channel-excluded), **zero verified suppliers, zero contacts released**.
+- No new paid APIs, purchases, Amazon listings, outbound messages, supplier contracts or payment operations.
+
+See [shared architecture and operational handoff](docs/FBA_CONSIGNMENT_NETWORK_INTEGRATION_2026-11-10.md) and repository [agent instructions](AGENTS.md). Baseline plus feature tests: `node --test tests/*.test.mjs`.
