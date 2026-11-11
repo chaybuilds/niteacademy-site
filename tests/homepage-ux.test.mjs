@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import {readFileSync} from "node:fs";
-const home=readFileSync(new URL("../index.html",import.meta.url),"utf8");
+const home=readFileSync(new URL("../member/index.html",import.meta.url),"utf8");
 const client=readFileSync(new URL("../assets/academy.mjs",import.meta.url),"utf8");
 const css=readFileSync(new URL("../assets/academy.css",import.meta.url),"utf8");
 test("minimal mobile-first homepage and direct account onboarding",()=>{

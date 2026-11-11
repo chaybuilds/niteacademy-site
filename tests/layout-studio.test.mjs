@@ -6,7 +6,7 @@ const html=file("../layouts/index.html");
 const js=file("../layouts/layouts.js");
 const css=file("../layouts/layouts.css");
 const notes=file("../layouts/OPEN_SOURCE_SOURCES.md");
-const home=file("../index.html");
+const home=file("../member/index.html");
 
 test("three visible open-source-derived layout choices and direct preview entry point",()=>{
  for(const option of ["commerce","merchant","studio"]){

@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import {readFileSync} from "node:fs";
 const read=p=>readFileSync(new URL(p,import.meta.url),"utf8");
-const home=read("../index.html");
+const home=read("../member/index.html");
 const page=read("../fba/index.html");
 const css=read("../fba/fba.css");
 const client=read("../fba/client.mjs");

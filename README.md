@@ -4,11 +4,13 @@
 **WWW:** https://www.niteacademy.com/ — verified HTTPS 301 to the apex domain.  
 **Learning studio:** https://niteacademy.com/studio/ (original GitHub Pages URL redirects).
 
-The new homepage is intentionally minimal: **Make money. → free account → private seller dashboard.**
+**Current public launch (November 10):** Amazon seller early-access waitlist at **https://niteacademy.com/**. No password, payment, or Amazon login needed. Existing member interface is preserved at **https://niteacademy.com/member/** with new account creation still gated pending full callback QA. Private Supabase waitlist intake is working and exposed only via a consent-checked, idempotent public RPC. Channel tracking supports `?source=tiktok`, `?source=youtube`, `?source=instagram`, and default website. See [waitlist operations](docs/WAITLIST_OPERATIONS.md).
+
+The former **Make money. → free account → private seller dashboard** homepage is now preserved at `/member/` for continued development, not the primary public entry point.
 
 ## Open-source layout studio
 
-Three interactive, responsive design candidates are available at **https://niteacademy.com/layouts/** (after deployment): Commerce, Merchant, and Studio. Each previews catalog browsing, a seller dashboard, and Academy learning views. The current homepage and authentication remain unchanged until a direction is selected and released. [Design decision guide](docs/NITE_ACADEMY_COMMERCE_DESIGN_VISION.md) · [Source and licensing notes](layouts/OPEN_SOURCE_SOURCES.md).
+Three interactive, responsive design candidates are available at **https://niteacademy.com/layouts/** (after deployment): Commerce, Merchant, and Studio. Each previews catalog browsing, a seller dashboard, and Academy learning views. The preview routes remain available for future design work, but public traffic now lands on the waitlist. The old authenticated member dashboard remains available at `/member/`. [Design decision guide](docs/NITE_ACADEMY_COMMERCE_DESIGN_VISION.md) · [Source and licensing notes](layouts/OPEN_SOURCE_SOURCES.md).
 
 
 ## Layout selected — Midnight Minimal v1
@@ -54,7 +56,7 @@ The single cohesive visual design is black/charcoal with quiet grayscale panels 
 ## Remaining release gates
 
 1. **DNS/HTTPS:** Completed November 10. All four GitHub Pages A records and the www CNAME were saved through the owner's local Chrome session; Cloudflare and Google returned the correct addresses; GitHub recognized the custom domain and HTTPS enforcement was activated. Details in [DOMAIN_ACTIVATION.md](DOMAIN_ACTIVATION.md).
-2. **Supabase Auth email delivery:** Exact redirect https://niteacademy.com/ was added and persisted via incognito Chrome; the original VentureQ allowlist and Site URL remain unchanged. Default Supabase Auth email limit is 2/hour and custom SMTP is off, causing a blocked QA signup. Configure a suitable sender without disrupting shared-project apps, then confirm signup → email confirmation → dashboard on mobile before enabling the feature flag. See [auth release gate](docs/ACADEMY_AUTH_REDIRECT_RELEASE_GATE.md).
+2. **Member account release (separate from waitlist):** The exact Academy callback is allowlisted and custom SMTP is enabled with a verified Resend domain; test confirmation email delivery succeeded. The final verification-click → authenticated dashboard QA has not passed. Leave `ACADEMY_SIGNUP_READY=false` while the waitlist is public; finish this gate before allowing seller account registrations. See [auth release gate](docs/ACADEMY_AUTH_REDIRECT_RELEASE_GATE.md).
 3. **Commercial compliance:** Legal review of consignment rights, seller agreements, payment mandates, privacy notice, and accurate marketing before real inventory allocations.
 4. **Amazon integration:** Developer/app registration and seller OAuth approvals; no SP-API bypass for Individual plans.
 5. **Commercial verification:** Demonstrate one signed, funded, legally eligible consignment, fulfilled order, actual Amazon settlement, and authorized NITERUN collection.

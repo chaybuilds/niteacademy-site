@@ -3,170 +3,77 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#090a0d">
-<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta name="theme-color" content="#f6f5f2">
+<meta name="description" content="NITE Academy is building a free early-access program to help you learn how to start and run your own Amazon seller business. Join the waitlist.">
 <link rel="canonical" href="https://niteacademy.com/">
-<meta name="description" content="NITE Academy by NITERUN. Free seller onboarding and access to review for consignment opportunities. No inventory purchase required for approved consignments.">
-<meta property="og:title" content="NITE Academy — Make money.">
-<meta property="og:url" content="https://niteacademy.com/">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <meta property="og:type" content="website">
-<meta property="og:description" content="Your business. Our supply network. Start free.">
-<title>NITE Academy — Make money.</title>
-<link rel="stylesheet" href="assets/academy.css">
+<meta property="og:site_name" content="NITE ACADEMY">
+<meta property="og:url" content="https://niteacademy.com/">
+<meta property="og:title" content="NITE Academy — Your Amazon seller journey starts here">
+<meta property="og:description" content="Learn to sell. Build your own store. Join the free early-access waitlist.">
+<title>NITE Academy — Join the Amazon Seller Waitlist</title>
+<link rel="stylesheet" href="assets/waitlist.css">
+<script defer src="assets/waitlist.js"></script>
 </head>
 <body>
-<header class="wrap topbar" id="top">
-<a class="wordmark" href="./" aria-label="NITE Academy home"><span class="mark" aria-hidden="true">N</span><span>NITE ACADEMY<span class="overline">BY NITERUN</span></span></a>
-<button id="signin-button" class="ghost" type="button">Sign in</button>
-<div id="topbar-seller" hidden style="display:flex;gap:14px;align-items:center"><span class="overline" id="account-email" style="word-break:break-word"></span><button class="ghost" id="signout" type="button">Sign out</button></div>
-<span id="topbar-guest" hidden></span>
+<a class="skip" href="#waitlist">Skip to waitlist</a>
+<div class="announcement"><span class="announcement-dot"></span> NITE ACADEMY IS OPEN FOR EARLY ACCESS <span class="announcement-divider"></span> <a href="#waitlist">Get on the list <span aria-hidden="true">↗</span></a></div>
+<header class="site-header">
+  <div class="shell header-inner">
+    <a class="brand" href="/" aria-label="NITE Academy homepage"><span class="brand-symbol" aria-hidden="true">N<span class="brand-period">.</span></span><span class="brand-words">NITE ACADEMY<small>BY NITERUN</small></span></a>
+    <nav class="header-links" aria-label="Primary navigation"><a href="#how-it-works">How it works</a><a href="#the-program">The program</a></nav>
+    <div class="header-actions"><a class="signin-link" href="/member/">Member sign in</a><a class="nav-cta" href="#waitlist">Join waitlist <span aria-hidden="true">↗</span></a></div>
+  </div>
 </header>
 <main>
-<section id="landing-view" class="landing">
-<div class="wrap hero">
-<div class="hero-inner">
-<div class="overline">START FOR FREE · YOUR BUSINESS, OUR SUPPLY</div>
-<h1>Make money.</h1>
-<p class="subtitle">We help supply the products. You run your store.</p>
-<p class="explainer">NITE Academy helps you set up an online selling business and apply to receive authorized products on consignment—without purchasing that inventory upfront.</p>
-<div class="buttons"><button id="start-button" type="button" class="primary">Create your free account&nbsp; →</button><a class="minimal-link" href="fba/">Explore the FBA intelligence desk ↗</a><a class="minimal-link" href="https://sell.amazon.com/sell/registration-guide" target="_blank" rel="noopener noreferrer">How Amazon signup works</a></div>
-<p class="disclaimer" style="margin-top:22px">Free Academy membership. No guaranteed products, earnings, or seller approval. Amazon selling fees and FBA costs still apply; allocations depend on product eligibility, signed agreements, and funded fulfillment.</p>
-</div>
-</div>
-<div class="landing-bottom"><div class="wrap">
-<div class="steps"><div class="step"><b>01</b> Create an account</div><div class="step"><b>02</b> Set up Amazon</div><div class="step"><b>03</b> Apply for consignment</div><div class="step"><b>04</b> Sell & settle</div></div>
-<div class="footer"><span>© 2026 NITE Run Delivery LLC · NITE Academy</span><span><a href="fba/">FBA intelligence desk</a> &nbsp; · &nbsp; <a href="layouts/">Compare storefront layouts</a> &nbsp; · &nbsp; <a href="studio/">Free learning studio</a> &nbsp; · &nbsp; <a href="privacy/">Privacy & program info</a> &nbsp; · &nbsp; <a href="mailto:chayson@niterun.com">Contact</a></span></div>
-</div></div>
-</section>
-<section id="auth-view" hidden class="auth-outer wrap" aria-labelledby="auth-title">
-<div class="auth-card">
-<div class="overline">NITE ACADEMY · FREE MEMBERSHIP</div>
-<h2 id="auth-title">Create your free account.</h2>
-<p class="muted" style="font-size:13px;margin:0">Your personal business dashboard starts here. No payment to NITERUN is required to apply.</p>
-<p id="signup-paused" class="warning" role="status">New registrations are temporarily paused while we configure reliable confirmation-email delivery. The Academy website and dashboard remain available. Existing members can still sign in. <a href="mailto:chayson@niterun.com">Contact NITE Academy</a> for help.</p>
-<form id="auth-form" class="form-stack">
-<div id="signup-fields">
-<label class="field" for="full-name">Your name <input id="full-name" type="text" autocomplete="name" maxlength="120" placeholder="Name"></label>
-<label class="field" for="experience" style="margin-top:14px">Selling experience <select id="experience"><option value="new">I'm brand new</option><option value="existing">I already sell online</option></select></label>
-</div>
-<label class="field" for="auth-email">Email address <input id="auth-email" name="email" type="email" required autocomplete="email" placeholder="you@example.com"></label>
-<label class="field" for="auth-password">Password <input id="auth-password" name="password" type="password" minlength="6" required autocomplete="current-password" placeholder="At least 6 characters"></label>
-<div id="signup-consent"><label class="choice"><input id="contact-consent" type="checkbox"><span>I agree to be contacted about my application and understand that NITE Academy does not guarantee inventory, sales or income.</span></label></div>
-<button id="auth-button" class="primary" type="submit">Create account</button>
-<p id="auth-feedback" class="feedback" role="status" aria-live="polite"></p>
-</form>
-<div class="auth-links"><button class="linkbutton" id="auth-switch" type="button">I already have an account</button><button class="linkbutton" id="auth-back" type="button">← Back</button></div>
-<p class="disclaimer" style="margin-top:20px">We never ask for your Amazon password, Social Security number, bank login, or identity documents on this page.</p>
-</div>
-</section>
-<section id="dashboard-view" hidden class="dashboard wrap" aria-labelledby="welcome-title">
-<div class="dash-header">
-<div><div class="label-soft">YOUR BUSINESS · NITE ACADEMY · <span id="member-internal-code">SLR-PENDING</span></div><h1 id="welcome-title">Let's get you started.</h1><p id="dash-subtitle">Your seller workspace</p></div>
-<span id="account-flag" class="pill"><span class="tiny-dot"></span> Seller setup needed</span>
-</div>
-<section class="route-panel" aria-labelledby="path-title">
-  <div class="route-heading">
-    <div>
-      <span class="label-soft">YOUR STARTING POINT</span>
-      <h2 id="path-title">Choose how you want to sell.</h2>
+<section class="hero shell" aria-labelledby="hero-title">
+  <div class="hero-content">
+    <div class="eyebrow"><span class="eyebrow-line"></span> FOR THE NEXT GENERATION OF SELLERS</div>
+    <div class="hero-overhead">THE NITE ACADEMY EXPERIENCE <span> / </span> COMING SOON</div>
+    <h1 id="hero-title">Your Amazon<br>seller journey<br><em>starts here.</em></h1>
+    <p class="hero-intro">We’re building a smarter way to start your own selling business—learn the fundamentals, get guided through Amazon seller setup, and explore authorized supply opportunities as they become available.</p>
+    <div class="form-container" id="waitlist">
+      <div class="form-heading"><div><strong>Get first access.</strong><span>Free to join. No credit card required.</span></div><span class="waitlist-status"><i></i> WAITLIST OPEN</span></div>
+      <form id="waitlist-form" novalidate>
+        <label for="waitlist-email" class="input-label">Your email address</label>
+        <div class="form-controls"><input id="waitlist-email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com" maxlength="254" required aria-describedby="email-hint"><button id="waitlist-submit" type="submit">Join the waitlist <span aria-hidden="true">↗</span></button></div>
+        <div class="honeypot" aria-hidden="true"><label for="waitlist-company">Leave this field blank</label><input id="waitlist-company" name="company" type="text" tabindex="-1" autocomplete="off"></div>
+        <label class="consent"><input type="checkbox" id="waitlist-consent" required><span>I agree to receive NITE Academy launch and program updates by email. I can opt out at any time. <a href="/privacy/">Privacy information</a>.</span></label>
+        <p id="email-hint" class="email-hint">No Amazon login needed. This is a waitlist, not a seller account.</p>
+        <p id="waitlist-feedback" class="feedback" role="status" aria-live="polite"></p>
+      </form>
+      <div id="waitlist-success" class="success" hidden role="status"><span class="success-check" aria-hidden="true">✓</span><div><strong>You're on the early-access list.</strong><p>We'll email you when the Academy is ready for its next step. No seller account has been created yet.</p></div></div>
     </div>
-    <span class="pill">Academy: free</span>
+    <div class="hero-footnotes"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg> Free early access</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Your own seller account</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M8 4h8v3H8zM5 7h14v14H5zM8 13l3 3 5-5"/></svg> No earnings promises</span></div>
   </div>
-  <div class="route-options">
-    <button type="button" class="route-choice" id="choose-starter" aria-pressed="false">
-      <span class="route-card-top"><span class="route-name">Start free</span><span class="route-price">$0<span>/mo</span></span></span>
-      <span class="route-description">Amazon Individual. NIKO guides you; you approve and complete Amazon account actions.</span>
-      <span class="route-meta">$0.99 per sale + Amazon/FBA fees</span>
-    </button>
-    <button type="button" class="route-choice" id="choose-elite" aria-pressed="false">
-      <span class="route-card-top"><span class="route-name">Professional seller</span><span class="route-price">$39.99<span>/mo</span></span></span>
-      <span class="route-description">Amazon Professional. Prepare for approved API automation when NITERUN's integration is authorized.</span>
-      <span class="route-meta">Paid to Amazon; no Academy membership fee</span>
-    </button>
+  <div class="hero-art" aria-label="Preview of the NITE Academy guided seller launch journey">
+    <div class="art-top"><span>THE NITE ACADEMY METHOD</span><span>01 <i>/</i> 04</span></div>
+    <div class="art-intro"><div class="art-small-label">WELCOME TO YOUR NEXT CHAPTER</div><h2>One business.<br><span>One step at a time.</span></h2><p>Clarity before complexity.</p></div>
+    <div class="roadmap">
+      <div class="roadmap-row active"><div class="roadmap-num">01</div><div class="roadmap-copy"><span>FIRST STEP</span><strong>Join early access</strong><small>You're here. Save your place for launch.</small></div><div class="roadmap-right"><span class="active-dot"></span></div></div>
+      <div class="roadmap-row"><div class="roadmap-num">02</div><div class="roadmap-copy"><span>COMING NEXT</span><strong>Set up your seller account</strong><small>Guidance to register directly with Amazon.</small></div><div class="roadmap-right"><span class="roadmap-arrow">↗</span></div></div>
+      <div class="roadmap-row"><div class="roadmap-num">03</div><div class="roadmap-copy"><span>REQUIRES APPROVAL</span><strong>Explore supply opportunities</strong><small>Only verified products and agreements.</small></div><div class="roadmap-right"><span class="roadmap-arrow">↗</span></div></div>
+      <div class="roadmap-row"><div class="roadmap-num">04</div><div class="roadmap-copy"><span>FUTURE STAGE</span><strong>Operate your own business</strong><small>Track real orders, fees, and settlement records.</small></div><div class="roadmap-right"><span class="roadmap-arrow">↗</span></div></div>
+    </div>
+    <div class="art-end"><span><b>N.</b> GUIDED BY NIKO</span><span>PRELAUNCH CONCEPT <span aria-hidden="true">↗</span></span></div>
+    <div class="art-watermark" aria-hidden="true">N</div>
   </div>
-  <p class="route-next" id="path-next" role="status">Select a route to see your next step. You can change it at any time.</p>
-  <p class="feedback" id="path-feedback" aria-live="polite" role="status"></p>
 </section>
-<div class="metrics">
-<div class="metric"><span class="metric-label">Consignment requests</span><div class="num" id="application-state">Not requested</div></div>
-<div class="metric"><span class="metric-label">Assigned products</span><div class="num" id="assignment-count">0</div></div>
-<div class="metric"><span class="metric-label">Assigned units</span><div class="num" id="inventory-count">0</div></div>
-<div class="metric"><span class="metric-label">Verified seller share</span><div class="num" id="seller-income">$0.00</div></div>
-</div>
-<div class="grid">
-<div class="column">
-<div class="panel">
-<div class="panel-head"><div class="niko-header"><span class="niko-icon" aria-hidden="true">N</span><div><h2>NIKO</h2><span class="label-soft">YOUR NEXT STEP</span></div></div><span class="pill">Guided onboarding</span></div>
-<div class="niko-body" id="niko-instruction">We can guide setup while access to approved consignment inventory is being established.</div>
-<div class="notice" id="research-status">No consignment request submitted</div>
-<div class="warning">NIKO currently provides guided onboarding. Live Amazon API access, autonomous supplier outreach, and automatic payment collection have not been activated.</div>
-</div>
-<div class="panel">
-<div class="panel-head"><h2>Get set up</h2><span class="label-soft">ONE STEP AT A TIME</span></div>
-<ul class="checklist">
-<li><span class="bubble" id="setup-bubble">1</span><span><strong>Choose your Amazon selling plan</strong><small id="plan-message">Start with the Individual plan if appropriate. $0 monthly plan fee, plus fees when selling.</small></span></li>
-<li><span class="bubble" id="plan-bubble">2</span><span><strong>Add your Seller ID</strong><small id="seller-message">Create your own verified account, then enter your ID below.</small></span></li>
-<li><span class="bubble" id="review-bubble">3</span><span><strong>Seller and consignment approval</strong><small id="review-message">We verify eligibility and contractual supply rights before allocation.</small></span></li>
-<li><span class="bubble" id="allocation-bubble">4</span><span><strong>Receive approved product allocations</strong><small id="allocation-message">No consignment inventory is currently assigned.</small></span></li>
-</ul>
-<div class="small-links"><a href="https://sell.amazon.com/sell/registration-guide" target="_blank" rel="noopener noreferrer">Create Amazon seller account ↗</a><a href="https://sell.amazon.com/pricing" target="_blank" rel="noopener noreferrer">Amazon fees ↗</a><a href="fba/">FBA research &amp; consignment planner ↗</a></div>
-</div>
-<div class="panel">
-<div class="panel-head"><h2>My consignment inventory</h2><span class="label-soft">VERIFIED ALLOCATIONS ONLY</span></div>
-<div id="allocated-list" class="item-list"><div class="empty">No inventory assigned.</div></div>
-</div>
-<div class="panel" id="report-panel" hidden>
-<div class="panel-head"><h2>Report an Amazon settlement</h2><span class="label-soft">PRIVATE · REVIEW REQUIRED</span></div>
-<p>After Amazon pays you, download the settlement flat file from Seller Central and upload it here. NITERUN matches your consigned SKUs and verifies the proceeds before issuing a statement.</p>
-<form id="report-form" class="form-stack">
-<label class="field" for="report-settlement-id">Amazon settlement reference<input id="report-settlement-id" name="report-settlement-id" maxlength="120" placeholder="As shown in Seller Central" required autocomplete="off"></label>
-<div class="report-dates">
-<label class="field" for="report-period-start">Period start<input id="report-period-start" type="date" required></label>
-<label class="field" for="report-period-end">Period end<input id="report-period-end" type="date" required></label>
-</div>
-<label class="field" for="report-amount">Total Amazon account deposit (USD)<input id="report-amount" type="number" min="0" max="100000000" step="0.01" required placeholder="0.00"></label>
-<label class="field" for="report-file">Amazon settlement report (CSV, TSV, TXT, XML — max 5 MB)<input id="report-file" type="file" accept=".csv,.tsv,.txt,.xml" required></label>
-<p class="notice">Files are stored privately. Do not upload identity documents, passwords, bank statements, or unrelated customer data. Your report is unverified until reconciled.</p>
-<button class="primary" id="submit-report" type="submit">Submit for review</button>
-<p id="report-feedback" class="feedback" role="status" aria-live="polite"></p>
-</form>
-<div id="report-list" class="item-list" style="margin-top:16px"></div>
-</div>
-</div>
-<div class="column">
-<div class="panel">
-<div class="panel-head"><h2>Seller setup</h2><span class="label-soft">YOUR DETAILS</span></div>
-<p>Tell us where you are in the process. Saving an Amazon Seller ID does not connect or verify your account.</p>
-<form id="seller-details-form" class="form-stack">
-<label class="field" for="dash-display-name">Your name <input id="dash-display-name" autocomplete="name" maxlength="120" required></label>
-<label class="field" for="dash-experience">Experience <select id="dash-experience"><option value="new">New seller</option><option value="existing">Already selling</option></select></label>
-<label class="field" for="dash-plan">Amazon seller plan <select id="dash-plan"><option value="none">I haven't opened an account</option><option value="individual">Individual · $0 per month</option><option value="professional">Professional · $39.99 per month</option></select></label>
-<p id="amazon-connect-status" class="notice">Amazon account access is not connected. Never enter your Seller Central password here.</p>
-<label class="field" for="dash-merchant-id">Amazon Seller ID (optional until ready) <input id="dash-merchant-id" maxlength="100" autocomplete="off" placeholder="Your Seller ID — not your password"></label>
-<label class="field" for="dash-interests">Product categories <input id="dash-interests" maxlength="400" placeholder="Home, kitchen, collectibles…"></label>
-<button id="save-details" class="primary" type="submit">Save seller setup</button>
-<p id="details-feedback" role="status" aria-live="polite" class="feedback"></p>
-</form>
-</div>
-<div class="panel">
-<div class="panel-head"><h2>Consignment application</h2><span class="label-soft">NO JOINING FEE</span></div>
-<p>Your application is reviewed against real supply contracts, selling permissions, and funded fulfillment arrangements.</p>
-<button id="match-request" class="primary" type="button">Request a consignment match</button>
-<div id="match-received" hidden class="empty"><span id="match-received-text">Your request has been received.</span></div>
-<p id="match-feedback" role="status" aria-live="polite" class="feedback"></p>
-</div>
-<div class="panel">
-<div class="panel-head"><h2>Earnings & ledger</h2><span class="label-soft">ACTUAL SETTLEMENTS</span></div>
-<div style="display:flex;justify-content:space-between;gap:12px;align-items:center"><span class="muted" style="font-size:13px">Payments collected toward issued consignment statements</span><strong id="niterun-income">$0.00</strong></div><div id="statement-list" class="item-list" style="margin-top:16px"><div class="empty">No statements issued.</div></div>
-<p id="ledger-note">No verified settlements yet.</p>
-<p class="notice">Amazon pays your own registered bank account. A separately authorized payment process and written consignment agreement are required for NITERUN's share. We do not hold your Amazon login or banking credentials.</p>
-</div>
-</div>
-</div>
-<footer class="dash-footer footer"><span>NITE Academy · NITE Run Delivery LLC · No guaranteed inventory or earnings</span><span><a href="fba/">FBA intelligence desk</a> &nbsp; · &nbsp; <a href="studio/">Free learning studio</a> &nbsp; · &nbsp; <a href="privacy/">Privacy</a> &nbsp; · &nbsp; <a href="mailto:chayson@niterun.com">Support</a></span></footer>
-</section>
+<section class="steps-section" id="how-it-works"><div class="shell">
+  <div class="section-heading"><div><span class="section-kicker">THE PROCESS / 001</span><h2>A real business.<br><em>A clearer starting point.</em></h2></div><p>Not another course promising overnight riches. A guided path to understanding what it actually takes to sell online.</p></div>
+  <div class="steps-grid">
+    <article><div class="step-top"><span>01</span><span aria-hidden="true">↗</span></div><div class="step-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="8" y="7" width="32" height="34" rx="4"/><path d="M16 17h16M16 25h16M16 33h9"/></svg></div><h3>Join the waitlist</h3><p>Get notified when early access opens. There is no payment and no Amazon connection today.</p></article>
+    <article><div class="step-top"><span>02</span><span aria-hidden="true">↗</span></div><div class="step-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="7" y="12" width="34" height="28" rx="3"/><path d="M16 12V9a8 8 0 0 1 16 0v3M15 24h18M15 30h10"/></svg></div><h3>Learn the seller setup</h3><p>Understand Amazon seller plans, fees, and requirements before creating your own seller account.</p></article>
+    <article><div class="step-top"><span>03</span><span aria-hidden="true">↗</span></div><div class="step-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="m7 18 17-8 17 8v20l-17 8L7 38zM7 18l17 8 17-8M24 26v20"/></svg></div><h3>Build when you're ready</h3><p>Apply for authorized supply opportunities if available, then operate and measure real results.</p></article>
+  </div>
+</div></section>
+<section class="program-section" id="the-program"><div class="shell program-layout">
+  <div><span class="section-kicker">THE PROGRAM / 002</span><h2>Built for people<br>ready to <em>build.</em></h2><p>NITE Academy by NITERUN is developing the tools and guidance to help everyday people navigate the complexity of launching an online selling business. We're starting with Amazon seller onboarding and will open capabilities in stages.</p><a href="#waitlist" class="secondary-cta">Get on the early-access list <span aria-hidden="true">↗</span></a></div>
+  <div class="program-details"><div><span>01 / LEARNING</span><strong>Understand the business</strong><p>Seller plans, costs, margins, risk, and fulfillment fundamentals.</p></div><div><span>02 / NIKO GUIDE</span><strong>Navigate the next step</strong><p>Guided setup and checklists; approved automation comes later.</p></div><div><span>03 / SUPPLY</span><strong>Authorized opportunities only</strong><p>Listings require verified rights, eligibility, agreements, and fulfillment readiness.</p></div></div>
+</div></section>
+<section class="bottom-cta"><div class="shell cta-layout"><div><span class="section-kicker">READY FOR WHAT'S NEXT?</span><h2>Be early.<br><em>Build something real.</em></h2></div><a class="last-cta" href="#waitlist">Join the free waitlist <span aria-hidden="true">↗</span></a></div></section>
 </main>
-<noscript><p style="padding:20px">Please enable JavaScript to create your account and access your personal dashboard.</p></noscript>
-<script type="module" src="assets/academy.mjs"></script>
+<footer class="site-footer"><div class="shell footer-inner"><div class="footer-brand">NITE ACADEMY<span>BY NITERUN</span></div><div class="footer-links"><a href="/privacy/">Privacy & program terms</a><a href="/member/">Existing member login</a><a href="mailto:chayson@niterun.com">Contact</a></div></div><div class="shell footer-disclaimer">NITE Academy is an independent program by NITE Run Delivery LLC, not affiliated with or endorsed by Amazon. Joining the waitlist does not create an Amazon seller account, guarantee supplier inventory, or promise revenue. Amazon selling and FBA fees apply if you independently open an account and use their services.</div></footer>
 </body>
 </html>
