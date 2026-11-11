@@ -1,10 +1,26 @@
 # NITE Academy — Consignment Seller Network (November 10, 2026)
 
-**Available preview:** https://chaybuilds.github.io/niteacademy-site/  
-**Domain being connected:** https://niteacademy.com/ — registered at Namecheap, but DNS still points to its parking page.  
-**Learning studio retained:** https://chaybuilds.github.io/niteacademy-site/studio/
+**Live website:** https://niteacademy.com/ — confirmed HTTPS 200 and HTTP→HTTPS on November 10, 2026.  
+**WWW:** https://www.niteacademy.com/ — verified HTTPS 301 to the apex domain.  
+**Learning studio:** https://niteacademy.com/studio/ (original GitHub Pages URL redirects).
 
 The new homepage is intentionally minimal: **Make money. → free account → private seller dashboard.**
+
+## Layout selected — Midnight Minimal v1
+
+The single cohesive visual design is black/charcoal with quiet grayscale panels and one white primary CTA. The public landing page deliberately has one primary message **Make money**, a succinct supplier proposition and a free-account action. The personal dashboard carries the same design with two clear onboarding modes: **Start Free ($0/mo Amazon Individual)** and **Professional Seller ($39.99/mo Amazon Professional, paid to Amazon)**. No false claims of connected OAuth, supplier inventory or earnings appear. This is a source implementation, not a live Amazon automation guarantee.
+
+## Domain and browser audit (November 10, 2026)
+
+- Namecheap account `chayniterun`: domain niteacademy.com registered and active through November 8, 2027.
+- Removed @ parking URL redirect; set four GitHub Pages A records 185.199.108/109/110/111.153 and www CNAME chaybuilds.github.io.
+- Preserved existing TXT/SPF under Namecheap Mail Settings; made no DNS changes to other NITERUN domains.
+- Added repo-root CNAME; GitHub Pages DNS check passed; HTTPS certificate subsequently served valid requests and Enforce HTTPS was activated.
+- Verified HTTP 301 -> HTTPS 200; www HTTPS -> apex HTTPS; tested privacy and dashboard assets.
+- Closed eight clearly stale/duplicate Chrome tabs; preserved active company development and operational work.
+- Namecheap verification email link displayed "no longer valid," which may indicate prior verification; current registrar domain status was ACTIVE, but contact verification completion was not independently confirmed.
+- Supabase project's database is connected through the app and reported ACTIVE_HEALTHY. Chrome's current Supabase session does not have access to that particular project, so production Auth redirect allowlist cannot be edited via that browser login yet.
+- Real account signup/confirmation still needs an approved controlled test and cleanup; no production paid operations, seller authorization or inventory contracts were activated.
 
 ## Implemented
 
@@ -24,7 +40,7 @@ The new homepage is intentionally minimal: **Make money. → free account → pr
 - Automatic deductions from seller payouts or ACH payment mandates.
 - Actual member earnings, paid supplier settlements, or income claims.
 - Full production email confirmation and sign-in test on a real mailbox.
-- Custom niteacademy.com routing and HTTPS.
+- End-to-end member email confirmation testing and review of canonical auth callback URL allowlist.
 
 **Amazon plans:** Individual is $0/month with a $0.99/item fee plus applicable Amazon and FBA fees, but does not offer SP-API access. Professional is $39.99/month plus applicable fees and supports SP-API. Full automated seller connections require a reviewed public SP-API app and seller-specific OAuth authorization. Do not ask members for Seller Central passwords.
 
@@ -32,8 +48,8 @@ The new homepage is intentionally minimal: **Make money. → free account → pr
 
 ## Remaining release gates
 
-1. **Namecheap DNS:** Replace parking records with the GitHub Pages A and CNAME records in [DOMAIN_ACTIVATION.md](DOMAIN_ACTIVATION.md). The safe-cutover workflow will only commit the GitHub CNAME after DNS is independently verified.
-2. **Supabase Auth redirect URLs:** In Supabase Dashboard → Authentication → URL Configuration, allow the active preview callback https://chaybuilds.github.io/niteacademy-site/ and later https://niteacademy.com/ after activation. Confirm real signup → email confirmation → sign-in on iPhone.
+1. **DNS/HTTPS:** Completed November 10. All four GitHub Pages A records and the www CNAME were saved through the owner's local Chrome session; Cloudflare and Google returned the correct addresses; GitHub recognized the custom domain and HTTPS enforcement was activated. Details in [DOMAIN_ACTIVATION.md](DOMAIN_ACTIVATION.md).
+2. **Supabase Auth redirect URLs:** In Supabase Dashboard → Authentication → URL Configuration, retain the existing preview callback https://chaybuilds.github.io/niteacademy-site/ and add https://niteacademy.com/ before changing the signup email redirect to the canonical domain. Confirm real signup → email confirmation → sign-in on iPhone.
 3. **Commercial compliance:** Legal review of consignment rights, seller agreements, payment mandates, privacy notice, and accurate marketing before real inventory allocations.
 4. **Amazon integration:** Developer/app registration and seller OAuth approvals; no SP-API bypass for Individual plans.
 5. **Commercial verification:** Demonstrate one signed, funded, legally eligible consignment, fulfilled order, actual Amazon settlement, and authorized NITERUN collection.
