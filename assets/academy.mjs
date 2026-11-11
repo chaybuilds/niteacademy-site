@@ -1,6 +1,9 @@
 
 import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.57.0/+esm";
 const client = createClient("https://succvbtctjkzsowotcsy.supabase.co", "sb_publishable_0TNBWdAUGNot0IxoyFDpEw_9bRDTOVu", {auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
+// New account creation remains paused until the Supabase Auth Site URL and redirect allowlist point to this domain.
+// Controlled QA found confirmation emails falling back to an unrelated project URL on November 10, 2026.
+const ACADEMY_SIGNUP_READY=false;
 const $ = id=>document.getElementById(id);
 const panels=["landing-view","auth-view","dashboard-view"];
 let authMode="signup", currentUser=null, profile=null, review=null, request=null, allocations=[], ledger=[], statements=[], reports=[];
@@ -8,7 +11,7 @@ let loading=false;
 const money = v=>new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"}).format(Number(v)||0);
 function view(id){panels.forEach(x=>$(x).hidden=x!==id);$("signin-button").hidden=id==="dashboard-view";$("topbar-guest").hidden=id==="dashboard-view";$("topbar-seller").hidden=id!=="dashboard-view";window.scrollTo(0,0);}
 function showFeedback(text,type,id){const node=$(id);node.textContent=text;node.className="feedback "+(type||"");}
-function switchAuth(mode){authMode=mode;$("auth-form").reset();$("signup-fields").hidden=mode!=="signup";$("signup-consent").hidden=mode!=="signup";$("auth-title").textContent=mode==="signup"?"Create your free account.":"Welcome back.";$("auth-button").textContent=mode==="signup"?"Create account":"Sign in";$("auth-switch").textContent=mode==="signup"?"I already have an account":"Create a free account";showFeedback("","","auth-feedback");view("auth-view");}
+function switchAuth(mode){authMode=mode;$("auth-form").reset();$("signup-fields").hidden=mode!=="signup";$("signup-consent").hidden=mode!=="signup";$("signup-paused").hidden=mode!=="signup"||ACADEMY_SIGNUP_READY;$("auth-title").textContent=mode==="signup"?"Create your free account.":"Welcome back.";$("auth-button").textContent=mode==="signup"?"Create account":"Sign in";$("auth-button").disabled=mode==="signup"&&!ACADEMY_SIGNUP_READY;$("auth-switch").textContent=mode==="signup"?"I already have an account":"Create a free account";showFeedback("","","auth-feedback");view("auth-view");}
 $("start-button").addEventListener("click",()=>switchAuth("signup"));
 $("signin-button").addEventListener("click",()=>switchAuth("login"));
 $("auth-switch").addEventListener("click",()=>switchAuth(authMode==="signup"?"login":"signup"));
@@ -35,6 +38,7 @@ for(const [id,academyPath] of [["choose-starter","starter"],["choose-elite","eli
 function getAuthDraft(){return {display_name:$("full-name").value.trim(),experience:$("experience").value,consent_to_contact:$("contact-consent").checked,consent_at:$("contact-consent").checked?new Date().toISOString():null};}
 $("auth-form").addEventListener("submit",async e=>{
  e.preventDefault();
+ if(authMode==="signup"&&!ACADEMY_SIGNUP_READY){showFeedback("Registration is temporarily paused until email confirmation links return to NITEAcademy.com. Existing members can sign in.","error","auth-feedback");return;}
  const email=$("auth-email").value.trim().toLowerCase();
  const password=$("auth-password").value;
  const submit=$("auth-button");submit.disabled=true;showFeedback("Submitting…","","auth-feedback");
@@ -43,7 +47,7 @@ $("auth-form").addEventListener("submit",async e=>{
    const draft=getAuthDraft();
    if(!draft.display_name||!draft.consent_to_contact){showFeedback("Please enter your name and confirm the notice.","error","auth-feedback");return;}
    sessionStorage.setItem("niteacademy_pending_profile",JSON.stringify(draft));
-   const {data,error}=await client.auth.signUp({email,password,options:{data:{display_name:draft.display_name},emailRedirectTo:"https://chaybuilds.github.io/niteacademy-site/"}});
+   const {data,error}=await client.auth.signUp({email,password,options:{data:{display_name:draft.display_name},emailRedirectTo:"https://niteacademy.com/"}});
    if(error)throw error;
    if(data.session){showFeedback("Account created. Loading your dashboard…","ok","auth-feedback");await loadMember(data.session.user);}
    else{showFeedback("Check your email to confirm your account, then come back and sign in. If the confirmation link redirects away, return to this page afterward.","ok","auth-feedback");}
