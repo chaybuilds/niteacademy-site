@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#090a0d">
+<meta name="description" content="NITE Academy FBA Intelligence Desk: review-only Amazon wholesale, supplier-funded consignment and introduction-fee scenarios. No guaranteed profits or inventory.">
+<link rel="canonical" href="https://niteacademy.com/fba/">
+<title>FBA Intelligence Desk · NITE Academy</title>
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="stylesheet" href="./fba.css">
+</head>
+<body>
+<a class="skip" href="#workbench">Skip to the research desk</a>
+<header class="nav shell">
+<a class="brand" href="../" aria-label="NITE Academy home"><span class="brandmark">N</span><span>NITE ACADEMY<small>COMMERCE INTELLIGENCE</small></span></a>
+<div class="nav-actions"><a href="../studio/">Learning studio</a><a class="nav-home" href="../">Seller dashboard ↗</a></div>
+</header>
+<main>
+<section class="hero shell">
+<div>
+<p class="eyebrow">NOVA RESEARCH × NITE ACADEMY</p>
+<h1>Find the margin.<br><em>Verify the reality.</em></h1>
+<p class="intro">Three connected business models, one evidence-first workflow. Model Amazon FBA wholesale, supplier-funded consignment and success-based supplier introductions before risking capital or making promises.</p>
+<div class="hero-pills"><span>No upfront research fee</span><span>Offline calculations</span><span>Seller-controlled accounts</span></div>
+<a class="jump" href="#workbench">Open the intelligence desk <span aria-hidden="true">↓</span></a>
+</div>
+<aside class="signal" aria-label="Research readiness summary">
+<div class="signal-top"><span>FBA RESEARCH SIGNAL</span><span class="dot">REVIEW-ONLY</span></div>
+<div class="signal-value">HOLD <span>/ until proven</span></div>
+<div class="signal-row"><span>Keepa price history</span><b>Not connected</b></div>
+<div class="signal-row"><span>Amazon seller permissions</span><b>Not connected</b></div>
+<div class="signal-row"><span>Verified supplier + signed rights</span><b>Not connected</b></div>
+<div class="signal-row"><span>Purchase / listing automation</span><b>Disabled</b></div>
+<p>These are connection states, not claims of actual commercial activity. No orders, messages, shipments or spend are initiated here.</p>
+</aside>
+</section>
+<div class="rule"></div>
+<section id="workbench" class="shell desk">
+<div class="desk-head">
+<div><p class="eyebrow">01 / OPPORTUNITY WORKBENCH</p><h2>Model before you move.</h2><p>Enter your own hypothetical figures; nothing is fetched from Amazon or Keepa. Amounts are in USD.</p></div>
+<span class="tag">SAMPLE / RESEARCH ONLY</span>
+</div>
+<form id="scenario-form" novalidate>
+<fieldset class="models"><legend>Choose a revenue model</legend>
+<label class="mode"><input name="model" type="radio" value="wholesale" checked><span><strong>Wholesale FBA</strong><small>Buy authorized units, assess landed profit and inventory exposure</small></span></label>
+<label class="mode"><input name="model" type="radio" value="consignment"><span><strong>Supplier-funded consignment</strong><small>Supplier owns units; model seller, supplier and NITERUN shares</small></span></label>
+<label class="mode"><input name="model" type="radio" value="introduction"><span><strong>Supplier introduction</strong><small>Model a separately contracted success-based referral fee</small></span></label>
+</fieldset>
+<div class="form-grid">
+<div class="field wide"><label for="scenario-name">Scenario name</label><input id="scenario-name" maxlength="80" autocomplete="off" placeholder="Example: Collectibles / batch 01"></div>
+<div class="field" data-models="wholesale consignment"><label for="asin">US Amazon ASIN</label><input id="asin" maxlength="10" spellcheck="false" autocomplete="off" placeholder="10 characters · U.S. marketplace"></div>
+<div class="field" data-models="wholesale"><label for="current-price">Illustrative current sale price ($)</label><input id="current-price" type="number" inputmode="decimal" min="0" step=".01" placeholder="40.00"></div>
+<div class="field" data-models="wholesale"><label for="median-price">Illustrative 90-day median ($)</label><input id="median-price" type="number" inputmode="decimal" min="0" step=".01" placeholder="38.00"></div>
+<div class="field" data-models="wholesale"><label for="unit-cost">Supplier unit cost ($)</label><input id="unit-cost" type="number" min="0" step=".01" placeholder="12.00"></div>
+<div class="field" data-models="wholesale"><label for="freight">Inbound freight / unit ($)</label><input id="freight" type="number" min="0" step=".01" placeholder="3.00"></div>
+<div class="field" data-models="wholesale"><label for="prep">Prep / unit ($)</label><input id="prep" type="number" min="0" step=".01" placeholder="1.00"></div>
+<div class="field" data-models="wholesale"><label for="moq">Supplier MOQ (units)</label><input id="moq" type="number" min="1" step="1" placeholder="5"></div>
+<div class="field" data-models="wholesale"><label for="case-pack">Case pack size (units)</label><input id="case-pack" type="number" min="1" step="1" placeholder="4"></div>
+<div class="field" data-models="wholesale"><label for="available">Supplier stock (reported units)</label><input id="available" type="number" min="0" step="1" placeholder="100"></div>
+<div class="field" data-models="wholesale"><label for="capital">Maximum hypothetical upfront capital ($)</label><input id="capital" type="number" min="0" step=".01" placeholder="200.00"></div>
+<div class="field" data-models="consignment"><label for="gross-sale">Hypothetical sale amount ($)</label><input id="gross-sale" type="number" min="0" step=".01" placeholder="40.00"></div>
+<div class="field" data-models="consignment"><label for="seller-rate">Seller's net proceeds share (%)</label><input id="seller-rate" type="number" min="0" max="100" step=".01" placeholder="25"></div>
+<div class="field" data-models="consignment"><label for="academy-rate">NITERUN's proposed share of net proceeds (%)</label><input id="academy-rate" type="number" min="0" max="100" step=".01" placeholder="10"></div>
+<div class="field" data-models="consignment"><label for="refunds">Refunds for scenario ($)</label><input id="refunds" type="number" min="0" step=".01" placeholder="0.00"></div>
+<div class="field" data-models="consignment"><label for="contract-costs">Other seller/supplier shared expenses ($)</label><input id="contract-costs" type="number" min="0" step=".01" placeholder="0.00"></div>
+<div class="field" data-models="introduction"><label for="first-order">Attributable first order, net of exclusions ($)</label><input id="first-order" type="number" min="0" step=".01" placeholder="2000.00"></div>
+<div class="field" data-models="introduction"><label for="fee-rate">Proposed contracted introduction fee (%)</label><input id="fee-rate" type="number" min="0" max="100" step=".01" placeholder="3.50"></div>
+</div>
+<fieldset class="fee-fields" data-models="wholesale consignment"><legend>Illustrative Amazon costs and reserves</legend>
+<div class="form-grid">
+<div class="field"><label for="referral">Amazon referral fee ($)</label><input id="referral" type="number" min="0" step=".01" placeholder="6.00"></div>
+<div class="field"><label for="fulfillment">FBA fulfillment fee ($)</label><input id="fulfillment" type="number" min="0" step=".01" placeholder="5.00"></div>
+<div class="field"><label for="placement">Inbound placement reserve ($)</label><input id="placement" type="number" min="0" step=".01" placeholder="1.00"></div>
+<div class="field"><label for="storage">Storage reserve ($)</label><input id="storage" type="number" min="0" step=".01" placeholder="0.50"></div>
+<div class="field"><label for="returns">Returns reserve ($)</label><input id="returns" type="number" min="0" step=".01" placeholder="1.00"></div>
+<div class="field"><label for="other">Other fee reserve ($)</label><input id="other" type="number" min="0" step=".01" placeholder="0.50"></div>
+</div>
+</fieldset>
+<div class="buttonbar"><button id="calculate" class="primary" type="submit">Analyze this scenario →</button><button id="example" type="button" class="secondary">Load clearly fictional example</button><button id="save" type="button" class="secondary" disabled>Save privately</button></div>
+<p id="scenario-feedback" class="feedback" role="status" aria-live="polite">No external requests have been made.</p>
+</form>
+<section class="results" aria-label="Research results"><div class="result-heading"><h3 id="result-title">Your outcome will appear here.</h3><span id="result-status" class="status">UNVERIFIED</span></div><div id="result-metrics" class="metric-grid"></div><p id="result-description" class="muted">Calculate a hypothetical case to see conservative unit economics, supplier rights checks and open risks.</p><ul id="result-reasons" class="checks"></ul></section>
+</section>
+<section class="shell lower">
+<div class="workspace">
+<div><p class="eyebrow">02 / RESEARCH WORKLIST</p><h2>Plan the checks. No automatic spending.</h2><p class="muted">Enter up to 25 distinct US ASINs. The planner describes how a future authorized Keepa and Amazon SP-API adapter would verify each one. It does not contact either provider.</p></div>
+<form id="planner-form"><label for="asin-list">ASINs, separated by spaces, commas or lines</label><textarea id="asin-list" rows="3" maxlength="600" placeholder="One 10-character ASIN per line"></textarea><button type="submit" class="secondary">Plan research checks</button><p id="planner-feedback" class="feedback" role="status" aria-live="polite"></p></form>
+<div id="planner-results" class="tasks"></div>
+</div>
+<div class="workspace">
+<p class="eyebrow">03 / PRIVATE RESEARCH MEMORY</p><h2>Your own working notes.</h2>
+<p class="muted">Signed-in Academy members can save hypothetical scenarios to their own Supabase-protected workspace. Drafts are never approved supplier quotes, real orders, or verified profits. Registration is currently paused while email confirmation is tested.</p>
+<div id="member-state" class="notice" role="status">Checking sign-in status…</div>
+<div id="saved-list" class="saved-list"></div><p id="saved-feedback" class="feedback" role="status" aria-live="polite"></p>
+<a href="../" class="text-link">Return to NITE Academy sign-in ↗</a>
+</div>
+</section>
+<section class="shell guardrails">
+<p class="eyebrow">EVIDENCE BEFORE COMMERCE</p><h2>What unlocks a real deal?</h2>
+<div class="guardrail-grid"><div><b>01</b><strong>Supplier authority</strong><p>Signed consignment or wholesale terms; authenticity, matching variants and rights for the exact channel.</p></div><div><b>02</b><strong>Seller-specific eligibility</strong><p>Amazon account permissions, ASIN restrictions, marketplace, fees and actual FBA logistics.</p></div><div><b>03</b><strong>Conservative economics</strong><p>Keepa historical pricing, realistic demand, reserves, full case packs, returns and capital limits.</p></div><div><b>04</b><strong>Human release</strong><p>Seller and supplier authorize the transaction. No automatic buying, listings, messaging, invoicing or account upgrade here.</p></div></div>
+<p class="disclaimer">Amazon, Keepa and TikTok are independent services. NITE Academy is not affiliated with or endorsed by them. Illustrative earnings are not guarantees or actual settlement evidence. Professional Amazon seller subscriptions, Keepa and inventory may cost money if chosen separately; this research page initiates none of them.</p>
+</section>
+</main>
+<footer class="shell footer"><span>© 2026 NITE Run Delivery LLC · NITE Academy · Free research preview</span><span><a href="../">Academy</a><a href="../studio/">Studio</a><a href="../privacy/">Privacy</a><a href="mailto:chayson@niterun.com">Support</a></span></footer>
+<script type="module" src="./client.mjs"></script>
+</body>
+</html>
