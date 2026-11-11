@@ -6,6 +6,11 @@
 
 The new homepage is intentionally minimal: **Make money. → free account → private seller dashboard.**
 
+## Open-source layout studio
+
+Three interactive, responsive design candidates are available at **https://niteacademy.com/layouts/** (after deployment): Commerce, Merchant, and Studio. Each previews catalog browsing, a seller dashboard, and Academy learning views. The current homepage and authentication remain unchanged until a direction is selected and released. [Design decision guide](docs/NITE_ACADEMY_COMMERCE_DESIGN_VISION.md) · [Source and licensing notes](layouts/OPEN_SOURCE_SOURCES.md).
+
+
 ## Layout selected — Midnight Minimal v1
 
 The single cohesive visual design is black/charcoal with quiet grayscale panels and one white primary CTA. The public landing page deliberately has one primary message **Make money**, a succinct supplier proposition and a free-account action. The personal dashboard carries the same design with two clear onboarding modes: **Start Free ($0/mo Amazon Individual)** and **Professional Seller ($39.99/mo Amazon Professional, paid to Amazon)**. No false claims of connected OAuth, supplier inventory or earnings appear. This is a source implementation, not a live Amazon automation guarantee.
