@@ -1,3 +1,15 @@
+# Domain activation result — COMPLETE (November 10, 2026)
+
+**Current public URL:** https://niteacademy.com/ — validated HTTPS 200.  
+**WWW URL:** https://www.niteacademy.com/ — validated HTTPS 301 to apex.  
+**HTTP:** Redirects with 301 to HTTPS. **GitHub Pages Enforce HTTPS:** turned on.  
+**DNS:** Apex A records 185.199.108.153, .109.153, .110.153, .111.153; www CNAME chaybuilds.github.io. Validated with Cloudflare 1.1.1.1 and Google 8.8.8.8 resolvers.  
+**GitHub repo:** chaybuilds/niteacademy-site — root CNAME file committed after DNS verification.
+
+Do not repeat the DNS migration or remove current records. The below is retained as a historical restoration runbook. Before any changes verify current settings and preserve MX/TXT/SPF/DKIM/CAA records and unrelated domains. Site DNS/HTTPS is not the same as Amazon OAuth, email confirmation or payments; those remain separate release gates.
+
+---
+
 # NiteAcademy.com — DNS cutover
 
 **Status: domain registered; GitHub Pages custom-domain redirect NOT active until DNS cutover.**
