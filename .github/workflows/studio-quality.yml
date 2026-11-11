@@ -4,6 +4,8 @@ on:
     branches: [main]
     paths:
       - "index.html"
+      - "member/**"
+      - "tests/waitlist.test.mjs"
       - "assets/**"
       - "studio/**"
       - "tests/studio.test.mjs"
@@ -18,6 +20,8 @@ on:
   pull_request:
     paths:
       - "index.html"
+      - "member/**"
+      - "tests/waitlist.test.mjs"
       - "assets/**"
       - "studio/**"
       - "tests/studio.test.mjs"
@@ -44,6 +48,7 @@ jobs:
       - name: Check browser module syntax
         run: |
           node --check assets/academy.mjs
+          node --check assets/waitlist.js
           node --check scripts/consignment-ledger.mjs
           node --check studio/content.mjs
           node --check studio/app.mjs
@@ -51,11 +56,13 @@ jobs:
           node --check scripts/domain-readiness.mjs
           node --check scripts/academy-gateway-smoke.mjs
       - name: Validate all learning tracks and practice scoring
-        run: node --test tests/studio.test.mjs tests/domain-readiness.test.mjs tests/homepage-ux.test.mjs tests/consignment-ledger.test.mjs
+        run: node --test tests/studio.test.mjs tests/domain-readiness.test.mjs tests/homepage-ux.test.mjs tests/consignment-ledger.test.mjs tests/waitlist.test.mjs
       - name: Verify Academy signup and retained Studio routes
         run: |
-          grep -q 'id="auth-form"' index.html
-          grep -q 'id="dashboard-view" hidden' index.html
-          grep -q 'href="studio/"' index.html
+          grep -q 'id="waitlist-form"' index.html
+          grep -q 'id="waitlist-consent"' index.html
+          grep -q 'id="auth-form"' member/index.html
+          grep -q 'id="dashboard-view" hidden' member/index.html
+          grep -q 'href="studio/"' member/index.html
           grep -q 'id="arena-provider"' studio/index.html
           grep -q 'id="portfolio"' studio/index.html

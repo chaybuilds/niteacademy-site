@@ -17,20 +17,25 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          SITE='https://chaybuilds.github.io/niteacademy-site/'
+          SITE='https://niteacademy.com/'
           API='https://succvbtctjkzsowotcsy.supabase.co/functions/v1/academy-apply'
           curl --fail --silent --show-error --location --retry 2 --max-time 25 "$SITE" -o /tmp/academy-page.html
-          grep -q 'id="auth-form"' /tmp/academy-page.html
-          grep -q 'id="dashboard-view" hidden' /tmp/academy-page.html
-          curl --fail --silent --show-error --location --max-time 25 'https://chaybuilds.github.io/niteacademy-site/assets/academy.mjs' -o /tmp/academy-client.mjs
+          grep -q 'id="waitlist-form"' /tmp/academy-page.html
+          grep -q 'id="waitlist-consent"' /tmp/academy-page.html
+          curl --fail --silent --show-error --location --max-time 25 'https://niteacademy.com/assets/waitlist.js' -o /tmp/waitlist-client.js
+          grep -q 'join_nite_academy_waitlist' /tmp/waitlist-client.js
+          curl --fail --silent --show-error --location --max-time 25 'https://niteacademy.com/member/' -o /tmp/academy-member.html
+          grep -q 'id="auth-form"' /tmp/academy-member.html
+          grep -q 'id="dashboard-view" hidden' /tmp/academy-member.html
+          curl --fail --silent --show-error --location --max-time 25 'https://niteacademy.com/assets/academy.mjs' -o /tmp/academy-client.mjs
           grep -q 'client.auth.signUp' /tmp/academy-client.mjs
           curl --fail --silent --show-error --retry 2 --max-time 25 "$API" -o /tmp/academy-health.json
           grep -q '"state":"ready"' /tmp/academy-health.json
           code=$(curl --silent --show-error --output /tmp/academy-invalid.json --write-out '%{http_code}' --max-time 25 \
-            -X POST -H 'Origin: https://chaybuilds.github.io' -H 'Content-Type: application/json' \
+            -X POST -H 'Origin: https://niteacademy.com' -H 'Content-Type: application/json' \
             --data '{"full_name":"x","consent":false}' "$API")
           test "$code" = '422'
-          echo 'Academy public signup, dashboard assets, retained intake API and validation passed.'
+          echo 'Academy public waitlist, preserved member app, intake API and validation passed.'
       - name: Open deduplicated incident if health fails
         if: failure()
         env:
