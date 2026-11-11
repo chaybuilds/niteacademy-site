@@ -50,7 +50,7 @@ test("Starter and Professional routes are free Academy membership with honest ex
  assert.match(home,/\$0\.99 per sale/);
  assert.match(home,/\$39\.99/);
  assert.match(home,/Academy membership fee/);
- assert.match(home,/NITERUN's API integration is authorized/);
+ assert.match(home,/NITERUN's integration is authorized/);
  assert.match(client,/\.update\(\{academy_path:academyPath/);
  assert.match(client,/classList\.toggle\("active"/);
  assert.match(css,/\.route-options/);
