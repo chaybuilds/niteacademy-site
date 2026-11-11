@@ -63,3 +63,10 @@ test("path selection is not treated as Amazon OAuth authorization or seller veri
  assert.match(home,/Saving an Amazon Seller ID does not connect or verify your account/);
  assert.doesNotMatch(client,/client\.auth\.signInWithPassword\(\{email.*amazon/i);
 });
+
+test("Email confirmation safety gate does not invite signups into an unrelated project",()=>{
+ assert.match(client,/const ACADEMY_SIGNUP_READY=false/);
+ assert.match(client,/emailRedirectTo:"https:\/\/niteacademy\.com\/"/);
+ assert.match(client,/authMode==="signup"&&!ACADEMY_SIGNUP_READY/);
+ assert.match(home,/id="signup-paused"/);
+});
