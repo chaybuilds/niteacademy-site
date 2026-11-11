@@ -59,6 +59,29 @@
 <div><div class="label-soft">YOUR BUSINESS · NITE ACADEMY · <span id="member-internal-code">SLR-PENDING</span></div><h1 id="welcome-title">Let's get you started.</h1><p id="dash-subtitle">Your seller workspace</p></div>
 <span id="account-flag" class="pill"><span class="tiny-dot"></span> Seller setup needed</span>
 </div>
+<section class="route-panel" aria-labelledby="path-title">
+  <div class="route-heading">
+    <div>
+      <span class="label-soft">YOUR STARTING POINT</span>
+      <h2 id="path-title">Choose how you want to sell.</h2>
+    </div>
+    <span class="pill">Academy: free</span>
+  </div>
+  <div class="route-options">
+    <button type="button" class="route-choice" id="choose-starter" aria-pressed="false">
+      <span class="route-card-top"><span class="route-name">Start free</span><span class="route-price">$0<span>/mo</span></span></span>
+      <span class="route-description">Amazon Individual. NIKO guides you; you approve and complete Amazon account actions.</span>
+      <span class="route-meta">$0.99 per sale + Amazon/FBA fees</span>
+    </button>
+    <button type="button" class="route-choice" id="choose-elite" aria-pressed="false">
+      <span class="route-card-top"><span class="route-name">Professional seller</span><span class="route-price">$39.99<span>/mo</span></span></span>
+      <span class="route-description">Amazon Professional. Prepare for approved API automation when NITERUN's integration is authorized.</span>
+      <span class="route-meta">Paid to Amazon; no Academy membership fee</span>
+    </button>
+  </div>
+  <p class="route-next" id="path-next" role="status">Select a route to see your next step. You can change it at any time.</p>
+  <p class="feedback" id="path-feedback" aria-live="polite" role="status"></p>
+</section>
 <div class="metrics">
 <div class="metric"><span class="metric-label">Consignment requests</span><div class="num" id="application-state">Not requested</div></div>
 <div class="metric"><span class="metric-label">Assigned products</span><div class="num" id="assignment-count">0</div></div>
@@ -113,6 +136,7 @@
 <label class="field" for="dash-display-name">Your name <input id="dash-display-name" autocomplete="name" maxlength="120" required></label>
 <label class="field" for="dash-experience">Experience <select id="dash-experience"><option value="new">New seller</option><option value="existing">Already selling</option></select></label>
 <label class="field" for="dash-plan">Amazon seller plan <select id="dash-plan"><option value="none">I haven't opened an account</option><option value="individual">Individual · $0 per month</option><option value="professional">Professional · $39.99 per month</option></select></label>
+<p id="amazon-connect-status" class="notice">Amazon account access is not connected. Never enter your Seller Central password here.</p>
 <label class="field" for="dash-merchant-id">Amazon Seller ID (optional until ready) <input id="dash-merchant-id" maxlength="100" autocomplete="off" placeholder="Your Seller ID — not your password"></label>
 <label class="field" for="dash-interests">Product categories <input id="dash-interests" maxlength="400" placeholder="Home, kitchen, collectibles…"></label>
 <button id="save-details" class="primary" type="submit">Save seller setup</button>
