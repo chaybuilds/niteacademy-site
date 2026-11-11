@@ -1,5 +1,25 @@
 # NITE Academy — email confirmation release gate (November 10, 2026)
 
+## Latest attempt — November 10, 2026: branded Resend domain provisioned, verification pending
+
+The owner's signed-in Resend browser session uses the **niterun** team at `chayson@niterun.com`. That team contains `notify.niterun.com` (Not Started) and did **not** contain the verified `labmail.niterun.com` found through the separately connected Resend app. The team switcher showed no other available team, so do not assume these are the same Resend workspace or take credentials from one into the other.
+
+With the authorized Mac Chrome + Namecheap session, created **`auth.niteacademy.com`** in the Resend browser workspace. Added exactly these sending-related DNS records to the existing Namecheap-managed **niteacademy.com** zone:
+
+- TXT `resend._domainkey.auth` — the exact 218-character DKIM public key provided by Resend
+- CNAME `rsend.auth` → `rsend.forge.rmta.net`
+- CNAME `send.auth` → `send.forge.rmta.net`
+
+The Namecheap UI confirmed all three records were saved; public DNS resolved the correct TXT and both CNAMEs. GitHub Pages' four apex A records and the www CNAME were preserved. No root SPF/email-forwarding record was changed. The optional Resend root DMARC and inbound MX records were not added (outbound mail only).
+
+Resend verification was started via **I've already added the records**. Last read: domain status **Pending**; `send.auth` CNAME Verified, DKIM TXT Pending, `rsend.auth` CNAME Pending. Allow for DNS propagation and recheck; do not claim email is deliverable until Resend marks the domain Verified.
+
+A **new send-only API key** was prepared in Resend's browser UI, but the creation click was blocked by a tool safety check. No browser-team credential was created or copied. The previously created, unused key in the separate Resend connector account is labeled UNUSED; leave it alone unless the user explicitly authorizes revocation. No secret has been put in the Academy frontend or source repository. Supabase custom SMTP is still **disabled** and `ACADEMY_SIGNUP_READY=false`.
+
+**Remaining steps once Resend verifies:** Create a send-only key restricted to `auth.niteacademy.com` in the logged-in Resend workspace; transfer it through the owner's authorized browser directly into Supabase → Authentication → Emails → SMTP Settings without printing it into chat or code; host `smtp.resend.com`, port `465`, username `resend`, from `no-reply@auth.niteacademy.com`. Confirm the shared project's email sender name is acceptable to every app using Outreach Labs. Save, verify SMTP enabled and email rate limits, perform one controlled signup/confirmation/dashboard test, delete its disposable user, then change the Academy flag to true if successful. If credential creation remains blocked by automation safeguards, the owner must complete that secure browser UI action.
+
+**Production state:** Website and redirect work; registrations paused; no completed SMTP enablement or successful end-to-end signup claim.
+
 ## Update — November 10, 2026: correct redirect configured, SMTP quota remains
 
 Using the owner's authorized **incognito Chrome** window, the Supabase **Outreach Labs** Authentication → URL Configuration page was opened and edited. Supabase confirmed **"Successfully added 1 URL"**. The persisted allowlist is now:
