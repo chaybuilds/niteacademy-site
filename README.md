@@ -40,7 +40,7 @@ The single cohesive visual design is black/charcoal with quiet grayscale panels 
 - Automatic deductions from seller payouts or ACH payment mandates.
 - Actual member earnings, paid supplier settlements, or income claims.
 - Full production email confirmation and sign-in test on a real mailbox.
-- End-to-end member email confirmation testing and review of canonical auth callback URL allowlist.
+- End-to-end member email confirmation testing and project-wide SMTP mail-delivery readiness (canonical callback allowlist is now configured).
 
 **Amazon plans:** Individual is $0/month with a $0.99/item fee plus applicable Amazon and FBA fees, but does not offer SP-API access. Professional is $39.99/month plus applicable fees and supports SP-API. Full automated seller connections require a reviewed public SP-API app and seller-specific OAuth authorization. Do not ask members for Seller Central passwords.
 
@@ -49,7 +49,7 @@ The single cohesive visual design is black/charcoal with quiet grayscale panels 
 ## Remaining release gates
 
 1. **DNS/HTTPS:** Completed November 10. All four GitHub Pages A records and the www CNAME were saved through the owner's local Chrome session; Cloudflare and Google returned the correct addresses; GitHub recognized the custom domain and HTTPS enforcement was activated. Details in [DOMAIN_ACTIVATION.md](DOMAIN_ACTIVATION.md).
-2. **Supabase Auth redirect URLs:** In Supabase Dashboard → Authentication → URL Configuration, retain the existing preview callback https://chaybuilds.github.io/niteacademy-site/ and add https://niteacademy.com/ before changing the signup email redirect to the canonical domain. Confirm real signup → email confirmation → sign-in on iPhone.
+2. **Supabase Auth email delivery:** Exact redirect https://niteacademy.com/ was added and persisted via incognito Chrome; the original VentureQ allowlist and Site URL remain unchanged. Default Supabase Auth email limit is 2/hour and custom SMTP is off, causing a blocked QA signup. Configure a suitable sender without disrupting shared-project apps, then confirm signup → email confirmation → dashboard on mobile before enabling the feature flag. See [auth release gate](docs/ACADEMY_AUTH_REDIRECT_RELEASE_GATE.md).
 3. **Commercial compliance:** Legal review of consignment rights, seller agreements, payment mandates, privacy notice, and accurate marketing before real inventory allocations.
 4. **Amazon integration:** Developer/app registration and seller OAuth approvals; no SP-API bypass for Individual plans.
 5. **Commercial verification:** Demonstrate one signed, funded, legally eligible consignment, fulfilled order, actual Amazon settlement, and authorized NITERUN collection.
