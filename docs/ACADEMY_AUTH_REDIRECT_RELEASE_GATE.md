@@ -1,5 +1,23 @@
 # NITE Academy — email confirmation release gate (November 10, 2026)
 
+## Current release status — November 10, 2026: SMTP activated, delivery confirmed, callback QA pending
+
+The owner completed the final secure Resend-key paste and clicked **Save changes** in the correct Supabase **Outreach Labs** project (`succvbtctjkzsowotcsy`). Reopening the SMTP Settings page independently verified:
+
+- **Custom SMTP enabled**, with stored password intentionally hidden by Supabase
+- SMTP host `smtp.resend.com`, port 465, username `resend`
+- Sender `no-reply@auth.niteacademy.com`; sender name `Outreach Labs`
+- Resend sender domain `auth.niteacademy.com`: **Verified**, all DKIM and sending CNAME records Verified
+- Supabase Authentication rate limit `RATE_LIMIT_EMAIL_SENT = 30` emails/hour (previously 2)
+
+**Verified live delivery:** A disposable user was created via the public Supabase auth client with `emailRedirectTo:"https://niteacademy.com/"`. Supabase accepted the signup and sent an email; the connected primary Gmail mailbox received **Confirm your email address** from `Outreach Labs no-reply@auth.niteacademy.com`. The message's Supabase verification URL was checked for the exact project, `type=signup`, and return address `https://niteacademy.com/`. No tokens or passwords were printed into GitHub or public output.
+
+**Remaining QA at time of writing:** The automated click of the one-time email confirmation link was stopped twice by an environment security check. A user-facing review panel was issued for the precise click, awaiting approval. Until that action or an equivalent legitimate manual confirmation succeeds, do not claim that the browser callback, authenticated dashboard, or new Starter/Professional path has passed end-to-end QA. The QA user remains unconfirmed until verified; clean up only after all authorized testing or by the documented account deletion flow.
+
+The live site continues to serve HTTPS 200; `ACADEMY_SIGNUP_READY=false` deliberately keeps new public registrations paused. **Do not enable public signup until confirmation redirects and an authenticated dashboard are tested successfully** and the disposable QA identity is cleaned up. The shared project still has an outstanding-invoices warning that the owner should address to avoid service interruptions.
+
+Historical sections below are retained to explain the remediation sequence; their "disabled/pending" descriptions are no longer the current SMTP state.
+
 ## Latest attempt — November 10, 2026: branded Resend domain provisioned, verification pending
 
 The owner's signed-in Resend browser session uses the **niterun** team at `chayson@niterun.com`. That team contains `notify.niterun.com` (Not Started) and did **not** contain the verified `labmail.niterun.com` found through the separately connected Resend app. The team switcher showed no other available team, so do not assume these are the same Resend workspace or take credentials from one into the other.
