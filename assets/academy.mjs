@@ -1,8 +1,8 @@
 
 import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.57.0/+esm";
 const client = createClient("https://succvbtctjkzsowotcsy.supabase.co", "sb_publishable_0TNBWdAUGNot0IxoyFDpEw_9bRDTOVu", {auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
-// New account creation remains paused until the Supabase Auth Site URL and redirect allowlist point to this domain.
-// Controlled QA found confirmation emails falling back to an unrelated project URL on November 10, 2026.
+// NITE Academy's exact redirect was added and verified in Supabase Auth on November 10, 2026.
+// Signup remains paused until project-wide email delivery is production-ready and an end-to-end confirmation test passes.
 const ACADEMY_SIGNUP_READY=false;
 const $ = id=>document.getElementById(id);
 const panels=["landing-view","auth-view","dashboard-view"];
@@ -38,7 +38,7 @@ for(const [id,academyPath] of [["choose-starter","starter"],["choose-elite","eli
 function getAuthDraft(){return {display_name:$("full-name").value.trim(),experience:$("experience").value,consent_to_contact:$("contact-consent").checked,consent_at:$("contact-consent").checked?new Date().toISOString():null};}
 $("auth-form").addEventListener("submit",async e=>{
  e.preventDefault();
- if(authMode==="signup"&&!ACADEMY_SIGNUP_READY){showFeedback("Registration is temporarily paused until email confirmation links return to NITEAcademy.com. Existing members can sign in.","error","auth-feedback");return;}
+ if(authMode==="signup"&&!ACADEMY_SIGNUP_READY){showFeedback("Registration is temporarily paused while reliable confirmation-email delivery is being configured. Existing members can sign in.","error","auth-feedback");return;}
  const email=$("auth-email").value.trim().toLowerCase();
  const password=$("auth-password").value;
  const submit=$("auth-button");submit.disabled=true;showFeedback("Submitting…","","auth-feedback");
@@ -50,7 +50,7 @@ $("auth-form").addEventListener("submit",async e=>{
    const {data,error}=await client.auth.signUp({email,password,options:{data:{display_name:draft.display_name},emailRedirectTo:"https://niteacademy.com/"}});
    if(error)throw error;
    if(data.session){showFeedback("Account created. Loading your dashboard…","ok","auth-feedback");await loadMember(data.session.user);}
-   else{showFeedback("Check your email to confirm your account, then come back and sign in. If the confirmation link redirects away, return to this page afterward.","ok","auth-feedback");}
+   else{showFeedback("Check your email to confirm your account. The confirmation link should bring you back to NITE Academy.","ok","auth-feedback");}
   }else{
    const {data,error}=await client.auth.signInWithPassword({email,password});
    if(error)throw error;
