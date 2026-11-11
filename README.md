@@ -19,8 +19,8 @@ The single cohesive visual design is black/charcoal with quiet grayscale panels 
 - Verified HTTP 301 -> HTTPS 200; www HTTPS -> apex HTTPS; tested privacy and dashboard assets.
 - Closed eight clearly stale/duplicate Chrome tabs; preserved active company development and operational work.
 - Namecheap verification email link displayed "no longer valid," which may indicate prior verification; current registrar domain status was ACTIVE, but contact verification completion was not independently confirmed.
-- Supabase project's database is connected through the app and reported ACTIVE_HEALTHY. Chrome's current Supabase session does not have access to that particular project, so production Auth redirect allowlist cannot be edited via that browser login yet.
-- Real account signup/confirmation still needs an approved controlled test and cleanup; no production paid operations, seller authorization or inventory contracts were activated.
+- Supabase Outreach Labs project access and incognito administrator session are now working. Academy's exact Auth redirect has been allowlisted, preserving VentureQ's original Site URL and redirect entries.
+- Custom Supabase SMTP is now enabled with a verified Resend domain and a 30 emails/hour rate limit. A disposable test signup produced an actual confirmation email received at Gmail; the final confirmation-click/browser-dashboard verification and cleanup remain pending. No production paid operations, seller authorization or inventory contracts were activated.
 
 ## Implemented
 
@@ -40,7 +40,7 @@ The single cohesive visual design is black/charcoal with quiet grayscale panels 
 - Automatic deductions from seller payouts or ACH payment mandates.
 - Actual member earnings, paid supplier settlements, or income claims.
 - Full production email confirmation and sign-in test on a real mailbox.
-- End-to-end member email confirmation testing and project-wide SMTP mail-delivery readiness (canonical callback allowlist is now configured).
+- End-to-end member email confirmation callback, private dashboard and route-selection testing; SMTP, sender verification, delivered confirmation email and canonical callback allowlist have passed their separate checks. See [release gate](docs/ACADEMY_AUTH_REDIRECT_RELEASE_GATE.md).
 
 **Amazon plans:** Individual is $0/month with a $0.99/item fee plus applicable Amazon and FBA fees, but does not offer SP-API access. Professional is $39.99/month plus applicable fees and supports SP-API. Full automated seller connections require a reviewed public SP-API app and seller-specific OAuth authorization. Do not ask members for Seller Central passwords.
 
