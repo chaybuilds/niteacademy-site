@@ -14,6 +14,24 @@ $("signin-button").addEventListener("click",()=>switchAuth("login"));
 $("auth-switch").addEventListener("click",()=>switchAuth(authMode==="signup"?"login":"signup"));
 $("auth-back").addEventListener("click",()=>view("landing-view"));
 $("signout").addEventListener("click",async()=>{await client.auth.signOut();currentUser=null;profile=null;view("landing-view");});
+
+for(const [id,academyPath] of [["choose-starter","starter"],["choose-elite","elite"]]){
+ $(id).addEventListener("click",async()=>{
+  if(!currentUser||!profile)return;
+  const button=$(id);button.disabled=true;showFeedback("Saving your route…","","path-feedback");
+  try{
+   const {data,error}=await client.from("nite_academy_profiles")
+    .update({academy_path:academyPath,updated_at:new Date().toISOString()})
+    .eq("user_id",currentUser.id).select("academy_path,updated_at").single();
+   if(error)throw error;
+   profile={...profile,academy_path:data.academy_path,updated_at:data.updated_at};
+   renderDashboard();
+   showFeedback(academyPath==="starter"?"Free Starter chosen. Your next step is to create your own Amazon Individual seller account.":"Professional route chosen. You can use the Professional seller plan, but NITERUN's OAuth connection is not yet active.","ok","path-feedback");
+  }catch(error){showFeedback("Could not save your route. Please try again.","error","path-feedback");}
+  finally{button.disabled=false;}
+ });
+}
+
 function getAuthDraft(){return {display_name:$("full-name").value.trim(),experience:$("experience").value,consent_to_contact:$("contact-consent").checked,consent_at:$("contact-consent").checked?new Date().toISOString():null};}
 $("auth-form").addEventListener("submit",async e=>{
  e.preventDefault();
@@ -150,6 +168,23 @@ function renderDashboard(){
  const verified=review?.seller_verified===true;
  $("account-flag").textContent=verified?"Seller verified":profile.amazon_merchant_id?"Seller details submitted":"Seller setup needed";
  $("account-flag").setAttribute("title","NITERUN verification is separate from your self-reported account information");
+
+ const selected=profile.academy_path||"undecided";
+ $("choose-starter").setAttribute("aria-pressed",String(selected==="starter"));
+ $("choose-elite").setAttribute("aria-pressed",String(selected==="elite"));
+ $("choose-starter").classList.toggle("active",selected==="starter");
+ $("choose-elite").classList.toggle("active",selected==="elite");
+ $("path-next").textContent=selected==="starter"
+  ?"Free Starter selected. Create an Individual Amazon seller account, save your Seller ID, and request a consignment review. Amazon still charges $0.99 per sale and applicable selling/FBA fees."
+  :selected==="elite"
+  ?"Professional route selected. Use your own $39.99/month Amazon Professional account, save your Seller ID, and get ready for seller verification. NITERUN's Amazon API integration is pending approval."
+  :"Choose a route above. Academy membership is free in both cases. No seller account is connected yet.";
+ $("amazon-connect-status").textContent=profile.amazon_plan==="professional"
+  ?"Professional account self-reported; secure Amazon OAuth is not yet available. Saving a Seller ID does not authorize NIKO."
+  :profile.amazon_plan==="individual"
+  ?"Individual account self-reported; NIKO provides guided, seller-operated steps and private settlement-report intake. It does not control Seller Central."
+  :"No Amazon account is connected. Create your own Amazon account using the official link below and never share its password.";
+
  $("inventory-count").textContent=String(allocations.reduce((s,x)=>s+Number(x.quantity||0),0));
  $("assignment-count").textContent=String(allocations.length);
  $("seller-income").textContent=money(statements.filter(st=>["verified","invoiced","disputed"].includes(st.status)).reduce((total,st)=>total+Number(st.seller_share_cents||0),0)/100);
@@ -167,7 +202,7 @@ function renderDashboard(){
  $("review-message").textContent=verified?"NITERUN has marked your seller status verified.":request?"Your request is "+request.status.replaceAll("_"," ")+". Inventory is not guaranteed.":"Request a consignment match after saving your seller details.";
  $("allocation-message").textContent=allocations.length?"You have "+allocations.length+" recorded allocation(s).":"No approved product allocations have been recorded.";
  const niko= !profile.amazon_merchant_id?"First, get your Amazon account ready and add your Seller ID below. I can guide setup without accessing your Amazon password.":!request?"Your seller information is saved. Review the product categories you want to sell, then request a consignment match. NITERUN must verify eligibility and supplier rights before assigning stock.":!verified?"Your request is saved. NITERUN still needs to verify your account and secure eligible, funded inventory. Automated Amazon account access is not active.":"Your seller review is approved. Check inventory allocations and the agreement before any shipment is authorized.";
- $("niko-instruction").textContent=niko;
+ $("niko-instruction").textContent=(selected==="elite"?"Professional route: advanced Amazon automation will require an approved NITERUN app and your OAuth authorization. ":selected==="starter"?"Free Starter: NIKO can guide and prepare work outside Amazon, but Seller Central actions are yours. ":"Choose your starting route above. ")+niko;
  $("research-status").textContent=request?"Consignment request: "+request.status.replaceAll("_"," "):"No consignment request submitted";
  $("match-request").hidden=Boolean(request);
  $("match-received").hidden=!request;
@@ -186,7 +221,7 @@ $("seller-details-form").addEventListener("submit",async e=>{
  if(!currentUser)return;
  const submit=$("save-details");submit.disabled=true;showFeedback("Saving…","","details-feedback");
  try{
-  const values={user_id:currentUser.id,display_name:$("dash-display-name").value.trim(),experience:$("dash-experience").value,amazon_plan:$("dash-plan").value,amazon_merchant_id:$("dash-merchant-id").value.trim()||null,interests:$("dash-interests").value.trim()||null,consent_to_contact:profile.consent_to_contact,consent_at:profile.consent_at,updated_at:new Date().toISOString()};
+  const values={user_id:currentUser.id,display_name:$("dash-display-name").value.trim(),experience:$("dash-experience").value,amazon_plan:$("dash-plan").value,academy_path:$("dash-plan").value==="professional"?"elite":$("dash-plan").value==="individual"?"starter":(profile.academy_path||"undecided"),amazon_merchant_id:$("dash-merchant-id").value.trim()||null,interests:$("dash-interests").value.trim()||null,consent_to_contact:profile.consent_to_contact,consent_at:profile.consent_at,updated_at:new Date().toISOString()};
   if(!values.display_name)throw Error("Enter your name.");
   if(values.amazon_merchant_id&&values.amazon_plan==="none")throw Error("Choose your seller plan before saving a Seller ID.");
   const {data,error}=await client.from("nite_academy_profiles").upsert(values,{onConflict:"user_id"}).select("*").single();
