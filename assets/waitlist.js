@@ -12,6 +12,7 @@ const emailInput=document.getElementById("waitlist-email");
 const checkbox=document.getElementById("waitlist-consent");
 const companyInput=document.getElementById("waitlist-company");
 const button=document.getElementById("waitlist-submit");
+const buttonLabel=document.getElementById("waitlist-button-label");
 const feedback=document.getElementById("waitlist-feedback");
 const success=document.getElementById("waitlist-success");
 let submitting=false;
@@ -32,7 +33,7 @@ form.addEventListener("submit",async event=>{
   feedback.textContent="";
   submitting=true;
   button.disabled=true;
-  button.textContent="Joining…";
+  buttonLabel.textContent="Joining…";
   try{
     const response=await fetch(ENDPOINT,{
       method:"POST",
@@ -51,6 +52,6 @@ form.addEventListener("submit",async event=>{
   }catch{
     feedback.textContent="We couldn't add you right now. Please try again, or email chayson@niterun.com.";
     button.disabled=false;
-    button.textContent="Join the waitlist ↗";
+    buttonLabel.textContent="Join the free waitlist";
   }finally{submitting=false;}
 });

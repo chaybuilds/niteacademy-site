@@ -1,0 +1,54 @@
+/* Adapted from user's NITERUN Base44 owned design source. */
+/* Native transparent WebGL, adapted from NITERUN's original liquid-chrome hero.
+ * Never render the old rectangular image when the 3D scene is available. */
+.nwl-chrome-stage{
+ position:relative;isolation:isolate;
+ width:calc(100% + clamp(66px,8vw,128px));
+ height:clamp(370px,38vw,510px);
+ margin:-5px -64px -62px;
+ overflow:visible;
+ background:transparent;
+ pointer-events:none;user-select:none;-webkit-user-select:none;
+}
+.nwl-chrome-webgl{
+ position:absolute;inset:0;width:100%;height:100%;display:block;
+ opacity:0;
+ background:transparent!important;
+ transition:opacity .6s ease-out;
+ -webkit-mask-image:radial-gradient(ellipse 79% 78% at 50% 49%,#000 63%,rgba(0,0,0,.7) 79%,transparent 100%);
+ mask-image:radial-gradient(ellipse 79% 78% at 50% 49%,#000 63%,rgba(0,0,0,.7) 79%,transparent 100%);
+}
+.nwl-chrome-webgl-ready .nwl-chrome-webgl{opacity:1}
+.nwl-chrome-webgl-fallback{
+ position:absolute;inset:1% 0;width:100%;height:98%;display:block;
+ object-fit:cover;object-position:62% 50%;opacity:.89;
+ -webkit-mask-image:radial-gradient(ellipse 67% 60% at 63% 50%,#000 25%,rgba(0,0,0,.75) 52%,rgba(0,0,0,.16) 76%,transparent 97%);
+ mask-image:radial-gradient(ellipse 67% 60% at 63% 50%,#000 25%,rgba(0,0,0,.75) 52%,rgba(0,0,0,.16) 76%,transparent 97%);
+}
+.nwl-story .nwl-chrome-stage+.nwl-story-facts{
+ position:relative;margin-top:8px;padding-top:24px;gap:15px;
+}
+.nwl-chrome-stage~.nwl-story-bottom{margin-top:30px}
+@media(max-width:1100px){
+ .nwl-chrome-stage{
+  width:calc(100% + 66px);height:clamp(345px,39vw,440px);
+  margin:3px -33px -45px;
+ }
+}
+@media(max-width:850px){
+ .nwl-chrome-stage{
+  width:calc(100% + 82px);height:clamp(350px,52vw,495px);
+  margin:10px -41px -44px;
+ }
+ .nwl-story .nwl-chrome-stage+.nwl-story-facts{margin-top:12px}
+}
+@media(max-width:570px){
+ .nwl-chrome-stage{
+  width:calc(100% + 34px);height:clamp(270px,76vw,320px);
+  margin:-3px -17px -30px;
+ }
+ .nwl-story .nwl-chrome-stage+.nwl-story-facts{margin-top:6px;padding-top:24px}
+}
+@media(prefers-reduced-motion:reduce){
+ .nwl-chrome-webgl{transition:none!important}
+}

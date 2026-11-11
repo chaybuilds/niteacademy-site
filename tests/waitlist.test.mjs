@@ -13,7 +13,7 @@ test("public homepage is a clear Amazon seller early-access waitlist",()=>{
  assert.match(home,/id="waitlist-form"/);
  assert.match(home,/type="email"/);
  assert.match(home,/id="waitlist-consent"/);
- assert.match(home,/Join the waitlist/);
+ assert.match(home,/Join the free waitlist/);
  assert.match(home,/id="waitlist-feedback"/);
  assert.match(home,/id="waitlist-success"/);
  assert.match(home,/Amazon selling and FBA fees apply/);
@@ -32,11 +32,14 @@ test("anonymous waitlist API is consent-based, idempotent and free of auth passw
 });
 
 test("responsive root uses original styling and no fake revenue evidence",()=>{
- assert.match(css,/@media\(max-width:620px\)/);
- assert.match(css,/@media\(max-width:380px\)/);
- assert.match(css, /\.form-controls/);
+ assert.match(css,/@media\(max-width:570px\)/);
+ assert.match(css,/@media\(max-width:385px\)/);
+ assert.match(css, /\.nwl-form-window/);
+ assert.match(css,/niterun-chrome-reference\.css/);
+ assert.match(css,/niterun-chrome-orb\.css/);
+ assert.match(home,/niterun-chrome-orb\.jpg/);
  assert.doesNotMatch(home, /10,000\+|\$[0-9]{2,}|\+\d+%/);
- assert.match(home,/No Amazon login needed/);
+ assert.match(home,/No credit card or Amazon login required/);
 });
 
 test("the existing private seller application remains separately accessible",()=>{
@@ -52,4 +55,14 @@ test("privacy text explains source tracking, consent, and opt-out",()=>{
  assert.match(policy,/Waitlist and early-access updates/);
  assert.match(policy,/TikTok, YouTube, Instagram/);
  assert.match(policy,/withdraw consent/);
+});
+
+test("owned NITERUN chrome design is visible without costly WebGL or hidden success leaks",()=>{
+ assert.match(home,/nwl-academy/);
+ assert.match(home,/academy-chrome-stage/);
+ assert.match(home,/niterun-chrome-orb\.jpg/);
+ assert.match(css,/niterun-chrome-reference\.css/);
+ assert.match(css,/background-image:/);
+ assert.match(css,/\.nwl-academy \[hidden\]\{display:none!important\}/);
+ assert.doesNotMatch(home,/<canvas/);
 });

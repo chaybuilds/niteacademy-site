@@ -8,6 +8,12 @@
 
 The former **Make money. → free account → private seller dashboard** homepage is now preserved at `/member/` for continued development, not the primary public entry point.
 
+## NITERUN chrome-aligned Amazon waitlist (November 10)
+
+The public Academy homepage now reuses the owner-approved **NITERUN private beta** design language from Base44 app `NITERUN`, reference page `src/pages/NiteBetaWaitlist.jsx` and styles `src/styles/nite-beta-waitlist.css`: charcoal/graphite field, instrument-serif accents, a technical cyan access terminal, ambient orbit composition, and the original owned chrome visual. Source adaptations are retained in `assets/niterun-chrome-reference.css`, `assets/niterun-chrome-orb.css`, and `assets/waitlist.css`. The chrome artwork is served as a ~346 KB static JPEG rather than live WebGL to keep the signup experience fast on mobile and lower the CPU/GPU cost during the founder's TikTok Live.
+
+**Backend unchanged:** `/rest/v1/rpc/join_nite_academy_waitlist` with consent-based email capture, private table and per-channel attribution. The guarded seller dashboard remains at `/member/`, and the active signup gate remains closed pending end-to-end email-confirmation callback QA. No supplier inventory, Amazon OAuth, earnings or automatic selling was activated.
+
 ## Open-source layout studio
 
 Three interactive, responsive design candidates are available at **https://niteacademy.com/layouts/** (after deployment): Commerce, Merchant, and Studio. Each previews catalog browsing, a seller dashboard, and Academy learning views. The preview routes remain available for future design work, but public traffic now lands on the waitlist. The old authenticated member dashboard remains available at `/member/`. [Design decision guide](docs/NITE_ACADEMY_COMMERCE_DESIGN_VISION.md) · [Source and licensing notes](layouts/OPEN_SOURCE_SOURCES.md).
