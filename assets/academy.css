@@ -21,3 +21,9 @@
 .route-next{font-size:13px;color:#c4cad7;line-height:1.6;margin:16px 0 0}
 .route-panel .feedback{margin-top:8px}
 @media(max-width:670px){.route-options{grid-template-columns:1fr}.route-panel{padding:18px}.route-heading{align-items:flex-start}.route-card-top{align-items:center}}
+
+/* Midnight-minimal mobile overflow guard; retain one visual system from landing to dashboard. */
+.hero-inner{width:100%;min-width:0}
+.hero h1{max-width:100%;text-wrap:balance}
+@media(max-width:510px){.hero h1{font-size:clamp(52px,17vw,90px)}.hero .subtitle,.hero .explainer{max-width:100%;overflow-wrap:break-word}.metrics .num{overflow-wrap:anywhere}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
