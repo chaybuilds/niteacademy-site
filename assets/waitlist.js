@@ -48,10 +48,11 @@ form.addEventListener("submit",async event=>{
     if(!response.ok)throw new Error("Waitlist server unavailable");
     form.hidden=true;
     success.hidden=false;
-    success.scrollIntoView({block:"nearest",behavior:"smooth"});
+    success.focus({preventScroll:true});
+    success.scrollIntoView({block:"nearest",behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"});
   }catch{
     feedback.textContent="We couldn't add you right now. Please try again, or email chayson@niterun.com.";
     button.disabled=false;
-    buttonLabel.textContent="Join the free waitlist";
+    buttonLabel.textContent="Join the network";
   }finally{submitting=false;}
 });
