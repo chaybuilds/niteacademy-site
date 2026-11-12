@@ -13,8 +13,8 @@
 <link rel="canonical" href="https://niteacademy.com/">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preload" as="image" href="/assets/niterun-chrome-orb.jpg">
-<link rel="stylesheet" href="/assets/network-waitlist.css?v=1">
-<script defer src="/assets/waitlist.js?v=network1"></script>
+<link rel="stylesheet" href="/assets/network-waitlist.css?v=2">
+<script defer src="/assets/waitlist.js?v=network2"></script>
 <title>NITE Academy — Join the Network</title>
 </head>
 <body>
@@ -23,7 +23,7 @@
   <div class="scene-grid"></div>
   <div class="scene-aura scene-aura-one"></div>
   <div class="scene-aura scene-aura-two"></div>
-  <div class="scene-chrome"></div>
+  <div class="scene-globe"><div class="scene-globe-inner"></div></div>
 </div>
 <div class="page">
   <header class="header">
@@ -54,15 +54,33 @@
           <div class="panel-intro">
             <span class="panel-index">01 <span aria-hidden="true">/</span> REQUEST ACCESS</span>
             <h2 id="access-title">Your place<br>starts <em>here.</em></h2>
-            <p>Join for free. We'll send you an email when the network is open. No account or payment needed today.</p>
+            <p>Tell us a little about yourself. We'll email you when the network opens.</p>
           </div>
           <form id="waitlist-form" novalidate>
+            <div class="field">
+              <label for="waitlist-name">FULL NAME</label>
+              <input id="waitlist-name" name="full_name" type="text" autocomplete="name" maxlength="100" minlength="2" placeholder="Your full name" required aria-describedby="waitlist-feedback">
+            </div>
+            <div class="field">
+              <label for="waitlist-phone">PHONE NUMBER</label>
+              <input id="waitlist-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="20" placeholder="+1 (555) 000-0000" required aria-describedby="waitlist-feedback">
+            </div>
             <div class="field">
               <label for="waitlist-email">EMAIL ADDRESS</label>
               <input id="waitlist-email" name="email" type="email" autocomplete="email" inputmode="email" maxlength="254" placeholder="you@example.com" required autocapitalize="none" spellcheck="false" aria-describedby="waitlist-feedback">
             </div>
+            <div class="field">
+              <label for="waitlist-type">I'M INTERESTED IN <span class="optional">(OPTIONAL)</span></label>
+              <select id="waitlist-type" name="applicant_type">
+                <option value="">Select what fits you best</option>
+                <option value="new_seller">Starting as a seller</option>
+                <option value="active_seller">Already selling online</option>
+                <option value="inventory_owner">Supplying inventory</option>
+                <option value="exploring">Just exploring</option>
+              </select>
+            </div>
             <div class="honeypot" aria-hidden="true"><label for="waitlist-company">Leave this blank</label><input id="waitlist-company" type="text" name="company" autocomplete="off" tabindex="-1"></div>
-            <label class="consent"><input type="checkbox" id="waitlist-consent" required aria-describedby="waitlist-feedback"><span>I'd like to receive NITE Academy opening updates by email. I can unsubscribe at any time. <a href="/privacy/">Privacy notice</a>.</span></label>
+            <label class="consent"><input type="checkbox" id="waitlist-consent" required aria-describedby="waitlist-feedback"><span>I agree to receive NITE Academy opening updates by email. My phone number is for application contact only, not marketing texts. I can unsubscribe at any time. <a href="/privacy/">Privacy notice</a>.</span></label>
             <p id="waitlist-feedback" class="form-feedback" role="status" aria-live="polite"></p>
             <button type="submit" id="waitlist-submit" class="submit-button"><span id="waitlist-button-label">Join the network</span><span class="button-arrow" aria-hidden="true">↗</span></button>
             <div class="form-foot"><span class="secure-mark" aria-hidden="true">◌</span> FREE TO JOIN <span class="foot-sep" aria-hidden="true">·</span> NO CREDIT CARD REQUIRED</div>

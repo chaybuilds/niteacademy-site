@@ -94,3 +94,17 @@ button{cursor:pointer}
 @media(max-width:480px){.page{padding:0 19px}.header{min-height:78px}.brand{gap:9px}.brand-symbol{width:37px;height:37px;border-radius:11px}.brand-symbol>span{font-size:21px}.brand-wordmark strong{font-size:14px}.brand-wordmark small{font-size:7px}.header-status{font-size:8px;letter-spacing:.06em;gap:6px}.status-divider{display:none}.main{padding:48px 0 49px}.hero{gap:37px}.eyebrow{font-size:8px;letter-spacing:.12em;gap:9px}.eyebrow-line{width:17px}.hero h1{font-size:clamp(64px,13.2vw,78px);margin:25px 0}.hero-description{font-size:15px;line-height:1.65}.hero-bottom{margin-top:30px;font-size:8px;gap:10px}.hero-bottom-mark{width:31px;height:31px}.access-panel{border-radius:22px}.panel-content{padding:26px 21px 29px}.panel-top .panel-status{font-size:8px}.panel-intro{margin:40px 0 28px}.panel-intro h2{font-size:46px}.panel-intro p{font-size:12px}.field input{min-height:56px}.submit-button{min-height:57px}.consent{font-size:10px}.form-foot{font-size:7.5px;gap:6px}.panel-footer{padding:14px 19px;font-size:7.5px}.footer{gap:13px;justify-content:flex-start}.footer nav{width:100%;gap:23px}.disclaimer{font-size:9px}.scene-grid{background-size:62px 62px}.scene-aura-one{width:300px;height:300px}.scene-chrome{right:-300px;top:10%;opacity:.19}}
 @media(max-width:359px){.header-status{font-size:7px}.brand-wordmark strong{font-size:12px}.hero h1{font-size:62px}.panel-content{padding:23px 17px}.panel-footer{padding:13px 17px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+
+
+/* Lightweight, animated global network backdrop. No WebGL or external scripts. */
+.scene-chrome{display:none}
+.scene-globe{position:absolute;width:min(920px,78vw);aspect-ratio:1;right:11%;top:48%;transform:translateY(-50%);border-radius:50%;opacity:.49;overflow:hidden;filter:drop-shadow(0 0 80px rgba(67,155,203,.17));-webkit-mask-image:radial-gradient(circle,#000 40%,rgba(0,0,0,.9) 61%,transparent 72%);mask-image:radial-gradient(circle,#000 40%,rgba(0,0,0,.9) 61%,transparent 72%)}
+.scene-globe-inner{position:absolute;inset:-5%;border-radius:50%;background:url("/assets/niterun-chrome-orb.jpg") center/cover no-repeat;mix-blend-mode:screen;filter:contrast(1.17) saturate(.76);animation:globe-drift 35s ease-in-out infinite alternate}
+@keyframes globe-drift{0%{transform:translate3d(-2%,1%,0) scale(1.04) rotate(-5deg)}100%{transform:translate3d(3%,-2%,0) scale(1.13) rotate(5deg)}}
+.field+.field{margin-top:17px}
+.field select{display:block;width:100%;min-height:56px;border:1px solid rgba(205,230,249,.22);border-radius:11px;background:#0b1522;color:#dbe8f3;padding:0 16px;font-size:14px;outline:none}
+.field select:focus{border-color:rgba(186,235,250,.8);box-shadow:0 0 0 4px rgba(120,200,240,.09)}
+.optional{font-size:9px;color:#758da2;font-weight:500;letter-spacing:.05em}
+@media(max-width:800px){.scene-globe{width:820px;right:-280px;top:22%;transform:none;opacity:.33}}
+@media(max-width:480px){.scene-globe{width:650px;right:-310px;top:8%;opacity:.3}.panel-intro{margin:29px 0 24px}.field+.field{margin-top:14px}.field input,.field select{min-height:52px}}
+@media(prefers-reduced-motion:reduce){.scene-globe-inner{animation:none!important}}

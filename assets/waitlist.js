@@ -9,6 +9,9 @@ const fromQuery=(params.get("source")||params.get("src")||"website").toLowerCase
 const source=allowedSources.has(fromQuery)?fromQuery:"other";
 const form=document.getElementById("waitlist-form");
 const emailInput=document.getElementById("waitlist-email");
+const nameInput=document.getElementById("waitlist-name");
+const phoneInput=document.getElementById("waitlist-phone");
+const typeInput=document.getElementById("waitlist-type");
 const checkbox=document.getElementById("waitlist-consent");
 const companyInput=document.getElementById("waitlist-company");
 const button=document.getElementById("waitlist-submit");
@@ -20,6 +23,19 @@ form.addEventListener("submit",async event=>{
   event.preventDefault();
   if(submitting)return;
   const email=emailInput.value.trim().toLowerCase();
+  const fullName=nameInput.value.trim().replace(/\s+/g," ");
+  const phone=phoneInput.value.trim();
+  const digits=phone.replace(/\D/g,"");
+  if(fullName.length<2||fullName.length>100){
+    feedback.textContent="Enter your full name to join.";
+    nameInput.focus();
+    return;
+  }
+  if(!/^[+0-9() .-]{7,20}$/.test(phone)||digits.length<7||digits.length>15){
+    feedback.textContent="Enter a valid phone number, including your country code if outside the US.";
+    phoneInput.focus();
+    return;
+  }
   if(!email||email.length>254||!emailInput.checkValidity()){
     feedback.textContent="Enter a valid email address to join.";
     emailInput.focus();
@@ -40,6 +56,9 @@ form.addEventListener("submit",async event=>{
       headers:{"apikey":PUBLISHABLE_KEY,"Content-Type":"application/json","Accept":"application/json"},
       body:JSON.stringify({
         p_email:email,
+        p_full_name:fullName,
+        p_phone:phone,
+        p_applicant_type:typeInput.value||null,
         p_source:source,
         p_consent:true,
         p_company:companyInput.value
