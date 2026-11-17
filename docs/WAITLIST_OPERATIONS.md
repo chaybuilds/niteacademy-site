@@ -2,13 +2,13 @@
 
 **Production:** https://niteacademy.com/
 **Admin database:** Supabase project `succvbtctjkzsowotcsy` (Outreach Labs)
-**Public intake:** `public.join_nite_academy_waitlist(p_email,p_source,p_consent,p_company)`
+**Public intake:** `public.join_nite_academy_waitlist(p_email,p_full_name,p_phone,p_applicant_type,p_source,p_consent,p_company)`
 **Stored records:** `public.nite_academy_waitlist`
 **Runbook status:** live, initial November 10, 2026
 
 ## What is live
 
-- The homepage shows a one-field, mobile-first Amazon seller program waitlist with an affirmative consent checkbox.
+- The homepage shows a mobile-first seller waitlist collecting full name, phone number, email, optional interest category, and affirmative email-update consent. Phone is for one-to-one application contact, not consent to SMS marketing.
 - Users may visit `?source=tiktok`, `?source=youtube`, `?source=instagram`, or plain `niteacademy.com` to attribute where a signup came from.
 - A normalized email can join only once. Repeating the same email returns a generic success and does not disclose whether it is already stored.
 - The waitlist is **not** member registration or Amazon Seller Central authorization. No one is asked for passwords, ID, money or bank details.
@@ -35,7 +35,7 @@ Before sending follow-up emails, check `status='waiting'`, `consent_at` and prov
 
 ## Privacy and support
 
-Collect only email, the user-declared outreach channel and consent time for the waitlist. No passwords, Amazon account identifiers or sensitive personal data. Privacy details and opt-out instructions are linked from the form and at `/privacy/`. User requests to withdraw consent can be processed by an authorized operator:
+The current form collects full name, telephone number, email address, optional network-interest category, referral channel and email-update consent time. These are private applicant contact records; do not treat phone collection as permission for promotional SMS. No passwords, Amazon account identifiers, tax IDs or sensitive financial data. Privacy details and opt-out instructions are linked from the form and at `/privacy/`. User requests to withdraw consent can be processed by an authorized operator:
 
 ```sql
 update public.nite_academy_waitlist
